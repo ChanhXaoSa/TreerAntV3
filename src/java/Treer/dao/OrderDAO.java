@@ -5,8 +5,10 @@
 package Treer.dao;
 
 import Treer.dto.Order;
+import Treer.dto.OrderDetail;
 import Treer.untils.DBUtils;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +19,8 @@ import java.util.ArrayList;
  * @author tuank
  */
 public class OrderDAO {
-    public static ArrayList<Order> getOrders(String email) {
+
+    public static ArrayList<Order> getAllOrders(int accid) {
         Connection cn = null;
         Order order = null;
         ArrayList<Order> list = new ArrayList<>();
@@ -25,44 +28,37 @@ public class OrderDAO {
             cn = DBUtils.makeConnection();
 
             if (cn != null) {
-                String sql = "select o.OrderID,o.OrdDate,o.shipdate,o.status,o.AccID\n"
-                        + "from dbo.Orders o\n"
-                        + "join dbo.Accounts a on o.AccID=a.accID\n"
-                        + "where a.email= ? COLLATE Latin1_general_CS_AS";
-
+                String sql = "select [OrderID], "
+                        + "CONVERT(varchar, [OrderDate], 103), "
+                        + "CONVERT(varchar, [OrderShip], 103), [AccID], [Status], [DiscountID] from [dbo].[Order]\n"
+                        + "where [AccID] = ? ";
+                    // +' '+CONVERT(varchar, [OrderDate], 108), +' '+CONVERT(varchar, [OrderShip], 108)
                 PreparedStatement pst = cn.prepareStatement(sql);
-                pst.setString(1, email);
+                pst.setInt(1, accid);
+
                 ResultSet rs = pst.executeQuery();
 
                 if (rs != null) {
                     while (rs.next()) {
-                        int orderID = rs.getInt("OrderID");
-                        String orderDate = rs.getString("OrdDate");
-                        String shipDate = rs.getString("shipdate");
-                        int status = rs.getInt("status");
-                        int accID = rs.getInt("accID");
+                        int orderID = rs.getInt(1);
+                        String orderDate = rs.getString(2);
+                        String shipDate = rs.getString(3);
+                        int status = rs.getInt(5);
+                        int accID = rs.getInt(4);
+                        String discount = rs.getString(6);
 
-                        order = new Order(orderID, orderDate, orderDate, status, accID, "");
+                        order = new Order(orderID, orderDate, shipDate, status, accID, discount);
                         list.add(order);
                     }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            // bước 4: đóng connection
-            if (cn != null) {
-                try {
-                    cn.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return list;
     }
 
-    public static ArrayList<Order> getAllOrders(String email) {
+    public static ArrayList<Order> getAllOrdersWithDate(int accid, String from, String to) {
         Connection cn = null;
         Order order = null;
         ArrayList<Order> list = new ArrayList<>();
@@ -70,42 +66,117 @@ public class OrderDAO {
             cn = DBUtils.makeConnection();
 
             if (cn != null) {
-                String sql = "select o.OrderID,o.OrdDate,o.shipdate,o.status,o.AccID \n"
-                        + "from dbo.Orders o join dbo.Accounts a on o.AccID=a.accID\n"
-                        + "where a.email like ? COLLATE Latin1_general_CS_AS";
+                String sql = "select [OrderID], CONVERT(varchar, [OrderDate], 103)+' '+CONVERT(varchar, [OrderDate], 108), "
+                        + "CONVERT(varchar, [OrderShip], 103)+' '+CONVERT(varchar, [OrderShip], 108), [AccID], [Status], [DiscountID] from [dbo].[Order]\n"
+                        + "where [AccID] = ? and OrderDate >= ? and OrderDate <= ? ";
 
                 PreparedStatement pst = cn.prepareStatement(sql);
-                pst.setString(1, "%" + email + "%");
+                pst.setInt(1, accid);
+                pst.setString(2, from);
+                pst.setString(3, to);
+
                 ResultSet rs = pst.executeQuery();
 
                 if (rs != null) {
                     while (rs.next()) {
-                        int orderID = rs.getInt("OrderID");
-                        String orderDate = rs.getString("OrdDate");
-                        String shipDate = rs.getString("shipdate");
-                        int status = rs.getInt("status");
-                        int accID = rs.getInt("accID");
+                        int orderID = rs.getInt(1);
+                        String orderDate = rs.getString(2);
+                        String shipDate = rs.getString(3);
+                        int status = rs.getInt(5);
+                        int accID = rs.getInt(4);
+                        String discount = rs.getString(6);
 
-                        order = new Order(orderID, orderDate, shipDate, status, accID, "");
+                        order = new Order(orderID, orderDate, shipDate, status, accID, discount);
                         list.add(order);
                     }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            // bước 4: đóng connection
-            if (cn != null) {
-                try {
-                    cn.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return list;
     }
-    
+
+    public static ArrayList<Order> getOrderWithStatus(int accid, int status) {
+        Connection cn = null;
+        Order order = null;
+        ArrayList<Order> list = new ArrayList<>();
+        try {
+            cn = DBUtils.makeConnection();
+
+            if (cn != null) {
+                String sql = "select [OrderID], CONVERT(varchar, [OrderDate], 103)+' '+CONVERT(varchar, [OrderDate], 108), "
+                        + "CONVERT(varchar, [OrderShip], 103)+' '+CONVERT(varchar, [OrderShip], 108), [AccID], [Status], [DiscountID] from [dbo].[Order]\n"
+                        + "where [AccID] = ? and [Status]= ?";
+
+                PreparedStatement pst = cn.prepareStatement(sql);
+
+                pst.setInt(1, accid);
+                pst.setInt(2, status);
+
+                ResultSet rs = pst.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        int orderID = rs.getInt(1);
+                        String orderDate = rs.getString(2);
+                        String shipDate = rs.getString(3);
+                        int Status = rs.getInt(5);
+                        int accID = rs.getInt(4);
+                        String discount = rs.getString(6);
+
+                        order = new Order(orderID, orderDate, shipDate, Status, accID, discount);
+                        list.add(order);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static ArrayList<Order> getOrderWithStatusAndDate(int accid, int status, String from, String to) {
+        Connection cn = null;
+        Order order = null;
+        ArrayList<Order> list = new ArrayList<>();
+        try {
+            cn = DBUtils.makeConnection();
+
+            if (cn != null) {
+                String sql = "select [OrderID], CONVERT(varchar, [OrderDate], 103)+' '+CONVERT(varchar, [OrderDate], 108), "
+                        + "CONVERT(varchar, [OrderShip], 103)+' '+CONVERT(varchar, [OrderShip], 108), [AccID], [Status], [DiscountID] from [dbo].[Order]\n"
+                        + "where [AccID] = ? and [Status]= ? and OrderDate >= ? and OrderDate <= ? ";
+
+                PreparedStatement pst = cn.prepareStatement(sql);
+
+                pst.setInt(1, accid);
+                pst.setInt(2, status);
+                pst.setString(3, from);
+                pst.setString(4, to);
+
+                ResultSet rs = pst.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        int orderID = rs.getInt(1);
+                        String orderDate = rs.getString(2);
+                        String shipDate = rs.getString(3);
+                        int Status = rs.getInt(5);
+                        int accID = rs.getInt(4);
+                        String discount = rs.getString(6);
+
+                        order = new Order(orderID, orderDate, shipDate, Status, accID, discount);
+                        list.add(order);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public static ArrayList<Order> UpdateRoleOrder(int orderid, int status) throws Exception {
         // bước 1: make connection
         Connection cn = null;
@@ -137,7 +208,7 @@ public class OrderDAO {
                         status = table.getInt("status");
                         int accID = table.getInt("AccID");
 
-                        order = new Order(orderid, OrderDate, ShipDate, status, accID, "");
+                        order = new Order(orderid, OrderDate, OrderDate, status, accID, sql1);
                         list.add(order);
                     }
                 }
@@ -150,97 +221,96 @@ public class OrderDAO {
         return list;
     }
 
-//    public static ArrayList<OrderDetail> getOrderDetail(int orderID) {
-//
-//        Connection cn = null;
-//        ArrayList<OrderDetail> list = new ArrayList<>();
-//
-//        try {
-//            cn = DBUtils.makeConnection();
-//
-//            if (cn != null) {
-//                String sql = "select[DetailId],[OrderID],[PID],[PName],[price],[imgPath],[quantity]\n"
-//                        + "from [dbo].[OrderDetails],[dbo].[Plants]\n"
-//                        + "where OrderID=? and OrderDetails.FID=Plants.PID";
-//
-//                PreparedStatement pst = cn.prepareStatement(sql);
-//                pst.setInt(1, orderID);
-//                ResultSet rs = pst.executeQuery();
-//
-//                if (rs != null) {
-//                    while (rs.next()) {
-//                        int detailID = rs.getInt("DetailId");
-//                        int PlantID = rs.getInt("PID");
-//                        String PlantName = rs.getString("PName");
-//                        int price = rs.getInt("price");
-//                        String imgPath = rs.getString("imgPath");
-//                        int quantity = rs.getInt("quantity");
-//                        OrderDetail orderdetail = new OrderDetail(detailID, orderID, PlantID, price, quantity, PlantName, imgPath);
-//                        list.add(orderdetail);
-//                    }
-//                }
-//            }
-//        } catch (Exception e) {
-//
-//        } finally {
-//            try {
-//                if (cn != null) {
-//                    cn.close();
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return list;
-//    }
+    public static ArrayList<OrderDetail> getOrderDetail(int orderID) {
 
-    public static ArrayList<Order> searchOrders(String orderID) {
         Connection cn = null;
-        PreparedStatement pst;
-        Order ord = null;
-        String sql;
+        ArrayList<OrderDetail> list = new ArrayList<>();
 
-        ArrayList<Order> list = new ArrayList<>();
         try {
             cn = DBUtils.makeConnection();
+
             if (cn != null) {
+                String sql = "SELECT [DetailID], [OrderID], [PlantID], [NamePlant], [price], [Quantity]\n"
+                        + "from [dbo].[OrderDetail], [dbo].[Plant]\n"
+                        + "where [OrderID]= ? and  [dbo].[OrderDetail].PlantID =[dbo].[Plant].PID";
 
-                sql = "select o.OrderID,o.OrdDate,o.shipdate,o.status,o.AccID\n"
-                        + "from dbo.Orders o\n"
-                        + "join dbo.Accounts a on o.AccID=a.accID\n"
-                        + "where o.OrderID like ?";
-                pst = cn.prepareStatement(sql);
-                pst.setString(1, "%" + orderID + "%");
-
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, orderID);
                 ResultSet rs = pst.executeQuery();
 
                 if (rs != null) {
                     while (rs.next()) {
-                        int order_ID = rs.getInt("OrderID");
-                        String orderDate = rs.getString("OrdDate");
-                        String shipDate = rs.getString("shipdate");
-                        int status = rs.getInt("status");
-                        int accID = rs.getInt("accID");
-                        ord = new Order(order_ID, orderDate, shipDate, status, accID, "");
-                        list.add(ord);
+                        int detailID = rs.getInt(1);
+                        int PlantID = rs.getInt(3);
+                        String PlantName = rs.getString(4);
+                        int price = rs.getInt(5);
+                        String imgPath = PlantDAO.getPlantImgByID(PlantID);
+                        int quantity = rs.getInt(6);
+                        OrderDetail orderdetail = new OrderDetail(detailID, orderID, PlantID, price, quantity, PlantName, imgPath);
+                        list.add(orderdetail);
                     }
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
         } finally {
-            // bước 4: đóng connection
-            if (cn != null) {
-                try {
+            try {
+                if (cn != null) {
                     cn.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         return list;
     }
-    
+
+//    public static ArrayList<Order> searchOrders(String orderID) {
+//        Connection cn = null;
+//        PreparedStatement pst;
+//        Order ord = null;
+//        String sql;
+//
+//        ArrayList<Order> list = new ArrayList<>();
+//        try {
+//            cn = DBUtils.makeConnection();
+//            if (cn != null) {
+//
+//                sql = "select o.OrderID,o.OrdDate,o.shipdate,o.status,o.AccID\n"
+//                        + "from dbo.Orders o\n"
+//                        + "join dbo.Accounts a on o.AccID=a.accID\n"
+//                        + "where o.OrderID like ?";
+//                pst = cn.prepareStatement(sql);
+//                pst.setString(1, "%" + orderID + "%");
+//
+//                ResultSet rs = pst.executeQuery();
+//
+//                if (rs != null) {
+//                    while (rs.next()) {
+//                        int order_ID = rs.getInt("OrderID");
+//                        String orderDate = rs.getString("OrdDate");
+//                        String shipDate = rs.getString("shipdate");
+//                        int status = rs.getInt("status");
+//                        int accID = rs.getInt("accID");
+//                        ord = new Order(order_ID, status, accID, orderDate, shipDate);
+//                        list.add(ord);
+//                    }
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            // bước 4: đóng connection
+//            if (cn != null) {
+//                try {
+//                    cn.close();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//        return list;
+//    }
     public static boolean cancelOrder(int orderid) throws SQLException {
         Connection con = null;
         PreparedStatement pst = null;
@@ -251,11 +321,10 @@ public class OrderDAO {
 
             con = DBUtils.makeConnection();
             if (con != null) {
-                String url = "UPDATE [dbo].[Orders]\n"
-                        + "SET [status] = 3 \n"
-                        + "WHERE [OrderID]= ?";
-                pst = con.prepareStatement(url);
+                String sql = "update [dbo].[Order] set [Status] = 3 where [OrderID] = ?";
+                pst = con.prepareStatement(sql);
                 pst.setInt(1, orderid);
+
                 rs = pst.executeUpdate();
                 if (rs != -1 && rs != 0) {
                     check = true;
@@ -274,5 +343,34 @@ public class OrderDAO {
             }
         }
         return check;
+    }
+
+    public static boolean updateShipDate(int orderid) {
+        Connection cn = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update [dbo].[Order] set OrderShip = ? where [OrderID] = ?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                String date = null;
+                Date d = new Date(System.currentTimeMillis());
+                date = d.toString();
+                pst.setString(1, date);
+                pst.setInt(2, orderid);
+                pst.executeUpdate();
+                pst.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return true;
     }
 }

@@ -104,6 +104,10 @@
         <servlet-name>registerAdminPageServlet</servlet-name>
         <servlet-class>Treer.servlet.registerAdminPageServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>cancelOrdersServlet</servlet-name>
+        <servlet-class>Treer.servlet.cancelOrdersServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShowServlet</servlet-name>
         <url-pattern>/ShowServlet</url-pattern>
@@ -195,6 +199,10 @@
     <servlet-mapping>
         <servlet-name>registerAdminPageServlet</servlet-name>
         <url-pattern>/registerAdminPageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cancelOrdersServlet</servlet-name>
+        <url-pattern>/cancelOrdersServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
