@@ -1,0 +1,29 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 9, 2023, 12:36:38 PM
+    Author     : Triệu
+*/
+.product-details-name {
+    color: #00B677;
+}
+.bid-infomation {
+    margin-top: 15px;
+    padding-top: 25px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+}
+.bid-information-users {
+    color: lightseagreen;
+}
+.reloadAuctionPage{
+    background-color: #0D6EFD;
+    position: fixed;
+    display: block;
+    bottom:70px;
+    right: 30px;
+}

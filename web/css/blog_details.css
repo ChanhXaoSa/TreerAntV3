@@ -1,0 +1,50 @@
+
+body {
+    overflow-x:  hidden;
+    font-family: arial;
+    background-color: #f1f1f1;
+}
+
+.body_details {
+  font-family: Arial;
+  padding: 20px;
+  background: #f1f1f1;
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.left {
+    float: left;
+    width: 70%;
+}
+
+.right {
+    float: left;
+    width: 25%;
+    padding-left: 20px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: green;
+}
+
+a:hover {
+    color: rgb(62, 177, 62);
+}
+
+.img_Blog{
+    display: block;
+    width: 80%;
+    height: auto;
+    margin-left: 10%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
