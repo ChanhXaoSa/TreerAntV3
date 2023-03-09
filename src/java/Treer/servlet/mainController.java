@@ -30,104 +30,123 @@ public class mainController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-            String url = "errorpage.html";
-            String action = request.getParameter("action");
-            
-            if(action==null && action.equals("") && action.equals("search")){
-                url = "homeServlet";
-            }else if(action.equals("login")){
-                url = "loginServlet";
-            }else if(action.equals("register")){
-                url = "registerServlet";
-            }else if(action.equals("logout")){
-                url = "logoutServlet";
-            }else if(action.equals("blog")){
-                url = "blogServlet";
-            }else if(action.equals("search")){
-                url = "SearchServlet";
-            }else if(action.equals("addtocart")){
-                url = "addToCartServlet";
-            }else if(action.equals("viewcart")){
-                url = "viewCart.jsp";
-            }else if(action.equals("update")){
-                url = "updateCartServlet";
-            }else if(action.equals("delete")){
-                url = "deleteCartServlet";
-            }else if(action.equals("saveOrder")){
-                url = "saveShoppingCartServlet";
-                
-                
+
+        String url = "errorpage.html";
+        String action = request.getParameter("action");
+
+        if (action == null && action.equals("") && action.equals("search")) {
+            url = "homeServlet";
+        } else if (action.equals("login")) {
+            url = "loginServlet";
+        } else if (action.equals("register")) {
+            url = "registerServlet";
+        } else if (action.equals("logout")) {
+            url = "logoutServlet";
+        } else if (action.equals("blog")) {
+            url = "blogServlet";
+        } else if (action.equals("search")) {
+            url = "SearchServlet";
+        } else if (action.equals("addtocart")) {
+            url = "addToCartServlet";
+        } else if (action.equals("viewcart")) {
+            url = "viewCart.jsp";
+        } else if (action.equals("update")) {
+            url = "updateCartServlet";
+        } else if (action.equals("delete")) {
+            url = "deleteCartServlet";
+        } else if (action.equals("saveOrder")) {
+            url = "saveShoppingCartServlet";
+
+            // phân trang personal - admin
+        } else if (action.equals("switchPage")) {
+            url = "switchPageServlet";
+
             // phần này của admin
-            }else if(action.equals("manageAccounts")){
-                // sửa lại theo hàm search chuyển từ manager qua search Acc
-                url = "searchAccountServlet";
-            }else if(action.equals("banAccount")){
-                url = "updateStatusAccountServlet";
-            }else if(action.equals("plantsManager")){
-                url = "plantsManagerServlet";
-            }else if(action.equals("changeStatusPlant")){
-                url = "changeStatusPlantServlet";
-            }else if(action.equals("backToAdminIndex")){
-                url = "backToAdminIndexServlet";          
-            }else if(action.equals("changePlantName")){
-                url = "changePlantNameServlet";
-            }else if(action.equals("confirmCreateNewAccount")){
-                url = "confirmCreateNewAccountServlet";
-            }else if(action.equals("registerAdminPage")){
-                url = "registerAdminPageServlet";
-                
-                
+        } else if (action.equals("manageAccounts")) {
+            // sửa lại theo hàm search chuyển từ manager qua search Acc
+            url = "searchAccountServlet";
+        } else if (action.equals("banAccount")) {
+            url = "updateStatusAccountServlet";
+        } else if (action.equals("plantsManager")) {
+            url = "plantsManagerServlet";
+        } else if (action.equals("changeStatusPlant")) {
+            url = "changeStatusPlantServlet";
+        } else if (action.equals("backToAdminIndex")) {
+            url = "backToAdminIndexServlet";
+        } else if (action.equals("changePlantName")) {
+            url = "changePlantNameServlet";
+        } else if (action.equals("confirmCreateNewAccount")) {
+            url = "confirmCreateNewAccountServlet";
+        } else if (action.equals("registerAdminPage")) {
+            url = "registerAdminPageServlet";
+
             // phần này của user
-            }else if(action.equals("updateProfile")){
-                url = "updateProfileServlet";
-            }else if(action.equals("completedOrders")){
-                url = "completedOrdersServlet";
-                
-                // đang lỗi 
-            }else if(action.equals("cancelOrder")){
-                url = "cancelOrdersServlet";
-            }else if(action.equals("orderAgian")){
-                url = "orderAgianServlet";
-            }else if(action.equals("processingOrders")){
-                url = "processingOrdersServlet";
-                
+        } else if (action.equals("updateProfile")) {
+            url = "updateProfileServlet";
+        } else if (action.equals("completedOrders")) {
+            url = "completedOrdersServlet";
+        } else if (action.equals("personalPage")) {
+            url = "personalPageServlet";
+        } else if (action.equals("orderDetail")) {
+            url = "orderDetailServlet";
+        } else if (action.equals("cancelOrder")) {
+            url = "cancelOrdersServlet";
+        } else if (action.equals("newFeedBack")) {
+            url = "newFeedBackServlet";
+        } else if (action.equals("processingOrders")) {
+            url = "processingOrdersServlet";
+        } else if (action.equals("All")) {
+            url = "managerOrderServlet";
+        } else if (action.equals("Profile")) {
+            url = "ProfileServlet";
+        } else if (action.equals("editProfile")) {
+            url = "editProfileServlet";
+        } else if (action.equals("personalWishList")) {
+            url = "personalWishListServlet";
+        } else if (action.equals("createComment")) {
+            url = "createCommentServlet";
+        } else if (action.equals("repComment")) {
+            url = "repCommentServlet";
+
+            // đang lỗi 
+        } else if (action.equals("orderAgian")) {
+            url = "orderAgianServlet";
+
             // các hàm search
-            }else if(action.equals("searchAccount")){
-                url = "searchAccountServlet";
-            }else if(action.equals("searchOrder")){
-                url = "searchOrderServlet";
-            }else if(action.equals("searchPlant")){
-                url = "searchPlantServlet";
-                // update profile
-            }else if(action.equals("updateProfile")){
-                url ="updateProfileServlet";
-            }else if(action.equals("searchWithDate")){
-                url = "searchWithDateServlet";
-            }else if(action.equals("AddPlant")){
-                url ="addPlant.jsp";
-            }else if(action.equals("saveAddPlant")){
-                url= "saveAddPlantServlet";
-            }else if(action.equals("UpdatePlant")){
-                url="updatePlant.jsp";
-            }else if(action.equals("SaveUpdatePlant")){
-                url ="SaveUpdatePlantServlet";
+        } else if (action.equals("searchAccount")) {
+            url = "searchAccountServlet";
+        } else if (action.equals("searchOrder")) {
+            url = "searchOrderServlet";
+        } else if (action.equals("searchPlant")) {
+            url = "searchPlantServlet";
             
-            
+            // update profile
+        } else if (action.equals("updateProfile")) {
+            url = "updateProfileServlet";
+        } else if (action.equals("searchWithDate")) {
+            url = "searchWithDateServlet";
+        } else if (action.equals("AddPlant")) {
+            url = "addPlant.jsp";
+        } else if (action.equals("saveAddPlant")) {
+            url = "saveAddPlantServlet";
+        } else if (action.equals("UpdatePlant")) {
+            url = "updatePlant.jsp";
+        } else if (action.equals("SaveUpdatePlant")) {
+            url = "SaveUpdatePlantServlet";
+
             //phần của trang đấu giá
-            }else if(action.equals("ReloadActionPage")){
-                url ="ReloadActionPageServlet";
-            }else if(action.equals("setAuctionDetail")){
-                url ="setAuctionDetailServlet";
-            }else if(action.equals("auctionManager")){
-                url ="auctionManagerServlet";
-            }else if(action.equals("changeAuctionStatus")){
-                url ="changeAuctionStatusServlet";
-            }
-            
-            
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+        } else if (action.equals("ReloadActionPage")) {
+            url = "ReloadActionPageServlet";
+        } else if (action.equals("setAuctionDetail")) {
+            url = "setAuctionDetailServlet";
+        } else if (action.equals("auctionManager")) {
+            url = "auctionManagerServlet";
+        } else if (action.equals("changeAuctionStatus")) {
+            url = "changeAuctionStatusServlet";
+        }
+
+        RequestDispatcher rd = request.getRequestDispatcher(url);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
