@@ -1,20 +1,11 @@
 <%-- 
-    Document   : personalpage
-    Created on : Feb 28, 2023, 1:39:54 AM
+    Document   : personalheader
+    Created on : Mar 4, 2023, 4:55:20 PM
     Author     : tuank
 --%>
 
-<%@page import="Treer.dao.OrderDAO"%>
-<%@page import="Treer.dto.Order"%>
-<%@page import="java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%-- 
-    Document   : personalpagebody
-    Created on : Feb 28, 2023, 1:39:46 AM
-    Author     : tuank
---%>
-
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -179,6 +170,7 @@
             text-decoration: none;
         }
     </style>
+    
     <body>
         <%
             String name = (String) session.getAttribute("name");
@@ -242,168 +234,12 @@
                         <a href="#" class="set-width text-center display-inline-block my-1"><i class="fa fa-sticky-note-o"></i></a>
                         <a href="#" class="set-width text-center display-inline-block my-1"><i class="fa fa-file-text"></i></a>
                         <a href="#" class="set-width text-center display-inline-block my-1"><i class="fa fa-search"></i></a>
-                        <a href="mainController?action=Profile" class="set-width text-center display-inline-block my-1"><i class="fa fa-user"></i></a>
+                        <a href="#" class="set-width text-center display-inline-block my-1"><i class="fa fa-user"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="main-body-content w-100 ets-pt">
-                <div class="table-responsive bg-light">
 
-                    <%
-                        int accid = (int) session.getAttribute("accid");
-                        String button = (String) session.getAttribute("selectedOption");
-                        String from = request.getParameter("from");
-                        String to = request.getParameter("to");
-
-                        String[] status = {"", "Chờ xác nhận", "Đã giao", "Đã hủy"};
-                    %>
-
-                    <form action="managerOrderServlet" method="post" style="margin-left: 30px">
-                        <select name="button">
-                            <option  value="all" <%= (button == null || button.equals("all")) ? "selected" : "" %>>Tất cả</option>
-                            <option  value="completed" <%= (button == null || button.equals("completed")) ? "selected" : "" %>>Đã giao</option>
-                            <option  value="shipping" <%= (button == null || button.equals("shipping")) ? "selected" : "" %>>Chờ xác nhận</option>
-                            <option  value="cancel" <%= (button == null || button.equals("cancel")) ? "selected" : "" %>>Đã hủy</option>
-                        </select> 
-
-                        <label>từ ngày</label>  
-                        <input type="date" name="from" value="<%= from%>">
-                        <label>đến ngày</label>
-                        <input type="date" name="to" value="<%= to%>">
-                        <button type="submit" name="action" id="myButton">Xem đơn hàng</button> 
-                    </form>
-
-                    <table class="table">
-                        <tr>
-                            <th>Mã đơn hàng</th>
-                            <th>Ngày đặt</th>
-                            <th>Thông tin đơn hàng</th>
-                            <th>Trạng thái</th>
-                            <th>Mã giảm giá</th>
-                        </tr>
-
-                        <%
-
-                            int statusID = 0;
-                            if (button != null) {
-                                switch (button) {
-                                    case "all":
-                                        break;
-                                    case "completed":
-                                        statusID = 2;
-                                        break;
-                                    case "shipping":
-                                        statusID = 1;
-                                        break;
-                                    case "cancel":
-                                        statusID = 3;
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                // nếu như status = 0
-                                if (statusID == 0) {
-                                    if (from != null && to != null) {
-                                        ArrayList<Order> list = OrderDAO.getAllOrdersWithDate(accid, from, to);
-                                        for (Order order : list) {
-                        %>
-                        <tr>
-                            <th><%= order.getOrderID()%></th>
-                            <th><%= order.getOrderdate()%></th>
-                            <th><a href="orderDetailServlet?OID=<%= order.getOrderID()%>" >xem chi tiết</a></th>
-                            <th><%= status[order.getStatus()]%> <%= order.getOrdership() == null ? "" : order.getOrdership()%></th>
-                            <th><%= order.getDiscount() == null ? "" : order.getDiscount()%></th>
-                            <th>
-                                <%
-                                    if (order.getStatus() == 1) {
-                                %>
-                            <th><a href="cancelOrdersServlet?orderID=<%= order.getOrderID()%>"><button>Hủy đơn hàng</button></a></th>
-                                <%
-                                    }
-                                %>
-                            </th>
-                        </tr>
-                        <%
-                                    }
-                                }
-                            }
-                            // nếu như nó là các status còn lại
-                            if (from != null && to != null) {
-                                ArrayList<Order> list = OrderDAO.getOrderWithStatusAndDate(accid, statusID, from, to);
-                                for (Order order : list) {
-                        %>
-                        <tr>
-                            <th><%= order.getOrderID()%></th>
-                            <th><%= order.getOrderdate()%></th>
-                            <th><a href="orderDetailServlet?OID=<%= order.getOrderID()%>" >xem chi tiết</a></th>
-                            <th><%= status[order.getStatus()]%> <%= order.getOrdership() == null ? "" : order.getOrdership()%></th>
-                            <th><%= order.getDiscount() == null ? "" : order.getDiscount()%></th>
-                            <th>
-                                <%
-                                    if (order.getStatus() == 1) {
-                                %>
-                            <th><a href="cancelOrdersServlet?orderID=<%= order.getOrderID()%>"><button>Hủy đơn hàng</button></a></th>
-                                <%
-                                    }
-                                %>
-                            </th>
-                        </tr>
-                        <%
-                                    }
-                                }
-                            }
-
-                            // nếu như không nhập ngày tháng
-                            if (statusID == 0 && from == "") {
-                                ArrayList<Order> list = OrderDAO.getAllOrders(accid);
-                                for (Order order : list) {
-                        %>
-                        <tr>
-                            <th><%= order.getOrderID()%></th>
-                            <th><%= order.getOrderdate()%></th>
-                            <th><a href="orderDetailServlet?OID=<%= order.getOrderID()%>" >xem chi tiết</a></th>
-                            <th><%= status[order.getStatus()]%> <%= order.getOrdership() == null ? "" : order.getOrdership()%></th>
-                            <th><%= order.getDiscount() == null ? "" : order.getDiscount()%></th>
-                            <th>
-                                <%
-                                    if (order.getStatus() == 1) {
-                                %>
-                            <th><a href="cancelOrdersServlet?orderID=<%= order.getOrderID()%>"><button>Hủy đơn hàng</button></a></th>
-                                <%
-                                    }
-                                %>
-                            </th>
-                        </tr>
-                        <%
-                            }
-                        } else if (statusID != 0 && from == "") {
-                            ArrayList<Order> list = OrderDAO.getOrderWithStatus(accid, statusID);
-                            for (Order order : list) {
-                        %>
-                        <tr>
-                            <th><%= order.getOrderID()%></th>
-                            <th><%= order.getOrderdate()%></th>
-                            <th><a href="orderDetailServlet?OID=<%= order.getOrderID()%>" >xem chi tiết</a></th>
-                            <th><%= status[order.getStatus()]%> <%= order.getOrdership() == null ? "" : order.getOrdership()%></th>
-                            <th><%= order.getDiscount() == null ? "" : order.getDiscount()%></th>
-                            <th>
-                                <%
-                                    if (order.getStatus() == 1) {
-                                %>
-                            <th><a href="cancelOrdersServlet?orderID=<%= order.getOrderID()%>"><button>Hủy đơn hàng</button></a></th>
-                                <%
-                                    }
-                                %>
-                            </th>
-                        </tr>
-                        <%
-                                }
-                            }
-                        %>                                         
-                    </table>
-                </div>
             </div>
-        </div>
         <% }%>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -424,8 +260,5 @@
                 });
             });
         </script>
-
     </body>
 </html>
-
-
