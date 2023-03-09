@@ -106,12 +106,12 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="card">
+                        <div class="card card-left-account">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col">
                                         <h6>Tài khoản đã đăng kí</h6>
-                                        <h3><%= AccountDAO.countAccountByRole(1)%></h3>
+                                        <h3 style="color: green;"><%= AccountDAO.countAccountByRole(1)%></h3>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fa fa-user"></i>
@@ -119,12 +119,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
+                        <div class="card card-left-account">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col">
                                         <h6>Tài khoản Đang Hoạt Động</h6>
-                                        <h3><%= AccountDAO.countAccountByStatus(1, 1)%></h3>
+                                        <h3 style="color: #69C3FF"><%= AccountDAO.countAccountByStatus(1, 1)%></h3>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fa fa-user"></i>
@@ -132,12 +132,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
+                        <div class="card card-left-account">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col">
                                         <h6>Tài Khoản Bị Cấm</h6>
-                                        <h3><%= AccountDAO.countAccountByStatus(0, 1)%></h3>
+                                        <h3 style="color: #FFA1B5"><%= AccountDAO.countAccountByStatus(0, 1)%></h3>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fa fa-user"></i>

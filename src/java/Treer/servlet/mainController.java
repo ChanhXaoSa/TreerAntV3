@@ -79,6 +79,10 @@ public class mainController extends HttpServlet {
             url = "confirmCreateNewAccountServlet";
         } else if (action.equals("registerAdminPage")) {
             url = "registerAdminPageServlet";
+        } else if (action.equals("changePlantPrice")) {
+            url = "changePlantPriceServlet";
+            } else if (action.equals("changePlantDescription")) {
+            url = "changePlantDescriptionServlet";
 
             // phần này của user
         } else if (action.equals("updateProfile")) {
@@ -119,7 +123,7 @@ public class mainController extends HttpServlet {
             url = "searchOrderServlet";
         } else if (action.equals("searchPlant")) {
             url = "searchPlantServlet";
-            
+
             // update profile
         } else if (action.equals("updateProfile")) {
             url = "updateProfileServlet";

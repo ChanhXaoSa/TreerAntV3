@@ -97,7 +97,9 @@ public class PlantDAO {
         try {
             cn = DBUtils.makeConnection();
 
-            String sql1 = "SELECT  [PID], [NamePlant], [price], [description], [Status], [CreateDate], [UpdateDate] from [dbo].[Plant]";
+            String sql1 = "SELECT  [PID], [NamePlant], [price], [description], [Status], "
+                    + "CONVERT(varchar, CreateDate, 105) + ' ' + CONVERT(varchar, CreateDate, 108) as CreateDate, "
+                    + "CONVERT(varchar, UpdateDate, 105) + ' ' + CONVERT(varchar, UpdateDate, 108) as UpdateDate from [dbo].[Plant]";
 
             if (cn != null) {
                 PreparedStatement pst = cn.prepareStatement(sql1);
@@ -426,6 +428,56 @@ public class PlantDAO {
                 String sql = "update dbo.Plant set NamePlant=?,UpdateDate=CURRENT_TIMESTAMP where PID=?";
                 PreparedStatement pst = cn.prepareStatement(sql);
                 pst.setString(1, newName);
+                pst.setInt(2, id);
+                pst.executeUpdate();
+                pst.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return true;
+    }
+    public static boolean changePlantPriceByID(int id, int newPrice) {
+        Connection cn = null;
+        try {
+            cn = Treer.untils.DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update dbo.Plant set price=?,UpdateDate=CURRENT_TIMESTAMP where PID=?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, newPrice);
+                pst.setInt(2, id);
+                pst.executeUpdate();
+                pst.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return true;
+    }
+    public static boolean changePlantDescriptionByID(int id, String newDescription) {
+        Connection cn = null;
+        try {
+            cn = Treer.untils.DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update dbo.Plant set description=?,UpdateDate=CURRENT_TIMESTAMP where PID=?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setString(1, newDescription);
                 pst.setInt(2, id);
                 pst.executeUpdate();
                 pst.close();

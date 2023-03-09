@@ -156,6 +156,14 @@
         <servlet-name>wishlistServlet</servlet-name>
         <servlet-class>Treer.servlet.wishlistServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>changePlantPriceServlet</servlet-name>
+        <servlet-class>Treer.servlet.changePlantPriceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>changePlantDescriptionServlet</servlet-name>
+        <servlet-class>Treer.servlet.changePlantDescriptionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShowServlet</servlet-name>
         <url-pattern>/ShowServlet</url-pattern>
@@ -299,6 +307,14 @@
     <servlet-mapping>
         <servlet-name>wishlistServlet</servlet-name>
         <url-pattern>/wishlistServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>changePlantPriceServlet</servlet-name>
+        <url-pattern>/changePlantPriceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>changePlantDescriptionServlet</servlet-name>
+        <url-pattern>/changePlantDescriptionServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

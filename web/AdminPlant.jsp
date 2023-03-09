@@ -121,12 +121,19 @@
                                 <th scope="row"><%= plant.getId()%></th>
                                 <th>
                                     <form action="mainController?action=changePlantName" method="POST">
-                                        <input type="text" value="<%= plant.getName()%>" name="newPlantName">
+                                        <textarea name="newPlantName" rows="1"><%= plant.getName()%></textarea>
                                         <input type="hidden" value="<%= plant.getId() %>" name="plantid">
                                         <button type="submit"><i class="fa fa-pencil"></i></button>  
                                     </form>
                                 </th>
-                                <th><input type="number" value="<%= plant.getPrice()%>"></th>
+                                <th>
+                                    <form action="mainController?action=changePlantPrice" method="POST">
+                                        <input type="number" value="<%= plant.getPrice()%>" step=1000 name="newPrice">
+                                        <input type="hidden" value="<%= plant.getId() %>" name="plantid">
+                                        <button type="submit"><i class="fa fa-pencil"></i></button>  
+                                    </form>
+                                    
+                                </th>
 
                                 <% if (plant.getStatus() == 1) {
                                 %>
@@ -136,7 +143,13 @@
                                     %>
                                 <th>Hết Hàng</th>
                                     <% }%>
-                                <th><input type="text" value="<%= plant.getDescription()%>"></th>
+                                <th>
+                                    <form action="mainController?action=changePlantDescription" method="POST">
+                                        <textarea rows="4" cols="50" name="newDescription"><%= plant.getDescription()%></textarea>
+                                        <input type="hidden" value="<%= plant.getId() %>" name="plantid">
+                                        <button type="submit"><i class="fa fa-pencil"></i></button>  
+                                    </form>
+                                </th>
                                 <th><%= plant.getCreatedate()%></th>
                                     <%
                                         if (plant.getUpdatedate() != null) {
