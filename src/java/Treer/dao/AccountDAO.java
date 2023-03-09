@@ -6,8 +6,10 @@ package Treer.dao;
 
 import Treer.dto.Account;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -308,5 +310,38 @@ public class AccountDAO {
             e.printStackTrace();
         }
         return count;
+    }
+    public static boolean updateProfile(int accid, String username, String password, String phone, String address) throws SQLException {
+        Connection cn = null;
+        Account acc = null;
+        try {
+            cn = Treer.untils.DBUtils.makeConnection();
+
+            if (cn != null) {
+                String sql = "update [dbo].[Account] set [Name]= ? ,[Password]= ? ,[Phone]= ? ,[Address]= ? ,[UpdateDate]= ? \n"
+                        + "where [AccID] = ?";
+
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setString(1, username);
+                pst.setString(2, password);
+                pst.setString(3, phone);
+                pst.setString(4, address);
+
+                Date d = new Date(System.currentTimeMillis());
+                String date = d.toString();
+                pst.setString(5, date);
+                pst.setInt(6, accid);
+
+                ResultSet rs = pst.executeQuery();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (cn != null) {
+                cn.close();
+            }
+        }
+        return true;
     }
 }

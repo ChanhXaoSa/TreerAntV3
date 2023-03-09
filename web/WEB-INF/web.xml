@@ -108,6 +108,54 @@
         <servlet-name>cancelOrdersServlet</servlet-name>
         <servlet-class>Treer.servlet.cancelOrdersServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>createCommentServlet</servlet-name>
+        <servlet-class>Treer.servlet.createCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>editProfileServlet</servlet-name>
+        <servlet-class>Treer.servlet.editProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>managerOrderServlet</servlet-name>
+        <servlet-class>Treer.servlet.managerOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>orderDetailServlet</servlet-name>
+        <servlet-class>Treer.servlet.orderDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>personalPageServlet</servlet-name>
+        <servlet-class>Treer.servlet.personalPageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>personalWishListServlet</servlet-name>
+        <servlet-class>Treer.servlet.personalWishListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfileServlet</servlet-name>
+        <servlet-class>Treer.servlet.ProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>repCommentServlet</servlet-name>
+        <servlet-class>Treer.servlet.repCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>switchPageServlet</servlet-name>
+        <servlet-class>Treer.servlet.switchPageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updateProfileServlet</servlet-name>
+        <servlet-class>Treer.servlet.updateProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>wishlistpersonalServlet</servlet-name>
+        <servlet-class>Treer.servlet.wishlistpersonalServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>wishlistServlet</servlet-name>
+        <servlet-class>Treer.servlet.wishlistServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShowServlet</servlet-name>
         <url-pattern>/ShowServlet</url-pattern>
@@ -203,6 +251,54 @@
     <servlet-mapping>
         <servlet-name>cancelOrdersServlet</servlet-name>
         <url-pattern>/cancelOrdersServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createCommentServlet</servlet-name>
+        <url-pattern>/createCommentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editProfileServlet</servlet-name>
+        <url-pattern>/editProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>managerOrderServlet</servlet-name>
+        <url-pattern>/managerOrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>orderDetailServlet</servlet-name>
+        <url-pattern>/orderDetailServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>personalPageServlet</servlet-name>
+        <url-pattern>/personalPageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>personalWishListServlet</servlet-name>
+        <url-pattern>/personalWishListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileServlet</servlet-name>
+        <url-pattern>/ProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>repCommentServlet</servlet-name>
+        <url-pattern>/repCommentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>switchPageServlet</servlet-name>
+        <url-pattern>/switchPageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateProfileServlet</servlet-name>
+        <url-pattern>/updateProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>wishlistpersonalServlet</servlet-name>
+        <url-pattern>/wishlistpersonalServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>wishlistServlet</servlet-name>
+        <url-pattern>/wishlistServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
