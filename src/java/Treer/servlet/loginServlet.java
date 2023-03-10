@@ -63,8 +63,10 @@ public class loginServlet extends HttpServlet {
                             //Chuyen qua admin home page
                             HttpSession session = request.getSession(true);
                             if (session != null) {
+                                session.setAttribute("accid", acc.getAccID());
                                 session.setAttribute("name", acc.getName());
-                                session.setAttribute("email", email);
+                                session.setAttribute("email", acc.getEmail());
+                                session.setAttribute("role", acc.getRoleID());
                                 session.setAttribute("id", acc.getAccID());
                                 //create a cookie and attach it to repone aobject
                                 if (save != null) {
@@ -81,8 +83,10 @@ public class loginServlet extends HttpServlet {
 //                          response.sendRedirect("welcome.html");
                             HttpSession session = request.getSession(true);
                             if (session != null) {
+                                session.setAttribute("accid", acc.getAccID());
                                 session.setAttribute("name", acc.getName());
-                                session.setAttribute("email", email);
+                                session.setAttribute("email", acc.getEmail());
+                                session.setAttribute("role", acc.getRoleID());
                                 session.setAttribute("id", acc.getAccID());
                                 
                                 if (save != null) {

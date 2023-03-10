@@ -204,8 +204,8 @@ public class AccountDAO {
         int rs = 0;
         try {
             Connection cn = Treer.untils.DBUtils.makeConnection();
-            String sql = "INSERT INTO dbo.Account (Name, Email, Password, RoleID, Phone, Address, Status)\n"
-                    + "                    VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO dbo.Account (Name, Email, Password, RoleID, Phone, Address, Status, CreateDate)\n"
+                    + "                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = cn.prepareStatement(sql);
             pst.setString(1, Name);
             pst.setString(2, Email);
@@ -214,6 +214,9 @@ public class AccountDAO {
             pst.setString(5, Phone);
             pst.setString(6, "");
             pst.setInt(7, 1);
+            Date d = new Date(System.currentTimeMillis());
+            String date = d.toString();
+            pst.setString(8, date);
             rs = pst.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

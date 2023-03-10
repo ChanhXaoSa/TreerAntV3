@@ -4,6 +4,7 @@
     Author     : tuank
 --%>
 
+<%@page import="Treer.dao.AccountDAO"%>
 <%@page import="Treer.dao.PlantDAO"%>
 <%@page import="Treer.dto.Categories"%>
 <%@page import="java.util.ArrayList"%>
@@ -11,12 +12,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
         <title>header</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+
         <!-- css style -->
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">       
         <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
@@ -58,12 +59,15 @@
                         }
                     }
                     String name = (String) session.getAttribute("name");
+                    String email = (String) session.getAttribute("email");
+
                 %>
             </ul>
         </nav>
 
         <!-- Header Section Begin -->
         <header>
+
             <div class="menu_desktop">
                 <div class="container">
                     <div class="row align-items-center">
@@ -110,7 +114,7 @@
                                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                             <ul class="navbar-nav mr-auto">
                                                 <li class="nav-item dropdown">
-                                                    <a target="_blank" href="productDetail.jsp" class="nav-link " title="Cửa Hàng">Cửa
+                                                    <a target="_blank" href="homeServlet" class="nav-link " title="Cửa Hàng">Cửa
                                                         Hàng</a>
                                                 </li>
                                                 <li class="nav-item dropdown">                                       
@@ -120,7 +124,7 @@
                                                     <a target="_blank" href="#" class="nav-link " title="Về chúng tôi">Về
                                                         chúng tôi</a>
                                                 </li>
-                                                
+
                                                 <li class="nav-item dropdown">
                                                     <a target="_blank" href="Auction.jsp" class="nav-link " title="Đấu giá">Đấu giá</a>
                                                 </li>
@@ -129,11 +133,11 @@
                                                     <%
                                                         if (name == null) {
                                                     %>
-                                                    
+
                                                     <%
                                                     } else {
                                                     %>
-                                                    <a target="_blank" href="personalpage.jsp" class="nav-link " title="Về chúng tôi">Trang cá nhân</a>
+                                                    <a target="_blank" href="mainController?action=switchPage" class="nav-link " title="Về chúng tôi">Trang cá nhân</a>
                                                     <%
                                                         }
                                                     %>

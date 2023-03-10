@@ -61,6 +61,7 @@ public class mainController extends HttpServlet {
         } else if (action.equals("switchPage")) {
             url = "switchPageServlet";
 
+
             // phần này của admin
         } else if (action.equals("manageAccounts")) {
             // sửa lại theo hàm search chuyển từ manager qua search Acc
@@ -85,12 +86,12 @@ public class mainController extends HttpServlet {
             url = "changePlantDescriptionServlet";
 
             // phần này của user
+        } else if (action.equals("personalPage")) {
+            url = "personalPageServlet";
         } else if (action.equals("updateProfile")) {
             url = "updateProfileServlet";
         } else if (action.equals("completedOrders")) {
             url = "completedOrdersServlet";
-        } else if (action.equals("personalPage")) {
-            url = "personalPageServlet";
         } else if (action.equals("orderDetail")) {
             url = "orderDetailServlet";
         } else if (action.equals("cancelOrder")) {
@@ -111,10 +112,6 @@ public class mainController extends HttpServlet {
             url = "createCommentServlet";
         } else if (action.equals("repComment")) {
             url = "repCommentServlet";
-
-            // đang lỗi 
-        } else if (action.equals("orderAgian")) {
-            url = "orderAgianServlet";
 
             // các hàm search
         } else if (action.equals("searchAccount")) {

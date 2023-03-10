@@ -19,6 +19,9 @@ public class Account {
     private String Address;
     private int Status;
 
+    private String CreateDate;
+    private String UpdateDate;
+
     public Account() {
     }
 
@@ -32,6 +35,19 @@ public class Account {
         this.Address = Address;
         this.Status = Status;
     }
+
+    public Account(int AccID, String Name, String Email, String Password, int RoleID, String Phone, String Address, int Status, String CreateDate, String UpdateDate) {
+        this.AccID = AccID;
+        this.Name = Name;
+        this.Email = Email;
+        this.Password = Password;
+        this.RoleID = RoleID;
+        this.Phone = Phone;
+        this.Address = Address;
+        this.Status = Status;
+        this.CreateDate = CreateDate;
+        this.UpdateDate = UpdateDate;
+    }  
 
     public int getAccID() {
         return AccID;
@@ -97,9 +113,25 @@ public class Account {
         this.Status = Status;
     }
 
+    public String getCreateDate() {
+        return CreateDate;
+    }
+
+    public void setCreateDate(String CreateDate) {
+        this.CreateDate = CreateDate;
+    }
+
+    public String getUpdateDate() {
+        return UpdateDate;
+    }
+
+    public void setUpdateDate(String UpdateDate) {
+        this.UpdateDate = UpdateDate;
+    }
+
     @Override
     public String toString() {
-        return "Account{" + "AccID=" + AccID + ", Name=" + Name + ", Email=" + Email + ", Password=" + Password + ", RoleID=" + RoleID + ", Phone=" + Phone + ", Address=" + Address + ", Status=" + Status + '}';
+        return "Account{" + "AccID=" + AccID + ", Name=" + Name + ", Email=" + Email + ", Password=" + Password + ", RoleID=" + RoleID + ", Phone=" + Phone + ", Address=" + Address + ", Status=" + Status + ", CreateDate=" + CreateDate + ", UpdateDate=" + UpdateDate + '}';
     }
 
 }
