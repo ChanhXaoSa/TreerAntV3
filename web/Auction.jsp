@@ -44,12 +44,13 @@
             for (Auction auc : list) {
                 AuctionDAO.EndAuctionbyEndTime();
             }
-            ArrayList<AuctionDetail> detailList = AuctionDetailsDAO.getAllAutionDetails();
+            ArrayList<AuctionDetail> detailList = new ArrayList<>();
         %>
         <div class="container">
             <%
                 if (list != null)
                     for (Auction auc : list) {
+                        detailList = AuctionDetailsDAO.getAllAutionDetailsByID(auc.getAuctionId());
             %>
             <div class="row">
                 <div class="col-sm-7">
@@ -69,7 +70,9 @@
                         <h5>Giá hiện tại: <%= auc.getEndPrice()%></h5>
                         <h5>Bước giá tối thiểu : <%= auc.getBid()%></h5>
 
-                        <% if (auc.getStatus() == 1) {
+                        <%
+
+                            if (auc.getStatus() == 1) {
                         %>
                         <form action="mainController?action=setAuctionDetail" method="POST">
 
@@ -96,14 +99,24 @@
                         <% }%>
 
                         <% } else {%>
-                        <p> Phiên đấu giá kết thúc </p>
-                        <p> Người thắng cuộc đấu giá là <%= AccountDAO.getAccountNameByID(detailList.get(0).getAccountID())%> 
-                            Với số tiền <%= detailList.get(0).getBidprice()%> </p>
-                            <% } %>
+                        <p> Đấu giá đã kết thúc </p>
+                        <% if (detailList.isEmpty()) {
+                        %>
+                        <p>Chưa có người tham gia phiên đấu giá này</p>
+                        <%
+                        } else {
+                            %>
+                        <p><%= AccountDAO.getAccountNameByID(AuctionDetailsDAO.getMaxAutionDetailsByID(auc.getAuctionId()).get(0).getAccountID()) %>
+                        đã thắng cuộc đấu giá
+                        với số tiền <%= AuctionDetailsDAO.getMaxAutionDetailsByID(auc.getAuctionId()).get(0).getBidprice() %></p>
+                        <%
+                                }
+                            } %>
                     </div>
                     <div class="bid-infomation">
                         <%
-                            if (detailList != null) {
+
+                            if (!detailList.isEmpty()) {
                                 int count = 0;
                                 for (AuctionDetail detail : detailList) {
                         %>
@@ -119,7 +132,8 @@
                     </div>
                 </div>
             </div>
-            <%                }
+            <%
+                }
             %>
         </div>
         <c:import url="footer.jsp"></c:import>

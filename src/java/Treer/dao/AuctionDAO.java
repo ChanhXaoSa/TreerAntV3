@@ -132,4 +132,24 @@ public class AuctionDAO {
 
         return auc;
     }
+
+    public static boolean createAuction(String aucDate, int aucPlantID, int aucStartedPrice, int aucBID) {
+        try {
+            Connection cn = Treer.untils.DBUtils.makeConnection();
+            String sql = "INSERT INTO dbo.Auction\n"
+                    + "           (Starttime,Endtime,PlantID,Starting_price,End_price,Status,bid)\n"
+                    + "     VALUES\n"
+                    + "           (CURRENT_TIMESTAMP,?,?,?,0,0,?)";
+            PreparedStatement pst = cn.prepareStatement(sql);
+            
+            pst.setString(1, aucDate);
+            pst.setInt(2, aucPlantID);
+            pst.setInt(3, aucStartedPrice);
+            pst.setInt(4, aucBID);
+            pst.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 }

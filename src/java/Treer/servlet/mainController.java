@@ -67,7 +67,6 @@ public class mainController extends HttpServlet {
         } else if (action.equals("switchPage")) {
             url = "switchPageServlet";
 
-
             // phần này của admin
         } else if (action.equals("manageAccounts")) {
             // sửa lại theo hàm search chuyển từ manager qua search Acc
@@ -88,8 +87,12 @@ public class mainController extends HttpServlet {
             url = "registerAdminPageServlet";
         } else if (action.equals("changePlantPrice")) {
             url = "changePlantPriceServlet";
-            } else if (action.equals("changePlantDescription")) {
+        } else if (action.equals("changePlantDescription")) {
             url = "changePlantDescriptionServlet";
+        } else if (action.equals("confirmCreateNewAuction")) {
+            url = "confirmCreateNewAuctionServlet";
+        } else if (action.equals("createNewAuction")) {
+            url = "createNewAuctionServlet";
 
             // phần này của user
         } else if (action.equals("personalPage")) {
@@ -142,7 +145,7 @@ public class mainController extends HttpServlet {
             url = "SaveUpdatePlantServlet";
         } else if (action.equals("gui")) {
             url = "AboutUsServlet";
-            
+
             //phần của trang đấu giá
         } else if (action.equals("ReloadActionPage")) {
             url = "ReloadActionPageServlet";

@@ -188,6 +188,14 @@
         <servlet-name>updateCartServlet</servlet-name>
         <servlet-class>Treer.servlet.updateCartServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>confirmCreateNewAuctionServlet</servlet-name>
+        <servlet-class>Treer.servlet.confirmCreateNewAuctionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>createNewAuctionServlet</servlet-name>
+        <servlet-class>Treer.servlet.createNewAuctionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShowServlet</servlet-name>
         <url-pattern>/ShowServlet</url-pattern>
@@ -363,6 +371,14 @@
     <servlet-mapping>
         <servlet-name>updateCartServlet</servlet-name>
         <url-pattern>/updateCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>confirmCreateNewAuctionServlet</servlet-name>
+        <url-pattern>/confirmCreateNewAuctionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createNewAuctionServlet</servlet-name>
+        <url-pattern>/createNewAuctionServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

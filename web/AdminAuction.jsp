@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
         <link rel="stylesheet" href="css/jquery-ui.min.css>" type="text/css">
         <link rel="stylesheet" href="css/styleAdmin.css" type="text/css"/>
+
     </head>
     <body>
         <div id="page-container" class="main-admin">
@@ -96,7 +97,47 @@
                 } else {
                     ArrayList<Auction> list = (ArrayList<Auction>) request.getAttribute("auctionList");
                 %>
-                <% if (list != null) {
+                <% if (request.getAttribute("confirmAucCr") == null) {
+                %>
+                <a href="mainController?action=confirmCreateNewAuction"><div class="btn btn-danger">Tạo đấu giá mới</div></a>
+                <%
+                } else {
+                    request.setAttribute("confirmAucCr", null);
+                %>
+                <form action="mainController?action=createNewAuction" method="POST">
+                    <label for="endTime">Thời gian kết thúc :</label>
+                    <input type="datetime-local" 
+                           name="aucDate"
+                           required=""
+                           id="endTime"
+                           />
+                    <input type="number" 
+                           name="aucPlantID"
+                           placeholder="ID Cây Cảnh"
+                           value="0" 
+                           required=""
+                           />
+                    <input type="number" 
+                           name="aucStartedPrice"
+                           placeholder="Giá khởi điểm"
+                           value="0" 
+                           required=""
+                           step="10000"
+                           min="0"
+                           />
+                    <input type="number" 
+                           name="aucBID"
+                           placeholder="Bước nhảy"
+                           value="0" 
+                           required=""
+                           step="10000"
+                           min="0"
+                           />
+                    <button type="submit" class="btn btn-danger">Tạo đấu giá</button>
+                </form>
+                <%
+                    }
+                    if (list != null) {
                 %>
                 <div class="table-responsive bg-light">
                     <table class="table">
@@ -114,29 +155,29 @@
                         </thead>
                         <tbody>
                             <% for (Auction auc : list) {
+                            %>
+                            <tr>
+                                <th scope="row"><%= auc.getAuctionId()%></th>
+                                <th><%= auc.getStartTime()%></th>
+                                <th><%= auc.getEndTime()%></th>
+                                <th><%= auc.getPlantId()%></th>
+                                <th><%= auc.getStatingPrice()%></th>
+                                <th><%= auc.getEndPrice()%></th>
+                                <th><%= auc.getBid()%></th>
+                                <th>
+                                    <% if (auc.getStatus() == 1) {
                                     %>
-                                    <tr>
-                                        <th scope="row"><%= auc.getAuctionId() %></th>
-                                        <th><%= auc.getStartTime()%></th>
-                                        <th><%= auc.getEndTime()%></th>
-                                        <th><%= auc.getPlantId()%></th>
-                                        <th><%= auc.getStatingPrice()%></th>
-                                        <th><%= auc.getEndPrice()%></th>
-                                        <th><%= auc.getBid()%></th>
-                                        <th>
-                                            <% if (auc.getStatus()==1) {
-                                                    %>
-                                            Đang diễn ra
-                                            <%
-                                                } else if (auc.getStatus()==0) {
-                                            %>
-                                            Kết Thúc
-                                            <% } %>
-                                            <a href="mainController?action=changeAuctionStatus&auctionID=<%= auc.getAuctionId() %>">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                        </th>
-                                    </tr>
+                                    Đang diễn ra
+                                    <%
+                                    } else if (auc.getStatus() == 0) {
+                                    %>
+                                    Kết Thúc
+                                    <% }%>
+                                    <a href="mainController?action=changeAuctionStatus&auctionID=<%= auc.getAuctionId()%>">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </th>
+                            </tr>
                             <%
                                 }
                             %>
