@@ -184,6 +184,10 @@
         <servlet-name>saveShoppingCartServlet</servlet-name>
         <servlet-class>Treer.servlet.saveShoppingCartServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>updateCartServlet</servlet-name>
+        <servlet-class>Treer.servlet.updateCartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShowServlet</servlet-name>
         <url-pattern>/ShowServlet</url-pattern>
@@ -355,6 +359,10 @@
     <servlet-mapping>
         <servlet-name>saveShoppingCartServlet</servlet-name>
         <url-pattern>/saveShoppingCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateCartServlet</servlet-name>
+        <url-pattern>/updateCartServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
