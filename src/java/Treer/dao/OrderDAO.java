@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  *
@@ -359,6 +361,115 @@ public class OrderDAO {
                 pst.setInt(2, orderid);
                 pst.executeUpdate();
                 pst.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return true;
+    }
+    
+    public static boolean insertOrder(int AccID, HashMap<String, Integer> cart, String CusAddress, String CusPhone, String CustomerName, String PaymentMethod, int totalmoney) throws SQLException, Exception {
+        Connection cn = DBUtils.makeConnection();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        int OrderID = -1;
+        int stock = -1;
+        try {
+            cn.setAutoCommit(false);
+            // Các câu lệnh SQL thực hiện trong transaction ở đây
+            // Insert into Order and get OrderID
+            Date d = new Date(System.currentTimeMillis());
+
+            String sql1 = "INSERT INTO [Order] (OrderDate, AccID, Status, CusAddress, CusPhone, CustomerName, PaymentMethod, TotalMoney)"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            stm = cn.prepareStatement(sql1);
+            stm.setDate(1, d);
+            stm.setInt(2, AccID);
+            stm.setInt(3, 1);
+            stm.setString(4, CusAddress);
+            stm.setString(5, CusPhone);
+            stm.setString(6, CustomerName);
+            stm.setString(7, PaymentMethod);
+            stm.setInt(8, totalmoney);
+            stm.executeUpdate();
+
+            // Get OrderID
+            String sql2 = "select top 1 OrderID from  [dbo].[Order] order by OrderID desc";
+            stm = cn.prepareStatement(sql2);
+            rs = stm.executeQuery();
+
+            if (rs != null && rs.next()) {
+                OrderID = rs.getInt("OrderID");
+}
+
+            // Insert into OrderDetail and update Plant 
+            Set<String> pids = cart.keySet();
+            for (String pid : pids) {
+//                int quantity = cart.get(pid);
+//                String sql3 = "SELECT stock FROM Plant WHERE PID = ?";
+//                stm = cn.prepareStatement(sql3);
+//                stm.setInt(1, Integer.parseInt(pid.trim()));
+//                rs = stm.executeQuery();
+//                if (rs != null && rs.next()) {
+//                    stock = rs.getInt("stock");
+//                }
+
+                String sql4 = "INSERT INTO OrderDetail (OrderID, PlantID, Quantity) VALUES (?, ?, ?)";
+                stm = cn.prepareStatement(sql4);
+                stm.setInt(1, OrderID);
+                stm.setInt(2, Integer.parseInt(pid.trim()));
+                stm.setInt(3, cart.get(pid));
+                stm.executeUpdate();
+
+                String sql5 = "UPDATE Plant SET stock = stock - ?, sold = sold + ? WHERE PID = ?";
+                stm = cn.prepareStatement(sql5);
+                stm.setInt(1, cart.get(pid));
+                stm.setInt(2, cart.get(pid));
+                stm.setInt(3, Integer.parseInt(pid.trim()));
+                stm.executeUpdate();
+
+            }
+
+            // Delete Order if OrderDetail is empty
+            String sql16 = "DELETE FROM [Order] WHERE OrderID = ? AND "
+                    + "(SELECT COUNT(*) FROM OrderDetail WHERE OrderID = ?) = 0";
+            stm = cn.prepareStatement(sql16);
+            stm.setInt(1, OrderID);
+            stm.setInt(2, OrderID);
+            stm.executeUpdate();
+
+            cn.commit(); // xác nhận transaction
+
+            return true;
+        } catch (SQLException ex) {
+            cn.rollback(); // hủy bỏ transaction nếu xảy ra lỗi
+            return false;
+        } finally {
+            cn.setAutoCommit(true); // Khôi phục chế độ tự động commit mặc định
+            cn.close(); // đóng kết nối sau khi sử dụng
+        }
+    }
+
+    public static boolean updateOrderInfor(int AccID, String CusAddress, String CusPhone, String CustomerName) {
+        Connection cn = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update [dbo].[Order] set CustomerName=?, CusPhone=?, CusAddress=? where AccID=?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setString(1, CustomerName);
+                pst.setString(2, CusPhone);
+                pst.setString(3, CusAddress);
+                pst.setInt(4, AccID);
+                pst.executeUpdate();
             }
         } catch (Exception e) {
             e.printStackTrace();

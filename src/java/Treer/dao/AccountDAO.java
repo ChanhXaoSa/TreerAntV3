@@ -5,6 +5,7 @@
 package Treer.dao;
 
 import Treer.dto.Account;
+import Treer.untils.DBUtils;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -347,4 +348,32 @@ public class AccountDAO {
         }
         return true;
     }
+    
+    //quên mật khẩu
+    public static boolean updatePassword(String email, String newpasswor) {
+        Connection cn = null;
+        try {
+            cn =DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update dbo.Account set Password=? where Email=?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setString(1, newpasswor);
+                pst.setString(2, email);
+                pst.executeUpdate();
+}
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return true;
+    }
+    
+    
 }

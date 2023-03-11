@@ -360,6 +360,44 @@ public class PlantDAO {
         return p;
     }
 
+    public static Plant getPlantByPID(int PID) {
+        Plant plant = null;
+        Connection cn = null;
+
+        try {
+            cn = DBUtils.makeConnection();
+
+            String sql1 = "SELECT * FROM Plant\n"
+                    + "WHERE PID = ? ";
+
+            if (cn != null) {
+                PreparedStatement pst = cn.prepareStatement(sql1);
+                // đặt CateID
+                pst.setInt(1, PID);
+
+                ResultSet rs = pst.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        int id = rs.getInt("PID");
+                        String name = rs.getString("NamePlant");
+                        int price = rs.getInt("price");
+                        String description = rs.getString("description");
+                        int status = rs.getInt("Status");
+                        int stock = rs.getInt("stock");
+                        int sold = rs.getInt("sold");
+                        String imgpath = getPlantImgByID(id);
+
+                        plant = new Plant(id, name, price, imgpath, description, status, stock, sold);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return plant;
+    }
+    
     // Hiện những sản phẩm bán chạy
     public static ArrayList<Plant> printHotPlant() {
         ArrayList<Plant> list = new ArrayList<>();

@@ -164,6 +164,26 @@
         <servlet-name>changePlantDescriptionServlet</servlet-name>
         <servlet-class>Treer.servlet.changePlantDescriptionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddToCartServlet</servlet-name>
+        <servlet-class>Treer.servlet.AddToCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AboutUsServlet</servlet-name>
+        <servlet-class>Treer.servlet.AboutUsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckLoginMuaHangServlet</servlet-name>
+        <servlet-class>Treer.servlet.CheckLoginMuaHangServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteProductServlet</servlet-name>
+        <servlet-class>Treer.servlet.deleteProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>saveShoppingCartServlet</servlet-name>
+        <servlet-class>Treer.servlet.saveShoppingCartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShowServlet</servlet-name>
         <url-pattern>/ShowServlet</url-pattern>
@@ -315,6 +335,26 @@
     <servlet-mapping>
         <servlet-name>changePlantDescriptionServlet</servlet-name>
         <url-pattern>/changePlantDescriptionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCartServlet</servlet-name>
+        <url-pattern>/AddToCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AboutUsServlet</servlet-name>
+        <url-pattern>/AboutUsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckLoginMuaHangServlet</servlet-name>
+        <url-pattern>/CheckLoginMuaHangServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteProductServlet</servlet-name>
+        <url-pattern>/deleteProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>saveShoppingCartServlet</servlet-name>
+        <url-pattern>/saveShoppingCartServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

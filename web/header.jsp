@@ -121,8 +121,7 @@
                                                     <a target="_blank" href="blogServlet" class="nav-link " title="Tin tức">Tin tức</a>                             
                                                 </li>
                                                 <li class="nav-item dropdown">
-                                                    <a target="_blank" href="#" class="nav-link " title="Về chúng tôi">Về
-                                                        chúng tôi</a>
+                                                    <a target="_blank" href="AboutUs.jsp" class="nav-link " title="Về chúng tôi">Về chúng tôi</a>
                                                 </li>
 
                                                 <li class="nav-item dropdown">
@@ -192,7 +191,7 @@
                                     <div class="clearfix"></div>
                                 </div>                        
                                 <div class="cart">
-                                    <a href="#">
+                                    <a href="mainController?action=viewcart">
                                         <i class="fa fa-shopping-cart"></i>
                                         <div class="cart-top">
                                         </div>

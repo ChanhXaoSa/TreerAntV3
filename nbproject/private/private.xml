@@ -9,11 +9,12 @@
             <file>file:/C:/Users/tuank/OneDrive/Documents/NetBeansProjects/Treer/web/index.jsp</file>
         </group>
         <group name="SWT">
-            <file>file:/E:/S5/SWP/TreerAntV3/web/AdminPlant.jsp</file>
-            <file>file:/E:/S5/SWP/TreerAntV3/web/css/styleAdmin.css</file>
-            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/dao/PlantDAO.java</file>
-            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/servlet/changePlantDescriptionServlet.java</file>
+            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/servlet/switchPageServlet.java</file>
+            <file>file:/E:/S5/SWP/TreerAntV3/web/header.jsp</file>
+            <file>file:/E:/S5/SWP/TreerAntV3/web/blogpart.jsp</file>
             <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/servlet/mainController.java</file>
+            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/servlet/loginServlet.java</file>
+            <file>file:/E:/S5/SWP/TreerAntV3/web/AdminAuction.jsp</file>
         </group>
     </open-files>
 </project-private>

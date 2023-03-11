@@ -40,21 +40,27 @@ public class mainController extends HttpServlet {
             url = "loginServlet";
         } else if (action.equals("register")) {
             url = "registerServlet";
+        } else if (action.equals("reset")) {
+            url = "resetPasswordServlet";
         } else if (action.equals("logout")) {
             url = "logoutServlet";
         } else if (action.equals("blog")) {
             url = "blogServlet";
         } else if (action.equals("search")) {
             url = "SearchServlet";
+
+            //giỏ hàng, mua hàng 
         } else if (action.equals("addtocart")) {
-            url = "addToCartServlet";
+            url = "AddToCartServlet";
         } else if (action.equals("viewcart")) {
             url = "viewCart.jsp";
         } else if (action.equals("update")) {
             url = "updateCartServlet";
         } else if (action.equals("delete")) {
-            url = "deleteCartServlet";
-        } else if (action.equals("saveOrder")) {
+            url = "deleteProductServlet";
+        } else if (action.equals("muahang")) {
+            url = "CheckLoginMuaHangServlet";
+        } else if (action.equals("thanhtoan")) {
             url = "saveShoppingCartServlet";
 
             // phân trang personal - admin
@@ -134,7 +140,9 @@ public class mainController extends HttpServlet {
             url = "updatePlant.jsp";
         } else if (action.equals("SaveUpdatePlant")) {
             url = "SaveUpdatePlantServlet";
-
+        } else if (action.equals("gui")) {
+            url = "AboutUsServlet";
+            
             //phần của trang đấu giá
         } else if (action.equals("ReloadActionPage")) {
             url = "ReloadActionPageServlet";

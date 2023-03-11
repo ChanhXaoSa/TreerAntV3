@@ -86,7 +86,7 @@
                                         </div>
                                     </li>
                                     <li class="best-seller-items-detail">
-                                        <a href="#" class="buy">Mua ngay</a><br />
+                                        <a href="mainController?action=addtocart&PID=<%= p.getId()%>">Mua ngay</a><br />
                                     </li>
                                 </ul>
                             </div>
@@ -144,7 +144,7 @@
                                         </div>
                                     </li>
                                     <li class="best-seller-items-detail">
-                                        <a href="#" class="buy">Mua ngay</a><br />
+                                        <a href="mainController?action=addtocart&PID=<%= p.getId()%>">Mua ngay</a><br />
                                     </li>
                                 </ul>
                             </div>
@@ -202,7 +202,7 @@
                                         </div>
                                     </li>
                                     <li class="best-seller-items-detail">
-                                        <a href="#" class="buy">Mua ngay</a><br />
+                                        <a href="mainController?action=addtocart&PID=<%= p.getId()%>">Mua ngay</a><br />
                                     </li>
                                 </ul>
                             </div>
@@ -260,7 +260,7 @@
                                         </div>
                                     </li>
                                     <li class="best-seller-items-detail">
-                                        <a href="#" class="buy">Mua ngay</a><br />
+                                        <a href="mainController?action=addtocart&PID=<%= p.getId()%>">Mua ngay</a><br />
                                     </li>
                                 </ul>
                             </div>
