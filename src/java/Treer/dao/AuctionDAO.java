@@ -71,11 +71,13 @@ public class AuctionDAO {
     }
 //    update dbo.Auction set Status=0 where Endtime < CURRENT_TIMESTAMP;
 
-    public static boolean EndAuctionbyEndTime() {
+    public static boolean EndAuctionbyEndTime(int AuctionID) {
         try {
             Connection cn = Treer.untils.DBUtils.makeConnection();
-            String sql = "update dbo.Auction set Status=0 where Endtime < CURRENT_TIMESTAMP";
+            String sql = "update dbo.Auction set Status=0 "
+                    + "where Endtime < CURRENT_TIMESTAMP and AuctionID=?";
             PreparedStatement pst = cn.prepareStatement(sql);
+            pst.setInt(1, AuctionID);
             pst.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -141,7 +143,7 @@ public class AuctionDAO {
                     + "     VALUES\n"
                     + "           (CURRENT_TIMESTAMP,?,?,?,0,0,?)";
             PreparedStatement pst = cn.prepareStatement(sql);
-            
+
             pst.setString(1, aucDate);
             pst.setInt(2, aucPlantID);
             pst.setInt(3, aucStartedPrice);
@@ -152,4 +154,34 @@ public class AuctionDAO {
         }
         return true;
     }
+
+    public static boolean checkAuctionTimeEnd(int aucID) throws Exception {
+        boolean check=false;
+        try {
+            //b1 make connecton
+            Connection cn = Treer.untils.DBUtils.makeConnection();
+            //b2 viet sql and exec
+            if (cn != null) {
+                String sql = "Select IIF (Endtime<CURRENT_TIMESTAMP and Status=1, 'true', 'false') as EndAuctime\n"
+                        + "from dbo.Auction where AuctionID=?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, aucID);
+                ResultSet table = pst.executeQuery();
+                //b3 xu li dap an
+                if (table != null) {
+                    while (table.next()) {
+                        check= Boolean.parseBoolean(table.getString("EndAuctime"));
+                    }
+                }
+                // b4 close connection
+                cn.close();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return check;
+    }
+
 }

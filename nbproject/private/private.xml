@@ -10,11 +10,14 @@
         </group>
         <group name="SWT">
             <file>file:/E:/S5/SWP/TreerAntV3/web/viewCart.jsp</file>
-            <file>file:/E:/S5/SWP/TreerAntV3/web/saveShopping.jsp</file>
-            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/servlet/saveShoppingCartServlet.java</file>
+            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/servlet/setAuctionDetailServlet.java</file>
+            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/dto/Plant.java</file>
+            <file>file:/E:/S5/SWP/TreerAntV3/web/index.jsp</file>
             <file>file:/E:/S5/SWP/TreerAntV3/web/Auction.jsp</file>
-            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/servlet/mainController.java</file>
-            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/servlet/CheckLoginMuaHangServlet.java</file>
+            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/servlet/auctionManagerServlet.java</file>
+            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/dao/AuctionWinnerDAO.java</file>
+            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/servlet/AddToCartServlet.java</file>
+            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/dao/AuctionPlantDao.java</file>
         </group>
     </open-files>
 </project-private>

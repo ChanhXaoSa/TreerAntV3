@@ -37,7 +37,7 @@ public class auctionManagerServlet extends HttpServlet {
             ArrayList<Auction> list = null;
             try {
                 list = AuctionDAO.getAllAuctions();
-                AuctionDAO.EndAuctionbyEndTime();
+//                AuctionDAO.EndAuctionbyEndTime();
             } catch (Exception e) {
                 list=null;
             }

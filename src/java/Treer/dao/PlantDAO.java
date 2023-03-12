@@ -136,7 +136,7 @@ public class PlantDAO {
 
             String sql2 = "select [PlantimgPath] from PlantImg \n"
                     + "where pid = ? \n"
-                    + "order by pid offset 1 rows fetch next 1 rows only";
+                    + "";
 
             if (cn != null) {
                 PreparedStatement pst = cn.prepareStatement(sql2);
@@ -397,7 +397,7 @@ public class PlantDAO {
         }
         return plant;
     }
-    
+
     // Hiện những sản phẩm bán chạy
     public static ArrayList<Plant> printHotPlant() {
         ArrayList<Plant> list = new ArrayList<>();
@@ -457,7 +457,7 @@ public class PlantDAO {
         }
         return true;
     }
-    
+
     public static boolean changePlantNameByID(int id, String newName) {
         Connection cn = null;
         try {
@@ -483,6 +483,7 @@ public class PlantDAO {
         }
         return true;
     }
+
     public static boolean changePlantPriceByID(int id, int newPrice) {
         Connection cn = null;
         try {
@@ -508,6 +509,7 @@ public class PlantDAO {
         }
         return true;
     }
+
     public static boolean changePlantDescriptionByID(int id, String newDescription) {
         Connection cn = null;
         try {
@@ -532,5 +534,67 @@ public class PlantDAO {
             }
         }
         return true;
+    }
+
+    public static boolean insertAuctionPlant(String NamePlant, int price, String description, String PlantimgPath) throws Exception {
+        int rs = 0;
+        try {
+            Connection cn = Treer.untils.DBUtils.makeConnection();
+            String sql = "BEGIN TRANSACTION\n"
+                    + "DECLARE @PlantID int\n"
+                    + "insert into dbo.Plant(NamePlant,price,description,Status,CreateDate,stock)\n"
+                    + "values(?,?,?,2,CURRENT_TIMESTAMP,1)\n"
+                    + "set @PlantID = SCOPE_IDENTITY()\n"
+                    + "insert into dbo.PlantImg(PID,PlantimgPath)\n"
+                    + "values(@PlantID, ?)\n"
+                    + "commit transaction";
+            PreparedStatement pst = cn.prepareStatement(sql);
+            pst.setString(1, NamePlant);
+            pst.setInt(2, price);
+            pst.setString(3, description);
+            pst.setString(4, PlantimgPath);
+            rs = pst.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    public static Plant getLastPlantForAuction() {
+        Plant plant = null;
+        Connection cn = null;
+
+        try {
+            cn = DBUtils.makeConnection();
+
+            String sql1 = "Select TOP 1 PID,NamePlant,price,description,Status,CreateDate,UpdateDate,stock,sold,saleID\n"
+                    + "from dbo.Plant \n"
+                    + "order by PID desc";
+
+            if (cn != null) {
+                PreparedStatement pst = cn.prepareStatement(sql1);
+                // đặt CateID
+
+                ResultSet rs = pst.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        int id = rs.getInt("PID");
+                        String name = rs.getString("NamePlant");
+                        int price = rs.getInt("price");
+                        String description = rs.getString("description");
+                        int status = rs.getInt("Status");
+                        int stock = rs.getInt("stock");
+                        int sold = rs.getInt("sold");
+                        String imgpath = getPlantImgByID(id);
+
+                        plant = new Plant(id, name, price, imgpath, description, status, stock, sold);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return plant;
     }
 }

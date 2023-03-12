@@ -38,7 +38,7 @@ public class setAuctionDetailServlet extends HttpServlet {
             int auctionId = Integer.parseInt(request.getParameter("auctionID"));
             int bidPrice = Integer.parseInt(request.getParameter("auctionPrice"));
             int lastBid = Integer.parseInt(request.getParameter("lastBid"));
-            AuctionDAO.EndAuctionbyEndTime();
+//            AuctionDAO.EndAuctionbyEndTime();
             if (bidPrice > lastBid) {
                 try {
                     if (AuctionDAO.getAuctionbyID(auctionId).getStatus() == 1) {

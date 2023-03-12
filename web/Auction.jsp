@@ -4,6 +4,9 @@
     Author     : Triệu
 --%>
 
+<%@page import="Treer.dao.AuctionWinnerDAO"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="Treer.dto.Plant"%>
 <%@page import="Treer.dao.AuctionPlantDao"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="Treer.dto.DateTimeFormat"%>
@@ -39,16 +42,27 @@
             String name = (String) session.getAttribute("name");
             String sId = session.getAttribute("id").toString();
             int id = Integer.parseInt(sId);
-            AuctionDAO.EndAuctionbyEndTime();
             ArrayList<Auction> list = AuctionDAO.getAllAuctions();
-            for (Auction auc : list) {
-                AuctionDAO.EndAuctionbyEndTime();
-            }
             ArrayList<AuctionDetail> detailList = new ArrayList<>();
+            HashMap<String, Integer> cart = (HashMap<String, Integer>) session.getAttribute("cart");
+            for (Auction auc : list) {
+                if (AuctionDAO.checkAuctionTimeEnd(auc.getAuctionId())) {
+                    detailList = AuctionDetailsDAO.getAllAutionDetailsByID(auc.getAuctionId());
+                    if (!detailList.isEmpty()) {
+                        PlantDAO.insertAuctionPlant(AuctionPlantDao.getPlantwithPID(auc.getPlantId()).getPlantAuctionName(),
+                                auc.getEndPrice(), AuctionPlantDao.getPlantwithPID(auc.getPlantId()).getDescription(),
+                                AuctionPlantDao.getPlantwithPID(auc.getPlantId()).getImgPath());
+                        Plant winPlant = PlantDAO.getLastPlantForAuction();
+                        AuctionWinnerDAO.insertWinner(winPlant.getId(), detailList.get(0).getAccountID(), auc.getAuctionId());
+                        AuctionDAO.EndAuctionbyEndTime(auc.getAuctionId());
+                        detailList.clear();
+                    }
+                }
+            }
+            list = AuctionDAO.getAllAuctions();
         %>
         <div class="container">
-            <%
-                if (list != null)
+            <%                if (list != null)
                     for (Auction auc : list) {
                         detailList = AuctionDetailsDAO.getAllAutionDetailsByID(auc.getAuctionId());
             %>
@@ -105,13 +119,23 @@
                         <p>Chưa có người tham gia phiên đấu giá này</p>
                         <%
                         } else {
-                            %>
-                        <p><%= AccountDAO.getAccountNameByID(AuctionDetailsDAO.getMaxAutionDetailsByID(auc.getAuctionId()).get(0).getAccountID()) %>
-                        đã thắng cuộc đấu giá
-                        với số tiền <%= AuctionDetailsDAO.getMaxAutionDetailsByID(auc.getAuctionId()).get(0).getBidprice() %></p>
+                            if (AuctionWinnerDAO.getAuctionWinnerByAuctionID(auc.getAuctionId()).getAccountID()
+                                    == AuctionDetailsDAO.getMaxAutionDetailsByID(auc.getAuctionId()).get(0).getAccountID()) {
+                        %>
+                        <p>Bạn đã thắng cuộc đấu giá này </p>  
+                        <a href="mainController?action=addtocart&PID=<%= AuctionWinnerDAO.getAuctionWinnerByAuctionID(auc.getAuctionId()).getPlantID() %>">
+                        Bấm vào đây để thêm cây cảnh bạn đấu giá thành công vào giỏ hàng
+                        </a>
                         <%
-                                }
-                            } %>
+                        } else {
+                        %>
+                        <p><%= AccountDAO.getAccountNameByID(AuctionDetailsDAO.getMaxAutionDetailsByID(auc.getAuctionId()).get(0).getAccountID())%>
+                            đã thắng cuộc đấu giá
+                            với số tiền <%= AuctionDetailsDAO.getMaxAutionDetailsByID(auc.getAuctionId()).get(0).getBidprice()%></p>
+                            <%
+                                        }
+                                    }
+                                } %>
                     </div>
                     <div class="bid-infomation">
                         <%
