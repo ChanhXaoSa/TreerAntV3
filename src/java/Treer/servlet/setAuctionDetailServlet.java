@@ -43,7 +43,7 @@ public class setAuctionDetailServlet extends HttpServlet {
                 try {
                     if (AuctionDAO.getAuctionbyID(auctionId).getStatus() == 1) {
                         AuctionDetailsDAO.insertAuctionDetail(auctionId, accID, bidPrice);
-                        AuctionDAO.setEndPrice(bidPrice);
+                        AuctionDAO.setEndPrice(bidPrice, auctionId);
                         request.setAttribute("bigger", "ok");
                     } else if (AuctionDAO.getAuctionbyID(auctionId).getStatus() == 0) {
                         request.setAttribute("bigger", "end");

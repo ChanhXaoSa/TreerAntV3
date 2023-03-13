@@ -56,13 +56,15 @@ public class AuctionDAO {
         return result;
     }
 
-    public static boolean setEndPrice(int price) {
+    public static boolean setEndPrice(int price, int AuctionID) {
         int rs = 0;
         try {
             Connection cn = Treer.untils.DBUtils.makeConnection();
-            String sql = "update dbo.Auction set End_price=?";
+            String sql = "update dbo.Auction set End_price=? \n"
+                    + "where AuctionID=?";
             PreparedStatement pst = cn.prepareStatement(sql);
             pst.setInt(1, price);
+            pst.setInt(2, AuctionID);
             rs = pst.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

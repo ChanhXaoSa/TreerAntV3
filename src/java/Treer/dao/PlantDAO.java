@@ -296,6 +296,7 @@ public class PlantDAO {
             cn = DBUtils.makeConnection();
 
             String sql1 = "select Plant.[PID], [NamePlant], [price] from Plant\n"
+                    + "where Status=1 or Status=0 \n"
                     + "order by PID desc";
 
             if (cn != null) {
@@ -407,6 +408,7 @@ public class PlantDAO {
             cn = DBUtils.makeConnection();
 
             String sql1 = "select Plant.[PID], [NamePlant], [price] from Plant\n"
+                    + "where Status=1 or Status=0\n"
                     + "order by sold desc";
 
             if (cn != null) {

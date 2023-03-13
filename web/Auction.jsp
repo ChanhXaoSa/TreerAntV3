@@ -118,9 +118,9 @@
                         %>
                         <p>Chưa có người tham gia phiên đấu giá này</p>
                         <%
-                        } else {
+                        } else 
                             if (AuctionWinnerDAO.getAuctionWinnerByAuctionID(auc.getAuctionId()).getAccountID()
-                                    == AuctionDetailsDAO.getMaxAutionDetailsByID(auc.getAuctionId()).get(0).getAccountID()) {
+                                    == AccountDAO.getAccountsWithAccID(id).getAccID()) {
                         %>
                         <p>Bạn đã thắng cuộc đấu giá này </p>  
                         <a href="mainController?action=addtocart&PID=<%= AuctionWinnerDAO.getAuctionWinnerByAuctionID(auc.getAuctionId()).getPlantID() %>">
@@ -134,7 +134,7 @@
                             với số tiền <%= AuctionDetailsDAO.getMaxAutionDetailsByID(auc.getAuctionId()).get(0).getBidprice()%></p>
                             <%
                                         }
-                                    }
+                                    
                                 } %>
                     </div>
                     <div class="bid-infomation">

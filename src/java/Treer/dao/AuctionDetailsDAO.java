@@ -48,18 +48,18 @@ public class AuctionDetailsDAO {
         }
         return result;
     }
-    
+
     public static ArrayList<AuctionDetail> getAllAutionDetailsByID(int id) throws Exception {
         ArrayList<AuctionDetail> result = new ArrayList<>();
         try {
             Connection cn = Treer.untils.DBUtils.makeConnection();
             //b2 viet sql and exec
             if (cn != null) {
-                String sql = "select AuctionDetailID,AuctionID,AccountID,Bidprice,\n" +
-"                        CONVERT(varchar, Bidtime, 105) + ' ' + CONVERT(varchar, Bidtime, 108) as Bidtime\n" +
-"						from dbo.AuctionDetails\n" +
-"						where AuctionID = ? \n" +
-"                        order by AuctionDetailID desc";
+                String sql = "select AuctionDetailID,AuctionID,AccountID,Bidprice,\n"
+                        + "                        CONVERT(varchar, Bidtime, 105) + ' ' + CONVERT(varchar, Bidtime, 108) as Bidtime\n"
+                        + "						from dbo.AuctionDetails\n"
+                        + "						where AuctionID = ? \n"
+                        + "                        order by AuctionDetailID desc";
                 PreparedStatement pst = cn.prepareStatement(sql);
                 pst.setInt(1, id);
                 ResultSet table = pst.executeQuery();
@@ -83,18 +83,18 @@ public class AuctionDetailsDAO {
         }
         return result;
     }
-    
+
     public static ArrayList<AuctionDetail> getMaxAutionDetailsByID(int id) throws Exception {
         ArrayList<AuctionDetail> result = new ArrayList<>();
         try {
             Connection cn = Treer.untils.DBUtils.makeConnection();
             //b2 viet sql and exec
             if (cn != null) {
-                String sql = "select TOP 1 AuctionDetailID,AuctionID,AccountID,Bidprice,\n" +
-"                        CONVERT(varchar, Bidtime, 105) + ' ' + CONVERT(varchar, Bidtime, 108) as Bidtime\n" +
-"						from dbo.AuctionDetails\n" +
-"						where AuctionID = ? \n" +
-"                        order by AuctionDetailID desc";
+                String sql = "select TOP 1 AuctionDetailID,AuctionID,AccountID,Bidprice,\n"
+                        + "                        CONVERT(varchar, Bidtime, 105) + ' ' + CONVERT(varchar, Bidtime, 108) as Bidtime\n"
+                        + "						from dbo.AuctionDetails\n"
+                        + "						where AuctionID = ? \n"
+                        + "                        order by AuctionDetailID desc";
                 PreparedStatement pst = cn.prepareStatement(sql);
                 pst.setInt(1, id);
                 ResultSet table = pst.executeQuery();
@@ -127,8 +127,12 @@ public class AuctionDetailsDAO {
                     + "SET @newBidPrice = ?;\n"
                     + "\n"
                     + "DECLARE @maxBidPrice INT;\n"
-                    + "SELECT @maxBidPrice = MAX(Bidprice) FROM dbo.AuctionDetails;\n"
-                    + "\n"
+                    + "SELECT @maxBidPrice = MAX(Bidprice) FROM dbo.AuctionDetails\n"
+                    + "WHERE AuctionID=?;\n"
+                    + "IF (@maxBidPrice is null)\n"
+                    + "                    BEGIN\n"
+                    + "                        set @maxBidPrice = 0;\n"
+                    + "                    END\n"
                     + "IF @newBidPrice > @maxBidPrice\n"
                     + "BEGIN\n"
                     + "    INSERT INTO dbo.AuctionDetails (AuctionID, AccountID, Bidprice, Bidtime)\n"
@@ -137,7 +141,8 @@ public class AuctionDetailsDAO {
             PreparedStatement pst = cn.prepareStatement(sql);
             pst.setInt(1, bidPrice);
             pst.setInt(2, auctionId);
-            pst.setInt(3, accID);
+            pst.setInt(3, auctionId);
+            pst.setInt(4, accID);
             rs = pst.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

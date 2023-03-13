@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,9 +33,16 @@ public class productDetailServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            
-            request.getRequestDispatcher("productDetail.jsp").forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession(true);
+
+            String name = (String) session.getAttribute("name");
+
+            if (name == null) {
+                request.getRequestDispatcher("productDetailNonUser.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("productDetail.jsp").forward(request, response);
+            }
         }
     }
 

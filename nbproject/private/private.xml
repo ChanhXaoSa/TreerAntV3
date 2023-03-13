@@ -9,15 +9,12 @@
             <file>file:/C:/Users/tuank/OneDrive/Documents/NetBeansProjects/Treer/web/index.jsp</file>
         </group>
         <group name="SWT">
-            <file>file:/E:/S5/SWP/TreerAntV3/web/viewCart.jsp</file>
             <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/servlet/setAuctionDetailServlet.java</file>
-            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/dto/Plant.java</file>
             <file>file:/E:/S5/SWP/TreerAntV3/web/index.jsp</file>
+            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/dao/PlantDAO.java</file>
+            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/dao/AuctionDAO.java</file>
             <file>file:/E:/S5/SWP/TreerAntV3/web/Auction.jsp</file>
-            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/servlet/auctionManagerServlet.java</file>
-            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/dao/AuctionWinnerDAO.java</file>
-            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/servlet/AddToCartServlet.java</file>
-            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/dao/AuctionPlantDao.java</file>
+            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/dao/AuctionDetailsDAO.java</file>
         </group>
     </open-files>
 </project-private>
