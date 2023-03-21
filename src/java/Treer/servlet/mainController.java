@@ -89,6 +89,12 @@ public class mainController extends HttpServlet {
             url = "changePlantPriceServlet";
         } else if (action.equals("changePlantDescription")) {
             url = "changePlantDescriptionServlet";
+        } else if (action.equals("changePlantStock")) {
+            url = "changePlantStockServlet";
+        } else if (action.equals("changePlantImg")) {
+            url = "changePlantImgServlet";
+        } else if (action.equals("changePlantSale")) {
+            url = "changePlantSaleServlet";
         } else if (action.equals("confirmCreateNewAuction")) {
             url = "confirmCreateNewAuctionServlet";
         } else if (action.equals("createNewAuction")) {
@@ -102,6 +108,10 @@ public class mainController extends HttpServlet {
             
         } else if (action.equals("addNewPlant")) {
             url = "addNewPlantServlet";
+        } else if (action.equals("addNewPlantAuction")) {
+            url = "addNewPlantAuctionServlet";
+        } else if (action.equals("ViewDetailsPlantAdmin")) {
+            url = "ViewDetailsPlantAdminServlet";
             
             
             // phần này của user

@@ -224,6 +224,26 @@
         <servlet-name>idAuctionPlantChoosenServlet</servlet-name>
         <servlet-class>Treer.servlet.idAuctionPlantChoosenServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>changePlantStockServlet</servlet-name>
+        <servlet-class>Treer.servlet.changePlantStockServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>changePlantImgServlet</servlet-name>
+        <servlet-class>Treer.servlet.changePlantImgServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>changePlantSaleServlet</servlet-name>
+        <servlet-class>Treer.servlet.changePlantSaleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addNewPlantAuctionServlet</servlet-name>
+        <servlet-class>Treer.servlet.addNewPlantAuctionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewDetailsPlantAdminServlet</servlet-name>
+        <servlet-class>Treer.servlet.ViewDetailsPlantAdminServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShowServlet</servlet-name>
         <url-pattern>/ShowServlet</url-pattern>
@@ -435,6 +455,26 @@
     <servlet-mapping>
         <servlet-name>idAuctionPlantChoosenServlet</servlet-name>
         <url-pattern>/idAuctionPlantChoosenServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>changePlantStockServlet</servlet-name>
+        <url-pattern>/changePlantStockServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>changePlantImgServlet</servlet-name>
+        <url-pattern>/changePlantImgServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>changePlantSaleServlet</servlet-name>
+        <url-pattern>/changePlantSaleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addNewPlantAuctionServlet</servlet-name>
+        <url-pattern>/addNewPlantAuctionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewDetailsPlantAdminServlet</servlet-name>
+        <url-pattern>/ViewDetailsPlantAdminServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

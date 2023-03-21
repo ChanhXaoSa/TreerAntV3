@@ -84,6 +84,69 @@
                 </div>
             </div>
             <div class="main-body-content w-100 ets-pt">
+
+                <!--Phần thêm cây cảnh đấu giá-->    
+                <button id="toggle-button" type="button">Thêm cây cảnh</button>
+                <style>
+                    #form-container {
+                        display: none;
+                    }
+                </style>
+                <div id="form-container" style="margin-left: 5%" enctype="multipart/form-data">
+                    <form action="mainController" method="post">
+                        <br>
+                        <label for="name">Tên cây cảnh</label>
+                        <input type="text" name="nameplant" required=""><br><br>
+
+                        <label for="description">Giới thiệu</label>
+                        <input type="text" name="description" required=""><br><br>
+
+                        <!-- Đoạn mã chọn ảnh -->
+                        <label for="choose-file">Chọn ảnh:</label>
+                        <input type="file" id="choose-file" name="image" required="">
+                        <br>
+                        <img id="preview" src="#" alt="" style="width: 300px; height: auto">
+                        <br>
+                        <label for="image-path">Đường dẫn ảnh:</label>
+                        <input type="text" id="image-path" name="image-path" readonly>
+                        <br>
+                        <script>
+                            const chooseFile = document.getElementById("choose-file");
+                            const preview = document.getElementById("preview");
+                            const imagePath = document.getElementById("image-path");
+
+                            chooseFile.addEventListener("change", function () {
+                                const file = this.files[0];
+                                if (file) {
+                                    const reader = new FileReader();
+                                    reader.addEventListener("load", function () {
+                                        preview.setAttribute("src", this.result);
+                                    });
+                                    reader.readAsDataURL(file);
+                                    imagePath.value = URL.createObjectURL(file);
+                                }
+                            });
+                        </script>
+                        <br>
+                        <button value="addNewPlantAuction" name="action" class="btn btn-danger">Lưu</button>
+                    </form>
+                    <script>
+                        const toggleButton = document.getElementById("toggle-button");
+                        const formContainer = document.getElementById("form-container");
+
+                        toggleButton.addEventListener("click", function () {
+                            if (formContainer.style.display === "none") {
+                                formContainer.style.display = "block";
+                            } else {
+                                formContainer.style.display = "none";
+                            }
+                        });
+                    </script>
+                </div>
+                <h4 style="color: red">${MSG==null?"":MSG}</h4>
+                <!--Phần thêm cây cảnh đấu giá - END-->
+
+
                 <%
                     String name = (String) session.getAttribute("name");
                     int id = (int) session.getAttribute("id");

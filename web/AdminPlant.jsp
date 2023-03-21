@@ -131,16 +131,18 @@
                             ArrayList<Categories> clist = null;
                             clist = (ArrayList<Categories>) request.getAttribute("catelist");
                             for (Categories categories : clist) {
+                                if (categories.getCateID() != 14) {
                         %>
                         <input type="checkbox" id="sports" name="cate[]" value="<%= categories.getCateID()%>"><%= categories.getCateName()%><br>
                         <%
+                            }
                             }
                         %>
                         <!-- Đoạn mã chọn ảnh -->
                         <label for="choose-file">Chọn ảnh:</label>
                         <input type="file" id="choose-file" name="image" required="">
                         <br>
-                        <img id="preview" src="#" alt="Ảnh được chọn" style="width: 300px; height: auto">
+                        <img id="preview" src="#" alt="" style="width: 300px; height: auto">
                         <br>
                         <label for="image-path">Đường dẫn ảnh:</label>
                         <input type="text" id="image-path" name="image-path" readonly>
@@ -149,7 +151,6 @@
                             const chooseFile = document.getElementById("choose-file");
                             const preview = document.getElementById("preview");
                             const imagePath = document.getElementById("image-path");
-
                             chooseFile.addEventListener("change", function () {
                                 const file = this.files[0];
                                 if (file) {
@@ -168,7 +169,6 @@
                     <script>
                         const toggleButton = document.getElementById("toggle-button");
                         const formContainer = document.getElementById("form-container");
-
                         toggleButton.addEventListener("click", function () {
                             if (formContainer.style.display === "none") {
                                 formContainer.style.display = "block";
@@ -214,12 +214,9 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Tên</th>
+                                <th scope="col">Ảnh</th>
                                 <th scope="col">Giá</th>
-
                                 <th scope="col">Tình Trạng</th>
-                                <th scope="col">Giới Thiệu</th>
-                                <th scope="col">Thời Gian Tạo</th>
-                                <th scope="col">Thời Gian Cập Nhật</th>
                                 <th scope="col">Thay Đổi Tình Trạng</th>
                             </tr>
                         </thead>
@@ -231,18 +228,24 @@
                                 <th scope="row"><%= plant.getId()%></th>
                                 <th>
                                     <form action="mainController?action=changePlantName" method="POST">
-                                        <textarea name="newPlantName" rows="1"><%= plant.getName()%></textarea>
+                                        <input type="text" name="newPlantName" value="<%= plant.getName()%>">
                                         <input type="hidden" value="<%= plant.getId()%>" name="plantid">
                                         <button type="submit"><i class="fa fa-pencil"></i></button>  
                                     </form>
                                 </th>
+
+                                <!--phần thay ảnh của cây-->
+                                <th>
+                                    <img id="preview2" src="<%= plant.getImgpath()%>" alt="" style="width: 150px; height: auto">
+                                </th>
+                                <!--phần thay ảnh của cây - END-->
+
                                 <th>
                                     <form action="mainController?action=changePlantPrice" method="POST">
                                         <input type="number" value="<%= plant.getPrice()%>" step=1000 name="newPrice">
                                         <input type="hidden" value="<%= plant.getId()%>" name="plantid">
                                         <button type="submit"><i class="fa fa-pencil"></i></button>  
                                     </form>
-                                    
                                 </th>
 
                                 <% if (plant.getStatus() == 1) {
@@ -253,30 +256,20 @@
                                     %>
                                 <th>Hết Hàng</th>
                                     <% }%>
-                                <th>
-                                    <form action="mainController?action=changePlantDescription" method="POST">
-                                        <textarea rows="4" cols="50" name="newDescription"><%= plant.getDescription()%></textarea>
-                                        <input type="hidden" value="<%= plant.getId()%>" name="plantid">
-                                        <button type="submit"><i class="fa fa-pencil"></i></button>  
-                                    </form>
-                                </th>
-                                <th><%= plant.getCreatedate()%></th>
-                                    <%
-                                        if (plant.getUpdatedate() != null) {
-                                    %>
-                                <th><%= plant.getUpdatedate()%></th>
-                                    <%
-                                    } else {
-                                    %>
-                                <th></th>
-                                    <% }%>
                         <form action="mainController?action=changeStatusPlant" method="POST">
                             <input type="hidden" name="plantid" value="<%= plant.getId()%>">
                             <input type="hidden" name="plantstatus" value="<%= plant.getStatus()%>">
-                            <th><button type="submit">
+                            <th><button type="submit" style="width: 180px">
                                     Thay Đổi Tình Trạng           
+                                </button><br><br>
+                        </form>
+                        <form action="mainController?action=ViewDetailsPlantAdmin" method="POST">
+                            <input type="hidden" name="plantid" value="<%= plant.getId()%>">
+                            <button type="submit" style="width: 180px">
+                                Xem chi tiết          
                                 </button></th>
                         </form>
+
                         </tr>
                         <%
                             }

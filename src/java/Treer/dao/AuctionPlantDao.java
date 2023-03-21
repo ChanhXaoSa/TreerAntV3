@@ -7,6 +7,7 @@ package Treer.dao;
 import Treer.dto.AuctionPlant;
 import Treer.untils.DBUtils;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -92,4 +93,36 @@ public class AuctionPlantDao {
         return p;
     }
 
+    public static boolean AddNewAuctionPlant(String plantName, String description, String imgPath){
+        
+        Connection cn = null;
+        try {
+            cn = Treer.untils.DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "insert into AuctionPlant ([PlantAuctionName], [Description], [CreateDate], [imgPath]) values (?,?,?,?)";
+
+                try ( PreparedStatement pst = cn.prepareStatement(sql)) {
+                    pst.setString(1, plantName);
+                    pst.setString(2, description);
+                    
+                    Date date = new Date(System.currentTimeMillis());
+                    String Createdate = date.toString();
+                    pst.setString(3, Createdate);
+                    pst.setString(4, "img\\auction_img\\"+imgPath);
+                    pst.executeQuery();
+}
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return true; 
+    }
 }

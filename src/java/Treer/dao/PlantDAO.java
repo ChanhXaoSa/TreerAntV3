@@ -66,8 +66,8 @@ public class PlantDAO {
         try {
             cn = DBUtils.makeConnection();
 
-            String sql = "SELECT  [PID], [NamePlant], [price], [description], [Status], "
-                    + "CONVERT(varchar, CreateDate, 105) + ' ' + CONVERT(varchar, CreateDate, 108) as CreateDate, "
+            String sql = "SELECT  [PID], [NamePlant], [price], [description], [Status], stock,\n"
+                    + "CONVERT(varchar, CreateDate, 105) + ' ' + CONVERT(varchar, CreateDate, 108) as CreateDate, \n"
                     + "CONVERT(varchar, UpdateDate, 105) + ' ' + CONVERT(varchar, UpdateDate, 108) as UpdateDate from [dbo].[Plant]";
 
 //            String sql = "SELECT  [PID], [NamePlant], [price], [description], [Status], "
@@ -96,10 +96,14 @@ public class PlantDAO {
                         int price = rs.getInt(3);
                         String des = rs.getString(4);
                         int status = rs.getInt(5);
-                        String cDate = rs.getString(6);
-                        String uDate = rs.getString(7);
+                        int stock = rs.getInt(6);
+                        String cDate = rs.getString(7);
+                        String uDate = rs.getString(8);
 
-                        Plant plant = new Plant(id, name, price, name, des, status, status, id, id, cDate, uDate);
+                        String imgPath = getPlantImgByID(id);
+                        int sale = getSaleByID(id);
+
+                        Plant plant = new Plant(id, name, price, imgPath, des, status, stock, stock, sale, cDate, uDate);
                         list.add(plant);
                     }
                 }
@@ -153,8 +157,8 @@ public class PlantDAO {
         try {
             cn = DBUtils.makeConnection();
 
-            String sql1 = "SELECT  [PID], [NamePlant], [price], [description], [Status], "
-                    + "CONVERT(varchar, CreateDate, 105) + ' ' + CONVERT(varchar, CreateDate, 108) as CreateDate, "
+            String sql1 = "SELECT  [PID], [NamePlant], [price], [description], [Status], stock,\n"
+                    + "CONVERT(varchar, CreateDate, 105) + ' ' + CONVERT(varchar, CreateDate, 108) as CreateDate, \n"
                     + "CONVERT(varchar, UpdateDate, 105) + ' ' + CONVERT(varchar, UpdateDate, 108) as UpdateDate from [dbo].[Plant]";
 
             if (cn != null) {
@@ -169,10 +173,14 @@ public class PlantDAO {
                         int price = rs.getInt(3);
                         String des = rs.getString(4);
                         int status = rs.getInt(5);
-                        String cDate = rs.getString(6);
-                        String uDate = rs.getString(7);
+                        int stock = rs.getInt(6);
+                        String cDate = rs.getString(7);
+                        String uDate = rs.getString(8);
 
-                        Plant plant = new Plant(id, name, price, name, des, status, status, id, id, cDate, uDate);
+                        String imgPath = getPlantImgByID(id);
+                        int sale = getSaleByID(id);
+
+                        Plant plant = new Plant(id, name, price, imgPath, des, status, stock, stock, sale, cDate, uDate);
                         list.add(plant);
                     }
                 }
@@ -181,6 +189,50 @@ public class PlantDAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    // hiển thị chi tiết cây cho admin
+    public static Plant printPlantsDetailsAdmin(int PID) {
+
+        Plant plant = null;
+        Connection cn = null;
+
+        try {
+            cn = DBUtils.makeConnection();
+
+            String sql1 = "SELECT  [PID], [NamePlant], [price], [description], [Status], stock, sold,\n"
+                    + "CONVERT(varchar, CreateDate, 105) + ' ' + CONVERT(varchar, CreateDate, 108) as CreateDate, \n"
+                    + "CONVERT(varchar, UpdateDate, 105) + ' ' + CONVERT(varchar, UpdateDate, 108) as UpdateDate from [dbo].[Plant] "
+                    + "where PID = ?";
+
+            if (cn != null) {
+                PreparedStatement pst = cn.prepareStatement(sql1);
+                pst.setInt(1, PID);
+                ResultSet rs = pst.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        int id = rs.getInt(1);
+                        String name = rs.getString(2);
+                        int price = rs.getInt(3);
+                        String des = rs.getString(4);
+                        int status = rs.getInt(5);
+                        int stock = rs.getInt(6);
+                        int sold = rs.getInt(7);
+                        String cDate = rs.getString(8);
+                        String uDate = rs.getString(9);
+
+                        String imgPath = getPlantImgByID(id);
+                        int sale = getSaleByID(id);
+
+                        plant = new Plant(id, name, price, imgPath, des, status, stock, sold, sale, cDate, uDate);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return plant;
     }
 
     // hàm này để lấy ảnh dựa trên ID
@@ -306,7 +358,7 @@ public class PlantDAO {
         try {
             cn = DBUtils.makeConnection();
 
-            String sql1 = "select Plant.[PID], [NamePlant], [price]\n"
+            String sql1 = "select Plant.[PID], [NamePlant], [price], [Status]\n"
                     + "\n"
                     + "FROM Plant\n"
                     + "JOIN categoriesdetails ON plant.PID = categoriesdetails.PlantID\n"
@@ -325,9 +377,10 @@ public class PlantDAO {
                         int id = rs.getInt(1);
                         String name = rs.getString(2);
                         int price = rs.getInt(3);
+                        int status = rs.getInt(4);
                         String imgpath = getPlantImgByID(id);
                         int saleprice = price - price * getSaleByID(id) / 100;
-                        Plant plant = new Plant(id, name, price, imgpath, saleprice);
+                        Plant plant = new Plant(id, name, price, imgpath, imgpath, status, status, id, saleprice);
                         list.add(plant);
                     }
                 }
@@ -380,7 +433,7 @@ public class PlantDAO {
         try {
             cn = DBUtils.makeConnection();
 
-            String sql1 = "select Plant.[PID], [NamePlant], [price] from Plant\n"
+            String sql1 = "select Plant.[PID], [NamePlant], [price], [Status] from Plant\n"
                     + "where Status=1 or Status=0 \n"
                     + "order by PID desc";
 
@@ -393,9 +446,10 @@ public class PlantDAO {
                         int id = rs.getInt(1);
                         String name = rs.getString(2);
                         int price = rs.getInt(3);
+                        int status = rs.getInt(4);
                         String imgpath = getPlantImgByID(id);
                         int saleprice = price - price * getSaleByID(id) / 100;
-                        Plant plant = new Plant(id, name, price, imgpath, saleprice);
+                        Plant plant = new Plant(id, name, price, imgpath, imgpath, status, status, id, saleprice);
                         list.add(plant);
                     }
                 }
@@ -446,6 +500,7 @@ public class PlantDAO {
         return p;
     }
 
+    // lấy ID cây cho addtocart
     public static Plant getPlantByPID(int PID) {
         Plant plant = null;
         Connection cn = null;
@@ -492,7 +547,7 @@ public class PlantDAO {
         try {
             cn = DBUtils.makeConnection();
 
-            String sql1 = "select Plant.[PID], [NamePlant], [price] from Plant\n"
+            String sql1 = "select Plant.[PID], [NamePlant], [price], [Status] from Plant\n"
                     + "where Status=1 or Status=0\n"
                     + "order by sold desc";
 
@@ -505,9 +560,10 @@ public class PlantDAO {
                         int id = rs.getInt(1);
                         String name = rs.getString(2);
                         int price = rs.getInt(3);
+                        int status = rs.getInt(4);
                         String imgpath = getPlantImgByID(id);
                         int saleprice = price - price * getSaleByID(id) / 100;
-                        Plant plant = new Plant(id, name, price, imgpath, saleprice);
+                        Plant plant = new Plant(id, name, price, imgpath, imgpath, status, status, id, saleprice);
                         list.add(plant);
                     }
                 }
@@ -571,6 +627,7 @@ public class PlantDAO {
         return true;
     }
 
+    // thay đổi giá cây
     public static boolean changePlantPriceByID(int id, int newPrice) {
         Connection cn = null;
         try {
@@ -580,6 +637,102 @@ public class PlantDAO {
                 PreparedStatement pst = cn.prepareStatement(sql);
                 pst.setInt(1, newPrice);
                 pst.setInt(2, id);
+                pst.executeUpdate();
+                pst.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return true;
+    }
+
+    // sửa số lượng hàng tồn
+    public static boolean changePlantStockByID(int id, int newStock) {
+        Connection cn = null;
+        try {
+            cn = Treer.untils.DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update dbo.Plant set stock=?,UpdateDate=CURRENT_TIMESTAMP where PID=?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, newStock);
+                pst.setInt(2, id);
+                pst.executeUpdate();
+                pst.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return true;
+    }
+    
+    // sửa % khuyến mãi sản phẩm
+    public static boolean changePlantSaleByID(int id, int newSale) {
+        Connection cn = null;
+        try {
+            cn = Treer.untils.DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update dbo.Plant set saleID=?,UpdateDate=CURRENT_TIMESTAMP where PID=?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, newSale);
+                pst.setInt(2, id);
+                pst.executeUpdate();
+                pst.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return true;
+    }
+
+    // đổi hình ảnh hiển thị cây
+    public static boolean changePlantImgByID(int id, String imgPath) {
+        Connection cn = null;
+        try {
+            cn = Treer.untils.DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "UPDATE dbo.PlantImg\n"
+                        + "SET [PlantimgPath] = ?\n"
+                        + "WHERE [PID] = ? AND [PlantimgPath] = (\n"
+                        + "  SELECT TOP 1 [PlantimgPath]\n"
+                        + "  FROM (\n"
+                        + "    SELECT [PlantimgPath], ROW_NUMBER() OVER (ORDER BY [PicturePlant_ID]) AS row_num\n"
+                        + "    FROM dbo.PlantImg\n"
+                        + "    WHERE [PID] = ?\n"
+                        + "  ) as t\n"
+                        + "  WHERE row_num = 1\n"
+                        + ");\n"
+                        + "\n"
+                        + "UPDATE [dbo].[Plant] SET UpdateDate=CURRENT_TIMESTAMP where PID= ?";
+                
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setString(1, "img\\product_img\\"+imgPath);
+                pst.setInt(2, id);
+                pst.setInt(3, id);
+                pst.setInt(4, id);
                 pst.executeUpdate();
                 pst.close();
             }
@@ -710,7 +863,7 @@ public class PlantDAO {
                     pst.setString(5, Date);
                     pst.setInt(6, stock);
                     pst.setInt(7, saleID);
-                    pst.setString(8, "img\\product_img\\"+imgpath);
+                    pst.setString(8, "img\\product_img\\" + imgpath);
 
                     pst.executeQuery();
                 }
@@ -757,14 +910,14 @@ public class PlantDAO {
     }
     
     // add cate cho cây mới thêm vào
-    public static boolean AddCateForNewPlant(int PlantID ,int CateId) {
+    public static boolean AddCateForNewPlant(int PlantID, int CateId) {
         Connection cn = null;
         try {
             cn = Treer.untils.DBUtils.makeConnection();
             if (cn != null) {
 
                 String sql = "INSERT INTO [dbo].[CategoriesDetails] ([PlantID], [CategoriesID]) VALUES (?, ?)";
-                try (PreparedStatement pst = cn.prepareStatement(sql)) {
+                try ( PreparedStatement pst = cn.prepareStatement(sql)) {
                     pst.setInt(1, PlantID);
                     pst.setInt(2, CateId);
                     pst.executeUpdate();
