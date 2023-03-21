@@ -1141,6 +1141,7 @@ header {
 
 /* footer */
 footer {
+    bottom: 0;
     background-color: #005030;
     padding: 10px;
     text-align: center;
@@ -1260,3 +1261,12 @@ footer a:hover {
 }
 
 /* Ket Thuc Danh Sach */
+.demsotrongcart {
+    background-color: red;
+    position: absolute;
+    margin-left: 30px;
+    border-radius: 50%;
+    padding-left: 8px;
+    padding-right: 8px;
+    color: #fff;
+}

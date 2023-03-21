@@ -45,14 +45,18 @@ public class setAuctionDetailServlet extends HttpServlet {
                         AuctionDetailsDAO.insertAuctionDetail(auctionId, accID, bidPrice);
                         AuctionDAO.setEndPrice(bidPrice, auctionId);
                         request.setAttribute("bigger", "ok");
+                        request.setAttribute("aucIDpidOK", auctionId);
                     } else if (AuctionDAO.getAuctionbyID(auctionId).getStatus() == 0) {
                         request.setAttribute("bigger", "end");
+                        request.setAttribute("aucIDpidOK", auctionId);
                     }
                 } catch (Exception e) {
                     request.setAttribute("bigger", "error");
+                    request.setAttribute("aucIDpidOK", auctionId);
                 }
             } else {
                 request.setAttribute("bigger", "bigger");
+                request.setAttribute("aucIDpidOK", auctionId);
             }
             request.getRequestDispatcher("Auction.jsp").forward(request, response);
         }

@@ -4,22 +4,18 @@
  */
 package Treer.servlet;
 
-import Treer.dao.OrderDAO;
-import Treer.dto.Order;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author tuank
+ * @author Triệu
  */
-public class switchPageServlet extends HttpServlet {
+public class idAuctionPlantChoosenServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,24 +29,13 @@ public class switchPageServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession(true);
-            int accid = (int) session.getAttribute("accid");
-            int roleID = (int) session.getAttribute("role");
-            if (roleID == 1) {
-                ArrayList<Order> list = null;
-                try {
-                    list = OrderDAO.getAllOrders(accid);
-                    request.setAttribute("OrderList", list);
-                } catch (Exception e) {
-
-                }
-                request.getRequestDispatcher("personalpage.jsp").forward(request, response);
-            } else if (roleID == 2) {
-                request.getRequestDispatcher("AdminIndex.jsp").forward(request, response);
-            } else {
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-            }
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            String sid = request.getParameter("apID");
+            int id = Integer.parseInt(sid);
+            request.setAttribute("plantIdChoosen", id);
+            request.setAttribute("confirmAucCr", "ok");
+            request.getRequestDispatcher("auctionManagerServlet").forward(request, response);
         }
     }
 

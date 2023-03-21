@@ -238,7 +238,7 @@
                             <h5>Company Name</h5>
                     </div> -->
                     <div class="icons d-flex flex-column align-items-center">
-                        <a href="managerOrderServlet" class="set-width text-center display-inline-block my-1"><i class="fa fa-list"></i></a>
+                        <a href="mainController?action=personalPage" class="set-width text-center display-inline-block my-1"><i class="fa fa-list"></i></a>
                         <a href="#" class="set-width text-center display-inline-block my-1"><i class="fa fa-sticky-note-o"></i></a>
                         <a href="#" class="set-width text-center display-inline-block my-1"><i class="fa fa-file-text"></i></a>
                         <a href="#" class="set-width text-center display-inline-block my-1"><i class="fa fa-search"></i></a>
@@ -260,10 +260,10 @@
 
                     <form action="managerOrderServlet" method="post" style="margin-left: 30px">
                         <select name="button">
-                            <option  value="all" <%= (button == null || button.equals("all")) ? "selected" : "" %>>Tất cả</option>
-                            <option  value="completed" <%= (button == null || button.equals("completed")) ? "selected" : "" %>>Đã giao</option>
-                            <option  value="shipping" <%= (button == null || button.equals("shipping")) ? "selected" : "" %>>Chờ xác nhận</option>
-                            <option  value="cancel" <%= (button == null || button.equals("cancel")) ? "selected" : "" %>>Đã hủy</option>
+                            <option  value="completed" <%= (button == null || button.equals("completed")) ? "selected" : ""%>>Đã giao</option>
+                            <option  value="confirm" <%= (button == null || button.equals("confirm")) ? "selected" : ""%>>Chờ xác nhận</option>
+                            <option  value="cancel" <%= (button == null || button.equals("cancel")) ? "selected" : ""%>>Đã hủy</option>
+                            <option  value="all" <%= (button == null || button.equals("all")) ? "selected" : ""%>>Tất cả</option>
                         </select> 
 
                         <label>từ ngày</label>  
@@ -281,30 +281,9 @@
                             <th>Trạng thái</th>
                             <th>Mã giảm giá</th>
                         </tr>
-
                         <%
-
-                            int statusID = 0;
-                            if (button != null) {
-                                switch (button) {
-                                    case "all":
-                                        break;
-                                    case "completed":
-                                        statusID = 2;
-                                        break;
-                                    case "shipping":
-                                        statusID = 1;
-                                        break;
-                                    case "cancel":
-                                        statusID = 3;
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                // nếu như status = 0
-                                if (statusID == 0) {
-                                    if (from != null && to != null) {
-                                        ArrayList<Order> list = OrderDAO.getAllOrdersWithDate(accid, from, to);
+                            ArrayList<Order> list;
+                            list = (ArrayList<Order>) request.getAttribute("OrderList");
                                         for (Order order : list) {
                         %>
                         <tr>
@@ -325,86 +304,14 @@
                         </tr>
                         <%
                                     }
-                                }
-                            }
-                            // nếu như nó là các status còn lại
-                            if (from != null && to != null) {
-                                ArrayList<Order> list = OrderDAO.getOrderWithStatusAndDate(accid, statusID, from, to);
-                                for (Order order : list) {
                         %>
-                        <tr>
-                            <th><%= order.getOrderID()%></th>
-                            <th><%= order.getOrderdate()%></th>
-                            <th><a href="orderDetailServlet?OID=<%= order.getOrderID()%>" >xem chi tiết</a></th>
-                            <th><%= status[order.getStatus()]%> <%= order.getOrdership() == null ? "" : order.getOrdership()%></th>
-                            <th><%= order.getDiscount() == null ? "" : order.getDiscount()%></th>
-                            <th>
-                                <%
-                                    if (order.getStatus() == 1) {
-                                %>
-                            <th><a href="cancelOrdersServlet?orderID=<%= order.getOrderID()%>"><button>Hủy đơn hàng</button></a></th>
-                                <%
-                                    }
-                                %>
-                            </th>
-                        </tr>
-                        <%
-                                    }
-                                }
-                            }
-
-                            // nếu như không nhập ngày tháng
-                            if (statusID == 0 && from == "") {
-                                ArrayList<Order> list = OrderDAO.getAllOrders(accid);
-                                for (Order order : list) {
-                        %>
-                        <tr>
-                            <th><%= order.getOrderID()%></th>
-                            <th><%= order.getOrderdate()%></th>
-                            <th><a href="orderDetailServlet?OID=<%= order.getOrderID()%>" >xem chi tiết</a></th>
-                            <th><%= status[order.getStatus()]%> <%= order.getOrdership() == null ? "" : order.getOrdership()%></th>
-                            <th><%= order.getDiscount() == null ? "" : order.getDiscount()%></th>
-                            <th>
-                                <%
-                                    if (order.getStatus() == 1) {
-                                %>
-                            <th><a href="cancelOrdersServlet?orderID=<%= order.getOrderID()%>"><button>Hủy đơn hàng</button></a></th>
-                                <%
-                                    }
-                                %>
-                            </th>
-                        </tr>
-                        <%
-                            }
-                        } else if (statusID != 0 && from == "") {
-                            ArrayList<Order> list = OrderDAO.getOrderWithStatus(accid, statusID);
-                            for (Order order : list) {
-                        %>
-                        <tr>
-                            <th><%= order.getOrderID()%></th>
-                            <th><%= order.getOrderdate()%></th>
-                            <th><a href="orderDetailServlet?OID=<%= order.getOrderID()%>" >xem chi tiết</a></th>
-                            <th><%= status[order.getStatus()]%> <%= order.getOrdership() == null ? "" : order.getOrdership()%></th>
-                            <th><%= order.getDiscount() == null ? "" : order.getDiscount()%></th>
-                            <th>
-                                <%
-                                    if (order.getStatus() == 1) {
-                                %>
-                            <th><a href="cancelOrdersServlet?orderID=<%= order.getOrderID()%>"><button>Hủy đơn hàng</button></a></th>
-                                <%
-                                    }
-                                %>
-                            </th>
-                        </tr>
-                        <%
-                                }
-                            }
-                        %>                                         
                     </table>
                 </div>
             </div>
         </div>
-        <% }%>
+        <%
+            }
+        %>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

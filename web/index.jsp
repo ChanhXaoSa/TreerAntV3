@@ -4,6 +4,7 @@
     Author     : tuank
 --%>
 
+<%@page import="java.text.NumberFormat"%>
 <%@page import="Treer.dao.PlantDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Treer.dto.Plant"%>
@@ -80,8 +81,19 @@
                                         <div class="product_info">
                                             <a href="productDetailServlet?PID=<%= p.getId()%> " class="product_name"><%= p.getName()%></a>
                                             <div class="product_price">
-                                                <span style="text-decoration: line-through; color: gray;"><%= p.getPrice() == p.getSale() ? "" : p.getPrice() + " VND"%></span>
-                                                <span style="color: red; font-weight: bold">  <%= p.getSale()%> VND</span>
+                                                <%
+                                                    int price = p.getPrice();
+                                                    int sale = p.getSale();
+                                                    String formattedPrice = "";
+                                                    String formattedSale = "";
+
+                                                    NumberFormat nf = NumberFormat.getInstance();
+                                                    nf.setGroupingUsed(true);
+                                                    formattedPrice = nf.format(price) + " VND";
+                                                    formattedSale = nf.format(sale) + " VND";
+                                                %>
+                                                <span style="text-decoration: line-through; color: gray"><%= p.getPrice() == p.getSale() ? "" : formattedPrice%></span>
+                                                <span style="color: red; font-weight: bold">  <%= formattedSale %></span>
                                             </div>
                                         </div>
                                     </li>
@@ -138,8 +150,19 @@
                                         <div class="product_info">
                                             <a href="productDetailServlet?PID=<%= p.getId()%>" class="product_name"><%= p.getName()%></a>
                                             <div class="product_price">
-                                                <span style="text-decoration: line-through; color: gray"><%= p.getPrice() == p.getSale() ? "" : p.getPrice() + " VND"%></span>
-                                                <span style="color: red; font-weight: bold">  <%= p.getSale()%> VND</span>
+                                                <%
+                                                    int price = p.getPrice();
+                                                    int sale = p.getSale();
+                                                    String formattedPrice = "";
+                                                    String formattedSale = "";
+
+                                                    NumberFormat nf = NumberFormat.getInstance();
+                                                    nf.setGroupingUsed(true);
+                                                    formattedPrice = nf.format(price) + " VND";
+                                                    formattedSale = nf.format(sale) + " VND";
+                                                %>
+                                                <span style="text-decoration: line-through; color: gray"><%= p.getPrice() == p.getSale() ? "" : formattedPrice%></span>
+                                                <span style="color: red; font-weight: bold">  <%= formattedSale %></span>
                                             </div>
                                         </div>
                                     </li>
@@ -196,8 +219,19 @@
                                         <div class="product_info">
                                             <a href="productDetailServlet?PID=<%= p.getId()%>" class="product_name"><%= p.getName()%></a>
                                             <div class="product_price">
-                                                <span style="text-decoration: line-through; color: gray"><%= p.getPrice() == p.getSale() ? "" : p.getPrice() + " VND"%></span>
-                                                <span style="color: red; font-weight: bold">  <%= p.getSale()%> VND</span>
+                                                <%
+                                                    int price = p.getPrice();
+                                                    int sale = p.getSale();
+                                                    String formattedPrice = "";
+                                                    String formattedSale = "";
+
+                                                    NumberFormat nf = NumberFormat.getInstance();
+                                                    nf.setGroupingUsed(true);
+                                                    formattedPrice = nf.format(price) + " VND";
+                                                    formattedSale = nf.format(sale) + " VND";
+                                                %>
+                                                <span style="text-decoration: line-through; color: gray"><%= p.getPrice() == p.getSale() ? "" : formattedPrice%></span>
+                                                <span style="color: red; font-weight: bold">  <%= formattedSale %></span>
                                             </div>
                                         </div>
                                     </li>
@@ -254,8 +288,19 @@
                                         <div class="product_info">
                                             <a href="productDetailServlet?PID=<%= p.getId()%>" class="product_name"><%= p.getName()%></a>
                                             <div class="product_price">
-                                                <span style="text-decoration: line-through; color: gray"><%= p.getPrice() == p.getSale() ? "" : p.getPrice() + " VND"%></span>
-                                                <span style="color: red; font-weight: bold">  <%= p.getSale()%> VND</span>
+                                                <%
+                                                    int price = p.getPrice();
+                                                    int sale = p.getSale();
+                                                    String formattedPrice = "";
+                                                    String formattedSale = "";
+
+                                                    NumberFormat nf = NumberFormat.getInstance();
+                                                    nf.setGroupingUsed(true);
+                                                    formattedPrice = nf.format(price) + " VND";
+                                                    formattedSale = nf.format(sale) + " VND";
+                                                %>
+                                                <span style="text-decoration: line-through; color: gray"><%= p.getPrice() == p.getSale() ? "" : formattedPrice%></span>
+                                                <span style="color: red; font-weight: bold">  <%= formattedSale %></span>
                                             </div>
                                         </div>
                                     </li>

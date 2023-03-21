@@ -84,7 +84,54 @@ public class AccountDAO {
             e.printStackTrace();
         }
         return list;
+    }
 
+    public static ArrayList<Account> searchAccount(String keyword, String cate) throws Exception {
+        ArrayList<Account> list = new ArrayList<>();
+        PreparedStatement pst = null;
+
+        try {
+            Connection cn = Treer.untils.DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "SELECT AccID, Name, Email, Password, RoleID, Phone, Address, Status FROM dbo.Account";
+                //String sql = "SELECT AccID, Name, Email, Password, RoleID, Phone, Address, Status FROM dbo.Account WHERE Name like ?";
+
+                if (cate.equalsIgnoreCase("name")) {
+                    sql = sql + " WHERE Name like ?";
+                }else if(cate.equals("email")){
+                    sql = sql +" WHERE Email like ?";
+                }else if(cate.equals("id")){
+                    sql = sql +" WHERE AccID like ? ";
+                }else if(cate.equals("role")){
+                    sql = sql +" WHERE RoleID like ? ";
+                }else if(cate.equals("status")){
+                    sql = sql +" WHERE Status like ? ";
+                }
+
+                pst = cn.prepareStatement(sql);
+                pst.setString(1, "%" + keyword + "%");
+
+                ResultSet table = pst.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        int AccID = table.getInt("AccID");
+                        String Name = table.getString("Name");
+                        String Email = table.getString("Email");
+                        String Password = table.getString("Password");
+                        int RoleID = table.getInt("RoleID");
+                        String Phone = table.getString("Phone");
+                        String Address = table.getString("Address");
+                        int Status = table.getInt("Status");
+                        Account acc = new Account(AccID, Name, Email, Password, RoleID, Phone, Address, Status);
+                        list.add(acc);
+                    }
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     public static Account getAccountsWithAccID(int AccId) throws Exception {
@@ -271,9 +318,9 @@ public class AccountDAO {
         }
         return true;
     }
-    
+
     public static int countAccountByRole(int roleID) throws Exception {
-        int count=0;
+        int count = 0;
         try {
             Connection cn = Treer.untils.DBUtils.makeConnection();
             if (cn != null) {
@@ -283,7 +330,7 @@ public class AccountDAO {
                 ResultSet table = pst.executeQuery();
                 if (table != null) {
                     while (table.next()) {
-                        count=table.getInt("countAccount");
+                        count = table.getInt("countAccount");
                     }
                 }
                 cn.close();
@@ -293,8 +340,9 @@ public class AccountDAO {
         }
         return count;
     }
-    public static int countAccountByStatus(int Status,int roleID) throws Exception {
-        int count=0;
+
+    public static int countAccountByStatus(int Status, int roleID) throws Exception {
+        int count = 0;
         try {
             Connection cn = Treer.untils.DBUtils.makeConnection();
             if (cn != null) {
@@ -305,7 +353,7 @@ public class AccountDAO {
                 ResultSet table = pst.executeQuery();
                 if (table != null) {
                     while (table.next()) {
-                        count=table.getInt("countAccount");
+                        count = table.getInt("countAccount");
                     }
                 }
                 cn.close();
@@ -315,6 +363,7 @@ public class AccountDAO {
         }
         return count;
     }
+
     public static boolean updateProfile(int accid, String username, String password, String phone, String address) throws SQLException {
         Connection cn = null;
         Account acc = null;
@@ -348,19 +397,19 @@ public class AccountDAO {
         }
         return true;
     }
-    
+
     //quên mật khẩu
     public static boolean updatePassword(String email, String newpasswor) {
         Connection cn = null;
         try {
-            cn =DBUtils.makeConnection();
+            cn = DBUtils.makeConnection();
             if (cn != null) {
                 String sql = "update dbo.Account set Password=? where Email=?";
                 PreparedStatement pst = cn.prepareStatement(sql);
                 pst.setString(1, newpasswor);
                 pst.setString(2, email);
                 pst.executeUpdate();
-}
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -374,6 +423,5 @@ public class AccountDAO {
         }
         return true;
     }
-    
-    
+
 }

@@ -34,6 +34,15 @@ public class personalPageServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession(true);
+            int accid = (int) session.getAttribute("accid");
+            ArrayList<Order> list = null;
+            try {
+                list = OrderDAO.getAllOrders(accid);
+                request.setAttribute("OrderList", list);
+            } catch (Exception e) {
+
+            }
             request.getRequestDispatcher("personalpage.jsp").forward(request, response);
         }
     }

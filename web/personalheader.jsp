@@ -230,7 +230,7 @@
                             <h5>Company Name</h5>
                     </div> -->
                     <div class="icons d-flex flex-column align-items-center">
-                        <a href="managerOrderServlet" class="set-width text-center display-inline-block my-1"><i class="fa fa-list"></i></a>
+                        <a href="mainController?action=personalPage" class="set-width text-center display-inline-block my-1"><i class="fa fa-list"></i></a>
                         <a href="#" class="set-width text-center display-inline-block my-1"><i class="fa fa-sticky-note-o"></i></a>
                         <a href="#" class="set-width text-center display-inline-block my-1"><i class="fa fa-file-text"></i></a>
                         <a href="#" class="set-width text-center display-inline-block my-1"><i class="fa fa-search"></i></a>

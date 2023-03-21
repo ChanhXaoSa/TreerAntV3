@@ -5,6 +5,7 @@
 package Treer.dao;
 
 import Treer.dto.Auction;
+import Treer.untils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,9 +28,133 @@ public class AuctionDAO {
                 String sql = "select AuctionID,\n"
                         + "		CONVERT(varchar, Starttime, 105) + ' ' + CONVERT(varchar, Starttime, 108) as Starttime,\n"
                         + "			CONVERT(varchar, Endtime, 105) + ' ' + CONVERT(varchar, Endtime, 108) as Endtime,\n"
-                        + "			PlantID,Starting_price,End_price,Status,bid from dbo.Auction";
+                        + "			PlantID,Starting_price,End_price,Status,bid from dbo.Auction\n"
+                        + "order by Status desc";
                 Statement st = cn.createStatement();
                 ResultSet table = st.executeQuery(sql);
+                //b3 xu li dap an
+                if (table != null) {
+                    while (table.next()) {
+                        int AuctionID = table.getInt("AuctionID");
+                        String Starttime = table.getString("Starttime");
+                        String Endtime = table.getString("Endtime");
+                        int PlantID = table.getInt("PlantID");
+                        int Starting_price = table.getInt("Starting_price");
+                        int End_price = table.getInt("End_price");
+                        int status = table.getInt("Status");
+                        int bid = table.getInt("bid");
+                        Auction auc = new Auction(AuctionID, Starttime, Endtime, PlantID, Starting_price, bid, End_price, status);
+                        result.add(auc);
+                    }
+                }
+                // b4 close connection
+                cn.close();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static ArrayList<Auction> getAllProcessingAuctions() throws Exception {
+        ArrayList<Auction> result = new ArrayList<>();
+        try {
+            //b1 make connecton
+            Connection cn = Treer.untils.DBUtils.makeConnection();
+            //b2 viet sql and exec
+            if (cn != null) {
+                String sql = "select AuctionID,\n"
+                        + "		CONVERT(varchar, Starttime, 105) + ' ' + CONVERT(varchar, Starttime, 108) as Starttime,\n"
+                        + "			CONVERT(varchar, Endtime, 105) + ' ' + CONVERT(varchar, Endtime, 108) as Endtime,\n"
+                        + "			PlantID,Starting_price,End_price,Status,bid from dbo.Auction where Status=1\n"
+                        + "order by Status desc";
+                Statement st = cn.createStatement();
+                ResultSet table = st.executeQuery(sql);
+                //b3 xu li dap an
+                if (table != null) {
+                    while (table.next()) {
+                        int AuctionID = table.getInt("AuctionID");
+                        String Starttime = table.getString("Starttime");
+                        String Endtime = table.getString("Endtime");
+                        int PlantID = table.getInt("PlantID");
+                        int Starting_price = table.getInt("Starting_price");
+                        int End_price = table.getInt("End_price");
+                        int status = table.getInt("Status");
+                        int bid = table.getInt("bid");
+                        Auction auc = new Auction(AuctionID, Starttime, Endtime, PlantID, Starting_price, bid, End_price, status);
+                        result.add(auc);
+                    }
+                }
+                // b4 close connection
+                cn.close();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static ArrayList<Auction> getAllEndedAuctions() throws Exception {
+        ArrayList<Auction> result = new ArrayList<>();
+        try {
+            //b1 make connecton
+            Connection cn = Treer.untils.DBUtils.makeConnection();
+            //b2 viet sql and exec
+            if (cn != null) {
+                String sql = "select AuctionID,\n"
+                        + "		CONVERT(varchar, Starttime, 105) + ' ' + CONVERT(varchar, Starttime, 108) as Starttime,\n"
+                        + "			CONVERT(varchar, Endtime, 105) + ' ' + CONVERT(varchar, Endtime, 108) as Endtime,\n"
+                        + "			PlantID,Starting_price,End_price,Status,bid from dbo.Auction where Status=0\n"
+                        + "order by Status desc";
+                Statement st = cn.createStatement();
+                ResultSet table = st.executeQuery(sql);
+                //b3 xu li dap an
+                if (table != null) {
+                    while (table.next()) {
+                        int AuctionID = table.getInt("AuctionID");
+                        String Starttime = table.getString("Starttime");
+                        String Endtime = table.getString("Endtime");
+                        int PlantID = table.getInt("PlantID");
+                        int Starting_price = table.getInt("Starting_price");
+                        int End_price = table.getInt("End_price");
+                        int status = table.getInt("Status");
+                        int bid = table.getInt("bid");
+                        Auction auc = new Auction(AuctionID, Starttime, Endtime, PlantID, Starting_price, bid, End_price, status);
+                        result.add(auc);
+                    }
+                }
+                // b4 close connection
+                cn.close();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static ArrayList<Auction> getAllJoinedAuctions(int accID) throws Exception {
+        ArrayList<Auction> result = new ArrayList<>();
+        try {
+            //b1 make connecton
+            Connection cn = Treer.untils.DBUtils.makeConnection();
+            //b2 viet sql and exec
+            if (cn != null) {
+                String sql = "select distinct a.AuctionID,\n"
+                        + "CONVERT(varchar, Starttime, 105) + ' ' + CONVERT(varchar, Starttime, 108) as Starttime,\n"
+                        + "CONVERT(varchar, Endtime, 105) + ' ' + CONVERT(varchar, Endtime, 108) as Endtime,\n"
+                        + "PlantID,Starting_price,End_price,Status,bid,ad.AccountID from dbo.Auction a \n"
+                        + "full join dbo.AuctionDetails ad on a.AuctionID=ad.AuctionID\n"
+                        + "where ad.AccountID = ?\n"
+                        + "order by Status desc";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, accID);
+                ResultSet table = pst.executeQuery();
                 //b3 xu li dap an
                 if (table != null) {
                     while (table.next()) {
@@ -143,13 +268,14 @@ public class AuctionDAO {
             String sql = "INSERT INTO dbo.Auction\n"
                     + "           (Starttime,Endtime,PlantID,Starting_price,End_price,Status,bid)\n"
                     + "     VALUES\n"
-                    + "           (CURRENT_TIMESTAMP,?,?,?,0,0,?)";
+                    + "           (CURRENT_TIMESTAMP,?,?,?,?,0,?)";
             PreparedStatement pst = cn.prepareStatement(sql);
 
             pst.setString(1, aucDate);
             pst.setInt(2, aucPlantID);
             pst.setInt(3, aucStartedPrice);
-            pst.setInt(4, aucBID);
+            pst.setInt(4, aucStartedPrice);
+            pst.setInt(5, aucBID);
             pst.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,7 +284,7 @@ public class AuctionDAO {
     }
 
     public static boolean checkAuctionTimeEnd(int aucID) throws Exception {
-        boolean check=false;
+        boolean check = false;
         try {
             //b1 make connecton
             Connection cn = Treer.untils.DBUtils.makeConnection();
@@ -172,7 +298,7 @@ public class AuctionDAO {
                 //b3 xu li dap an
                 if (table != null) {
                     while (table.next()) {
-                        check= Boolean.parseBoolean(table.getString("EndAuctime"));
+                        check = Boolean.parseBoolean(table.getString("EndAuctime"));
                     }
                 }
                 // b4 close connection
@@ -186,4 +312,28 @@ public class AuctionDAO {
         return check;
     }
 
+    public static int getTimeAutionByID(int aucID) {
+        Connection cn = null;
+        int timeSec = 0;
+        try {
+            cn = DBUtils.makeConnection();
+
+            String sql = "SELECT DATEDIFF (SECOND, GETDATE(), [Endtime]) as diff FROM [dbo].[Auction] where AuctionID=?;";
+
+            if (cn != null) {
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, aucID);
+                ResultSet rs = pst.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        timeSec = rs.getInt(1);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return timeSec;
+    }
 }

@@ -6,8 +6,10 @@ package Treer.dao;
 
 import Treer.dto.Categories;
 import Treer.dto.Plant;
+import Treer.dto.Sale;
 import Treer.untils.DBUtils;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +31,7 @@ public class PlantDAO {
             cn = DBUtils.makeConnection();
 
             String sql = "select PID, [NamePlant], [price] from Plant\n"
-                    + "where NamePlant like ?";
+                    + "where NamePlant like ? and (Status=1 or Status=0)";
 
             if (cn != null) {
 
@@ -56,6 +58,58 @@ public class PlantDAO {
         return list;
     }
 
+    public static ArrayList<Plant> searchPlantForAdmin(String keyword, String cate) {
+
+        ArrayList<Plant> list = new ArrayList<>();
+        Connection cn = null;
+
+        try {
+            cn = DBUtils.makeConnection();
+
+            String sql = "SELECT  [PID], [NamePlant], [price], [description], [Status], "
+                    + "CONVERT(varchar, CreateDate, 105) + ' ' + CONVERT(varchar, CreateDate, 108) as CreateDate, "
+                    + "CONVERT(varchar, UpdateDate, 105) + ' ' + CONVERT(varchar, UpdateDate, 108) as UpdateDate from [dbo].[Plant]";
+
+//            String sql = "SELECT  [PID], [NamePlant], [price], [description], [Status], "
+//                    + "CONVERT(varchar, CreateDate, 105) + ' ' + CONVERT(varchar, CreateDate, 108) as CreateDate, "
+//                    + "CONVERT(varchar, UpdateDate, 105) + ' ' + CONVERT(varchar, UpdateDate, 108) as UpdateDate from [dbo].[Plant]"
+//                    + " where NamePlant like ?";
+            if (cn != null) {
+
+                if (cate.equalsIgnoreCase("name")) {
+                    sql = sql + " WHERE NamePlant like ?";
+                } else if (cate.equals("id")) {
+                    sql = sql + " WHERE PID like ? ";
+                } else if (cate.equals("status")) {
+                    sql = sql + " WHERE Status like ?";
+                }
+
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setString(1, "%" + keyword + "%");
+
+                ResultSet rs = pst.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        int id = rs.getInt(1);
+                        String name = rs.getString(2);
+                        int price = rs.getInt(3);
+                        String des = rs.getString(4);
+                        int status = rs.getInt(5);
+                        String cDate = rs.getString(6);
+                        String uDate = rs.getString(7);
+
+                        Plant plant = new Plant(id, name, price, name, des, status, status, id, id, cDate, uDate);
+                        list.add(plant);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     // Hiện tất cả các cây có trong kho hàng
     public static ArrayList<Plant> printAllPlants() {
         ArrayList<Plant> list = new ArrayList<>();
@@ -64,7 +118,8 @@ public class PlantDAO {
         try {
             cn = DBUtils.makeConnection();
 
-            String sql1 = "select PID, [NamePlant], [price]  from Plant";
+            String sql1 = "select PID, [NamePlant], [price]  from Plant \n"
+                    + "where Status=1 or Status=0";
 
             if (cn != null) {
                 PreparedStatement pst = cn.prepareStatement(sql1);
@@ -89,6 +144,7 @@ public class PlantDAO {
         return list;
     }
 
+    // hiển thị danh sách cây cho admin
     public static ArrayList<Plant> printAllPlantsAdmin() {
 
         ArrayList<Plant> list = new ArrayList<>();
@@ -134,9 +190,8 @@ public class PlantDAO {
         try {
             cn = DBUtils.makeConnection();
 
-            String sql2 = "select [PlantimgPath] from PlantImg \n"
-                    + "where pid = ? \n"
-                    + "";
+            String sql2 = "select top 1 [PlantimgPath] from PlantImg "
+                    + "where pid = ? ";
 
             if (cn != null) {
                 PreparedStatement pst = cn.prepareStatement(sql2);
@@ -155,6 +210,36 @@ public class PlantDAO {
         return imgpath;
     }
 
+    // Hiện tất cả Sale
+    public static ArrayList<Sale> printallSale() throws SQLException {
+        ArrayList<Sale> list = new ArrayList<>();
+        Connection cn = null;
+
+        try {
+            cn = DBUtils.makeConnection();
+
+            String sql = "select * from Sale";
+
+            if (cn != null) {
+                PreparedStatement pst = cn.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        int saleID = rs.getInt(1);
+                        int saleNum = rs.getInt(2);
+                        Sale sale = new Sale(saleID, saleNum);
+                        list.add(sale);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    // lấy %sale dựa theo ID
     public static int getSaleByID(int id) {
         Connection cn = null;
 
@@ -598,5 +683,97 @@ public class PlantDAO {
             e.printStackTrace();
         }
         return plant;
+    }
+    
+     // tổ hợp phục vụ cho việc add cây, lưu thông tin cơ bản của cây
+    public static boolean AddNewPlant(String newName, int price, String description, int stock, int saleID, String imgpath) {
+        Connection cn = null;
+        try {
+            cn = Treer.untils.DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "BEGIN TRANSACTION\n"
+                        + "DECLARE @PlantID INT\n"
+                        + "INSERT INTO Plant([NamePlant], [price], [description], [Status], [CreateDate], [stock], [SaleID])\n"
+                        + "VALUES (?,?,?,?,?,?,?)\n"
+                        + "SET @PlantID = SCOPE_IDENTITY()\n"
+                        + "INSERT INTO [dbo].[PlantImg] ([PID], [PlantimgPath])\n"
+                        + "VALUES (@PlantID, ?)\n"
+                        + "COMMIT TRANSACTION";
+
+                try ( PreparedStatement pst = cn.prepareStatement(sql)) {
+                    pst.setString(1, newName);
+                    pst.setInt(2, price);
+                    pst.setString(3, description);
+                    pst.setInt(4, stock == 0 ? 0 : 1);
+                    Date d = new Date(System.currentTimeMillis());
+                    String Date = d.toString();
+                    pst.setString(5, Date);
+                    pst.setInt(6, stock);
+                    pst.setInt(7, saleID);
+                    pst.setString(8, "img\\product_img\\"+imgpath);
+
+                    pst.executeQuery();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return true;
+    }
+    
+    // lấy ID cây mới nhất
+    public static int getNewPlantID() {
+        int PID = 0;
+        Connection cn = null;
+        try {
+
+            cn = DBUtils.makeConnection();
+
+            String sql1 = "select top 1 [PID] from [dbo].[Plant] order by PID desc";
+
+            if (cn != null) {
+                PreparedStatement pst = cn.prepareStatement(sql1);
+
+                ResultSet rs = pst.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        PID = rs.getInt("PID");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return PID;
+    }
+    
+    // add cate cho cây mới thêm vào
+    public static boolean AddCateForNewPlant(int PlantID ,int CateId) {
+        Connection cn = null;
+        try {
+            cn = Treer.untils.DBUtils.makeConnection();
+            if (cn != null) {
+
+                String sql = "INSERT INTO [dbo].[CategoriesDetails] ([PlantID], [CategoriesID]) VALUES (?, ?)";
+                try (PreparedStatement pst = cn.prepareStatement(sql)) {
+                    pst.setInt(1, PlantID);
+                    pst.setInt(2, CateId);
+                    pst.executeUpdate();
+                    cn.close();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 }

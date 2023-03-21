@@ -5,7 +5,9 @@
 package Treer.servlet;
 
 import Treer.dao.PlantDAO;
+import Treer.dto.Categories;
 import Treer.dto.Plant;
+import Treer.dto.Sale;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -32,10 +34,32 @@ public class plantsManagerServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ArrayList<Plant> list = PlantDAO.printAllPlantsAdmin();
-            request.setAttribute("listplants", list);
+
+            String keyword = request.getParameter("keyword");
+            String searchOption = request.getParameter("searchOption");
+
+            ArrayList<Plant> plist = null;
+            ArrayList<Categories> clist = null;
+            ArrayList<Sale> slist = null;
+
+            try {
+                if (keyword == null) {
+                    plist = PlantDAO.printAllPlantsAdmin();
+                    clist = PlantDAO.printallCategories();
+                    slist = PlantDAO.printallSale();
+                } else {
+                    plist = PlantDAO.searchPlantForAdmin(keyword, searchOption);
+                    clist = PlantDAO.printallCategories();
+                    slist = PlantDAO.printallSale();
+                }
+            } catch (Exception e) {
+                plist = null;
+            }
+            request.setAttribute("listplants", plist);
+            request.setAttribute("catelist", clist);
+            request.setAttribute("saleList", slist);
             request.getRequestDispatcher("AdminPlant.jsp").forward(request, response);
         }
     }

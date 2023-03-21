@@ -33,7 +33,8 @@ public class productDetailServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
+   
             HttpSession session = request.getSession(true);
 
             String name = (String) session.getAttribute("name");

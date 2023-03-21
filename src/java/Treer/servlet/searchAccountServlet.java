@@ -34,9 +34,15 @@ public class searchAccountServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            String keyword = request.getParameter("keyword");
+            String searchOption = request.getParameter("searchOption");
             ArrayList<Account> acc=null;
             try {
+                if(keyword==null){
                 acc= AccountDAO.printAllAccounts();
+                }else{
+                    acc= AccountDAO.searchAccount(keyword, searchOption);
+                }           
             } catch (Exception e) {
                 acc=null;
             }

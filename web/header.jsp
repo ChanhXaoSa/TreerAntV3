@@ -4,6 +4,7 @@
     Author     : tuank
 --%>
 
+<%@page import="java.util.HashMap"%>
 <%@page import="Treer.dao.AccountDAO"%>
 <%@page import="Treer.dao.PlantDAO"%>
 <%@page import="Treer.dto.Categories"%>
@@ -43,7 +44,11 @@
                 <%
                     ArrayList<Categories> catelist;
                     catelist = PlantDAO.printallCategories();
-
+                    HashMap<String, Integer> cart = (HashMap<String, Integer>) session.getAttribute("cart");
+                    int demcart=0;
+                    if (cart==null) {
+                            demcart = 0;
+                        } else demcart = cart.size();
                     if (catelist != null && !catelist.isEmpty()) {
                         int count = 0;
                         for (Categories categories : catelist) {
@@ -113,19 +118,15 @@
                                     <nav class="navbar navbar-expand-lg navbar-light pb-0">
                                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                             <ul class="navbar-nav mr-auto">
-                                                <li class="nav-item dropdown">
-                                                    <a target="_blank" href="homeServlet" class="nav-link " title="Cửa Hàng">Cửa
-                                                        Hàng</a>
-                                                </li>
                                                 <li class="nav-item dropdown">                                       
-                                                    <a target="_blank" href="blogServlet" class="nav-link " title="Tin tức">Tin tức</a>                             
+                                                    <a target="_blank" href="blogServlet" class="nav-link " title="Tin tức" style="color: #fff;">Tin tức</a>                             
                                                 </li>
                                                 <li class="nav-item dropdown">
-                                                    <a target="_blank" href="AboutUs.jsp" class="nav-link " title="Về chúng tôi">Về chúng tôi</a>
+                                                    <a target="_blank" href="AboutUs.jsp" class="nav-link " title="Về chúng tôi" style="color: #fff;">Về chúng tôi</a>
                                                 </li>
 
                                                 <li class="nav-item dropdown">
-                                                    <a target="_blank" href="Auction.jsp" class="nav-link " title="Đấu giá">Đấu giá</a>
+                                                    <a target="_blank" href="Auction.jsp" class="nav-link " title="Đấu giá" style="color: #fff;">Đấu giá</a>
                                                 </li>
 
                                                 <li class="nav-item dropdown">
@@ -136,7 +137,7 @@
                                                     <%
                                                     } else {
                                                     %>
-                                                    <a target="_blank" href="mainController?action=switchPage" class="nav-link " title="Về chúng tôi">Trang cá nhân</a>
+                                                    <a target="_blank" href="mainController?action=switchPage" class="nav-link " title="Về chúng tôi" style="color: #fff;">Trang cá nhân</a>
                                                     <%
                                                         }
                                                     %>
@@ -192,7 +193,9 @@
                                 </div>                        
                                 <div class="cart">
                                     <a href="mainController?action=viewcart">
-                                        <i class="fa fa-shopping-cart"></i>
+                                        <div class="demsotrongcart"><%= demcart == 0 ? "" : demcart %></div>
+                                        <i class="fa fa-shopping-cart hinhcaicart"></i>
+                                        
                                         <div class="cart-top">
                                         </div>
                                         <span class="title-cart">Giỏ Hàng</span>

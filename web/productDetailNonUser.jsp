@@ -4,6 +4,7 @@
     Author     : tuank
 --%>
 
+<%@page import="java.text.NumberFormat"%>
 <%@page import="Treer.dto.Reply"%>
 <%@page import="java.util.List"%>
 <%@page import="Treer.dao.CommentDAO"%>
@@ -65,10 +66,22 @@
 
                             </div>
                             <p class="product-description"><%= p.getDescription()%></p>
-                            <h4 class="price"> 
+                            <h4> 
+                                <%
+                                    int price = p.getPrice();
+                                    int sale = p.getSale();
+                                    String formattedPrice = "";
+                                    String formattedSale = "";
+
+                                    NumberFormat nf = NumberFormat.getInstance();
+                                    nf.setGroupingUsed(true);
+                                    formattedPrice = nf.format(price);
+                                    formattedSale = nf.format(sale);
+
+                                %>
                                 <span style="text-decoration: line-through; font-size: 15px; color: gray">
-                                    <%= p.getPrice() == p.getSale() ? "" : p.getPrice() + " VND"%> </span>
-                                <span><%= p.getSale()%> Vnd</span>
+                                    <%= p.getPrice() == p.getSale() ? "" : formattedPrice + " VND"%> </span>
+                                    <span style="color: #FF9F1A"><%= formattedSale %> VND</span>
                             </h4>
                             <i><span><%= p.getStatus() == 1 ? "Còn " + p.getStock() + " sản phẩm" : "Đã hết hàng"%></span></i>
                             <i><span><%= "Đã bán " + p.getSold() + " sản phẩm"%></span></i>

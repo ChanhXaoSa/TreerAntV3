@@ -4,6 +4,7 @@
     Author     : Triệu
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="Treer.dao.AccountDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Treer.dto.Account"%>
@@ -61,6 +62,9 @@
                             <a href="mainController?action=auctionManager" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i> ĐẤU GIÁ</a>
                         </li>
                         <li class="nav-item">
+                            <a href="mainController?action=auctionPlantManager" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i>CÂY CẢNH ĐẤU GIÁ</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="index.jsp" class="nav-links d-block"><i class="fa fa-list pr-2"></i> TRANG CHỦ</a>
                         </li>
                     </ul>
@@ -86,6 +90,7 @@
                     int id = (int) session.getAttribute("id");
                     ArrayList<Account> accList = null;
                     accList = (ArrayList<Account>) request.getAttribute("accList");
+
                     if (name == null) {
                 %>
                 <h2 style="color: red">You are not login yet!</h2>
@@ -99,7 +104,7 @@
                 <%
                     if (accList != null) {
                 %>
-                <% if (request.getAttribute("createSuccess")!=null) {
+                <% if (request.getAttribute("createSuccess") != null) {
                         request.setAttribute("createSuccess", null);
                         %>
                         <h5 style="color: red">Tạo tài khoản thành công</h5>
@@ -158,7 +163,20 @@
                 </form>
                 <%
                     }
+                    String searchOption = request.getParameter("searchOption");
                 %>
+                <h6><br></h6>
+                <form action="mainController" method="post">
+                    <input type="text" name="keyword" />
+                    <select name="searchOption">
+                        <option value="status" <%= (searchOption == null || searchOption.equals("status")) ? "selected" : "" %>>Status</option>
+                        <option value="id" <%= (searchOption == null || searchOption.equals("id")) ? "selected" : "" %>>ID</option>              
+                        <option value="email" <%= (searchOption == null || searchOption.equals("email")) ? "selected" : "" %>>Email</option>
+                        <option value="role" <%= (searchOption == null || searchOption.equals("role")) ? "selected" : "" %>>Role</option>
+                        <option value="name" <%= (searchOption == null || searchOption.equals("name")) ? "selected" : "" %>>Name</option>
+                    </select>
+                    <button name="action" value="manageAccounts">Search</button>
+                </form>
 
                 <div class="table-responsive bg-light">
                     <table class="table">

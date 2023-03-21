@@ -4,6 +4,7 @@
     Author     : tuank
 --%>
 
+<%@page import="java.text.NumberFormat"%>
 <%@page import="Treer.dao.PlantDAO"%>
 <%@page import="Treer.dto.Plant"%>
 <%@page import="java.util.ArrayList"%>
@@ -60,9 +61,21 @@
 
                                                     <!--Text-->
                                                     <div class="item-box-blog-text">
+                                                        <%
+                                                            int price = p.getPrice();
+                                                            int sale = p.getSale();
+                                                            String formattedPrice = "";
+                                                            String formattedSale = "";
+
+                                                            NumberFormat nf = NumberFormat.getInstance();
+                                                            nf.setGroupingUsed(true);
+                                                            formattedPrice = nf.format(price);
+                                                            formattedSale = nf.format(sale);
+
+                                                        %>
                                                         <p style="color: red;">
-                                                            <i style="text-decoration: line-through; color: gray"><%= p.getPrice() == p.getSale() ? "" : p.getPrice() + " VND"%></i> 
-                                                            <%= p.getSale() + " VND"%>
+                                                            <i style="text-decoration: line-through; color: gray; font-size: 14px"><%= p.getPrice() == p.getSale() ? "" : formattedPrice + " VND"%></i> 
+                                                            <%= formattedSale + " VND"%>
                                                         </p>
                                                     </div>
                                                     <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">Thêm vào giỏ hàng</a> </div>
@@ -109,9 +122,21 @@
 
                                                     <!--Text-->
                                                     <div class="item-box-blog-text">
+                                                        <%
+                                                            int price = p.getPrice();
+                                                            int sale = p.getSale();
+                                                            String formattedPrice = "";
+                                                            String formattedSale = "";
+
+                                                            NumberFormat nf = NumberFormat.getInstance();
+                                                            nf.setGroupingUsed(true);
+                                                            formattedPrice = nf.format(price);
+                                                            formattedSale = nf.format(sale);
+
+                                                        %>
                                                         <p style="color: red;">
-                                                            <i style="text-decoration: line-through; color: gray"><%= p.getPrice() == p.getSale() ? "" : p.getPrice() + " VND"%></i> 
-                                                            <%= p.getSale() + " VND"%>
+                                                            <i style="text-decoration: line-through; color: gray; font-size: 14px"><%= p.getPrice() == p.getSale() ? "" : formattedPrice + " VND"%></i> 
+                                                            <%= formattedSale + " VND"%>
                                                         </p>
                                                     </div>
                                                     <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">Thêm vào giỏ hàng</a> </div>

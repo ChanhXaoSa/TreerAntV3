@@ -93,7 +93,17 @@ public class mainController extends HttpServlet {
             url = "confirmCreateNewAuctionServlet";
         } else if (action.equals("createNewAuction")) {
             url = "createNewAuctionServlet";
-
+        } else if (action.equals("auctionPlantManager")) {
+            url = "auctionPlantManagerServlet";
+        } else if (action.equals("chooseAuctionPlant")) {
+            url = "chooseAuctionPlantServlet";    
+        } else if (action.equals("idAuctionPlantChoosen")) {
+            url = "idAuctionPlantChoosenServlet";      
+            
+        } else if (action.equals("addNewPlant")) {
+            url = "addNewPlantServlet";
+            
+            
             // phần này của user
         } else if (action.equals("personalPage")) {
             url = "personalPageServlet";
@@ -155,7 +165,17 @@ public class mainController extends HttpServlet {
             url = "auctionManagerServlet";
         } else if (action.equals("changeAuctionStatus")) {
             url = "changeAuctionStatusServlet";
+        } else if (action.equals("allAuctionShow")) {
+            url = "allAuctionShowServlet";
+        } else if (action.equals("processingAuctionShow")) {
+            url = "processingAuctionShowServlet";
+        } else if (action.equals("endAuctionShow")) {
+            url = "endAuctionShowServlet";
+        } else if (action.equals("joinedAuctionShow")) {
+            url = "joinedAuctionShowServlet";
         }
+        
+        
 
         RequestDispatcher rd = request.getRequestDispatcher(url);
         rd.forward(request, response);

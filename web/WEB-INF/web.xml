@@ -196,6 +196,34 @@
         <servlet-name>createNewAuctionServlet</servlet-name>
         <servlet-class>Treer.servlet.createNewAuctionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>auctionPlantManagerServlet</servlet-name>
+        <servlet-class>Treer.servlet.auctionPlantManagerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>allAuctionShowServlet</servlet-name>
+        <servlet-class>Treer.servlet.allAuctionShowServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>processingAuctionShowServlet</servlet-name>
+        <servlet-class>Treer.servlet.processingAuctionShowServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>endAuctionShowServlet</servlet-name>
+        <servlet-class>Treer.servlet.endAuctionShowServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>joinedAuctionShowServlet</servlet-name>
+        <servlet-class>Treer.servlet.joinedAuctionShowServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>chooseAuctionPlantServlet</servlet-name>
+        <servlet-class>Treer.servlet.chooseAuctionPlantServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>idAuctionPlantChoosenServlet</servlet-name>
+        <servlet-class>Treer.servlet.idAuctionPlantChoosenServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShowServlet</servlet-name>
         <url-pattern>/ShowServlet</url-pattern>
@@ -379,6 +407,34 @@
     <servlet-mapping>
         <servlet-name>createNewAuctionServlet</servlet-name>
         <url-pattern>/createNewAuctionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>auctionPlantManagerServlet</servlet-name>
+        <url-pattern>/auctionPlantManagerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>allAuctionShowServlet</servlet-name>
+        <url-pattern>/allAuctionShowServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>processingAuctionShowServlet</servlet-name>
+        <url-pattern>/processingAuctionShowServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>endAuctionShowServlet</servlet-name>
+        <url-pattern>/endAuctionShowServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>joinedAuctionShowServlet</servlet-name>
+        <url-pattern>/joinedAuctionShowServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>chooseAuctionPlantServlet</servlet-name>
+        <url-pattern>/chooseAuctionPlantServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>idAuctionPlantChoosenServlet</servlet-name>
+        <url-pattern>/idAuctionPlantChoosenServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

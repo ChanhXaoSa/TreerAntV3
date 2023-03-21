@@ -6,19 +6,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : Mar 9, 2023, 12:36:38 PM
     Author     : Triệu
 */
+.auction-tag {
+    margin-top: 20px;
+}
 .product-details-name {
     color: #00B677;
 }
 .bid-infomation {
-    margin-top: 15px;
+    margin-top: 50px;
     padding-top: 25px;
     border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    margin-bottom: 15px;
     padding-bottom: 15px;
 }
 .bid-information-users {
-    color: lightseagreen;
+    color: blue;
+    opacity: 50%;
 }
 .reloadAuctionPage{
     background-color: #0D6EFD;
@@ -26,4 +28,43 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     display: block;
     bottom:70px;
     right: 30px;
+}
+.auction-section {
+    margin-top: 20px;
+}
+.auction-show {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.auction-plant-info {
+    border-right: 1px solid lightgray;
+    padding-top: 20px;
+}
+.auction-plant-player {
+    padding-top: 20px;
+}
+.Addtocart-this-plant-auction {
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.winner {
+    font-size: 130%;
+}
+.winner-name {
+    color: red;
+    font-weight: 600;
+}
+.auction-end {
+    font-weight: 500;
+    font-size: 140%;
+    color: orangered;
+    text-transform: uppercase;
+}
+.submit-bid-price {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.footer-space {
+    margin-bottom: 50px;
 }

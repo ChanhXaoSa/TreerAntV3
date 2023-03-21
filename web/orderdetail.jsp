@@ -4,6 +4,7 @@
     Author     : tuank
 --%>
 
+<%@page import="java.text.NumberFormat"%>
 <%@page import="Treer.dto.OrderDetail"%>
 <%@page import="Treer.dao.OrderDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -57,15 +58,30 @@
                                                 int orderidnumber = Integer.parseInt(orderID);
                                                 ArrayList<OrderDetail> list = OrderDAO.getOrderDetail(orderidnumber);
                                                 int total = 0;
+
+                                                NumberFormat nf = NumberFormat.getInstance();
+                                                nf.setGroupingUsed(true);
+
+                                                String formattedPrice = "";
+                                                String formattedPlantTotal = "";
+                                                String formattedTotal = "";
+
                                                 for (OrderDetail o : list) {
                                             %>
                                             <tr>
                                                 <td><%= o.getPlantID()%></td>
                                                 <td><%= o.getPlantName()%></td>
                                                 <td> <img style="width: 100px; height: auto" src="<%= o.getImgPath()%>"> </td>
-                                                <td><%= o.getPrice()%></td>
+                                                    <%
+                                                        int price = o.getPrice();
+                                                        int plantTotal = o.getPrice() * o.getQuantity();
+
+                                                        formattedPrice = nf.format(price);
+                                                        formattedPlantTotal = nf.format(plantTotal);
+                                                    %>
+                                                <td><%= formattedPrice%></td>
                                                 <td><%= o.getQuantity()%></td>
-                                                <td><%= o.getPrice() * o.getQuantity()%></td>
+                                                <td><%= formattedPlantTotal%></td>
                                             </tr>
                                             <%
 
@@ -80,22 +96,22 @@
                             <div class="d-flex flex-row-reverse bg-dark text-white p-4">
                                 
                                 <div class="py-3 px-5 text-right">
-                                    <div class="mb-2">Thanh toán</div>
-                                    <div class="h2 font-weight-light"><%=total%></div>
+                                    <div class="mb-3">Thanh toán</div>
+                                    <div class="h2 font-weight-light"><% formattedTotal= nf.format(total); %><%= formattedTotal %></div>
                                 </div>
 
                                 <div class="py-3 px-5 text-right">
-                                    <div class="mb-2">Mã giảm giá</div>
+                                    <div class="mb-3">Mã giảm giá</div>
                                     <div class="h2 font-weight-light">0</div>
                                 </div>
 
                                 <div class="py-3 px-5 text-right">
-                                    <div class="mb-2">Tống cộng</div>
-                                    <div class="h2 font-weight-light"><%=total%></div>
+                                    <div class="mb-3">Tống cộng</div>
+                                    <div class="h2 font-weight-light"><%= formattedTotal %></div>
                                 </div>
                                 
-                                <div class="py-3 px-5 text-right" style="margin-right: 100px ;">
-                                    <div class="mb-2"></div>
+                                <div class="py-3 px-5 text-right" >
+                                    <div class="mb-3"></div>
                                     <div class="h2 font-weight-light"><a style="color: white" href="mainController?action=personalPage">Về trang cá nhân</a></div>
                                 </div>
 

@@ -4,6 +4,7 @@
     Author     : tuank
 --%>
 
+<%@page import="java.text.NumberFormat"%>
 <%@page import="Treer.dto.Categories"%>
 <%@page import="Treer.dao.PlantDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -43,28 +44,45 @@
                 }
 
                 Categories cate = PlantDAO.getCategorieswithCateID(CateID);
+                ArrayList<Plant> plist = null;
+                plist = (ArrayList<Plant>) request.getAttribute("PList");
             %>
 
             <div class="row" style="margin-top: 3%">                 
                 <h3>Kết quả tìm kiếm <%= request.getParameter("txtsearch") == null ? "" : request.getParameter("txtsearch")%> 
                     <%= cate.getCateID() == 14 ? "" : cate.getCateName()%></h3>
 
-                <c:forEach items="${PList}" var="o">
+                <%
+                    for (Plant plant : plist) {
+                %>
                     <div class="col-sm-3">
                         <ul class="best-seller-items">
                             <li class="best-seller-items-detail">
                                 <div class="product_top">
-                                    <a href="productDetailServlet?PID=${o.id}" class="product_thumb">
-                                        <img src="${o.imgpath}" alt="hoa ban">
+                                <a href="productDetailServlet?PID=<%= plant.getId() %>" class="product_thumb">
+                                    <img src="<%= plant.getImgpath() %>" alt="hoa ban">
                                     </a>
                                 </div>
                             </li>
                             <li class="best-seller-items-detail">
                                 <div class="product_info">
-                                    <a href="productDetailServlet?PID=${o.id}" class="product_name">${o.name}</a>
+                                <a href="productDetailServlet?PID=<%= plant.getId() %>" class="product_name"><%= plant.getName()%></a>
                                     <div class="product_price">
-                                        <span style="text-decoration: line-through; color: gray;"> ${o.price==o.sale? "" :o.price} </span>
-                                        <span style="color: red; font-weight: bold"> ${o.sale} VND</span>
+                                    <%-- Format o.price and o.sale using NumberFormat --%>
+                                    <%                                        
+                                        int price = plant.getPrice();
+                                        int sale = plant.getSale();
+                                        String formattedPrice = "";
+                                        String formattedSale = "";
+
+                                        NumberFormat nf = NumberFormat.getInstance();
+                                        nf.setGroupingUsed(true);
+                                        formattedPrice = nf.format(price);
+                                        formattedSale = nf.format(sale);
+
+                                    %>
+                                    <span style="text-decoration: line-through; color: gray;"> <%= price == sale ? "" : formattedPrice%> </span>
+                                    <span style="color: red; font-weight: bold"> <%= formattedSale%> VND</span>
                                     </div>
                                 </div>
                             </li>
@@ -73,7 +91,9 @@
                             </li>
                         </ul>
                     </div>
-                </c:forEach>                       
+                <%
+                    }
+                %>
 
             </div>
         </section>

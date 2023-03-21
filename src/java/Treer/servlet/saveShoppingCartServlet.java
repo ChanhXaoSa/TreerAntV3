@@ -76,7 +76,7 @@ public class saveShoppingCartServlet extends HttpServlet {
             if (result) {
 
                 // Gửi email thông báo tạo tài khoản thành công
-                SendEmail emailSender = new SendEmail();
+//                SendEmail emailSender = new SendEmail();
                 String mailTile = "Thông báo tạo đơn hàng thành công";
 //                String mailContent = "Cảm ơn " + CustomerName + " đã lựa chọn Treer để mua hàng. Treer cam kết đem đến cho khác hàng những dịch vụ tốt nhất trong khả năng của mình!!"
 //                        + "Chi tiết đơn hàng: \n"
@@ -109,7 +109,7 @@ public class saveShoppingCartServlet extends HttpServlet {
                         + "    <p>Ban quản trị Treer</p>"
                         + "  </body>"
                         + "</html>";
-                emailSender.sendEmail(email, mailTile, mailContent);
+//                emailSender.sendEmail(email, mailTile, mailContent);
 
                 session.setAttribute("cart", null);
                 request.setAttribute("WARNING", "save your cart sucessfully");

@@ -34,9 +34,36 @@ public class managerOrderServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            String button = request.getParameter("button");
             HttpSession session = request.getSession();
+            int accid = (int) session.getAttribute("accid");
+            String button = request.getParameter("button");
             session.setAttribute("selectedOption", button);
+            String from = request.getParameter("from");
+            String to = request.getParameter("to");
+
+            ArrayList<Order> list = null;
+            int status = 0;
+
+            if (button.equalsIgnoreCase("confirm")) {
+                status = 1;
+            } else if (button.equalsIgnoreCase("completed")) {
+                status = 2;
+            } else if (button.equalsIgnoreCase("cancel")) {
+                status = 3;
+            }
+
+            if (status == 0 && from.equals("") && to.equals("")) {
+                list = OrderDAO.getAllOrders(accid);
+            } else if (status != 0 && from.equals("") && to.equals("")) {
+                list = OrderDAO.getOrderWithStatus(accid, status);
+            } else if (status == 0){
+                list = OrderDAO.getAllOrdersWithDate(accid, from, to);
+            } else if (status != 0){
+                list = OrderDAO.getOrderWithStatusAndDate(accid, status, from, to);
+            }
+
+            request.setAttribute("OrderList", list);
+
             request.getRequestDispatcher("personalpage.jsp").forward(request, response);
         }
     }

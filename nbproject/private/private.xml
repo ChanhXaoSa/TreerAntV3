@@ -9,12 +9,8 @@
             <file>file:/C:/Users/tuank/OneDrive/Documents/NetBeansProjects/Treer/web/index.jsp</file>
         </group>
         <group name="SWT">
-            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/servlet/setAuctionDetailServlet.java</file>
-            <file>file:/E:/S5/SWP/TreerAntV3/web/index.jsp</file>
-            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/dao/PlantDAO.java</file>
-            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/dao/AuctionDAO.java</file>
-            <file>file:/E:/S5/SWP/TreerAntV3/web/Auction.jsp</file>
-            <file>file:/E:/S5/SWP/TreerAntV3/src/java/Treer/dao/AuctionDetailsDAO.java</file>
+            <file>file:/E:/S5/SWP/TreerAntV3base/src/java/Treer/dao/AuctionWinnerDAO.java</file>
+            <file>file:/E:/S5/SWP/TreerAntV3base/web/Auction.jsp</file>
         </group>
     </open-files>
 </project-private>

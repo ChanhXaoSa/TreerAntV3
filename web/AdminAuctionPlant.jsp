@@ -1,14 +1,12 @@
 <%-- 
-    Document   : AdminAuction
-    Created on : Mar 7, 2023, 1:08:53 PM
+    Document   : AdminAuctionPlant
+    Created on : Mar 14, 2023, 1:45:36 PM
     Author     : Triệu
 --%>
 
-<%@page import="Treer.dao.AuctionDAO"%>
-<%@page import="Treer.dto.Auction"%>
-<%@page import="Treer.dao.AccountDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Treer.dto.Account"%>
+<%@page import="Treer.dto.AuctionPlant"%>
+<%@page import="Treer.dao.AccountDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -98,99 +96,51 @@
                 <h2 style="color: red">You don't have permision to enter to this url</h2>
                 <%
                 } else {
-                    ArrayList<Auction> list = (ArrayList<Auction>) request.getAttribute("auctionList");
+                    ArrayList<AuctionPlant> list = (ArrayList<AuctionPlant>) request.getAttribute("auctionPlantsList");
                 %>
-                <% if (request.getAttribute("confirmAucCr") == null) {
-                %>
-                <a href="mainController?action=confirmCreateNewAuction"><div class="btn btn-danger">Tạo đấu giá mới</div></a>
                 <%
-                } else {
-                %>
-                <form action="mainController?action=chooseAuctionPlant" method="POST">
-                    <button type="submit" class="btn btn-info">Chọn cây cảnh để đấu giá</button>
-                </form>
-                <form action="mainController?action=createNewAuction" method="POST">
-                    <label for="endTime">Thời gian kết thúc :</label>
-                    <input type="datetime-local" 
-                           name="aucDate"
-                           required=""
-                           id="endTime"
-                           /><br/>
-                    <label>ID cây cảnh:</label>
-                    <%
-                    int apID=0;
-                    if (request.getAttribute("plantIdChoosen")!=null) {
-                            apID=(int) request.getAttribute("plantIdChoosen");
-                        }
-                    %>
-                    <input type="number" 
-                           name="aucPlantID"
-                           placeholder="ID Cây Cảnh"
-                           value="<%= apID %>" 
-                           required=""
-                           min="0"
-                           /><br/>
-                    <label>Giá khởi điểm :</label>
-                    <input type="number" 
-                           name="aucStartedPrice"
-                           placeholder="Giá khởi điểm"
-                           value="0" 
-                           required=""
-                           step="10000"
-                           min="0"
-                           /><br/>
-                    <label>Bước nhảy :</label>
-                    <input type="number" 
-                           name="aucBID"
-                           placeholder="Bước nhảy"
-                           value="0" 
-                           required=""
-                           step="10000"
-                           min="0"
-                           /><br/>
-                    <button type="submit" class="btn btn-danger">Tạo đấu giá</button>
-                </form>
-                <%
-                    }
                     if (list != null) {
                 %>
                 <div class="table-responsive bg-light">
                     <table class="table">
                         <thead>
                             <tr>
+                                <% if (request.getAttribute("chonCay") != null) {
+                                %>
+                                <th scope="col"></th>
+                                    <%
+                                        }
+                                    %>
                                 <th scope="col">ID</th>
-                                <th scope="col">Thời Gian Bắt Đầu</th>
-                                <th scope="col">Thời Gian Kết Thúc</th>
-                                <th scope="col">ID Cây Cảnh</th>
-                                <th scope="col">Giá Khởi Điểm</th>
-                                <th scope="col">Giá Kết Thúc</th>
-                                <th scope="col">Bước Nhảy Tối Thiểu</th>
-                                <th scope="col">Tình Trạng</th>
+                                <th scope="col">Tên</th>
+                                <th scope="col">Giới thiệu</th>
+                                <th scope="col">Thời gian tạo</th>
+                                <th scope="col">Thời gian kết thúc</th>
+                                <th scope="col">Ảnh</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% for (Auction auc : list) {
+                            <% for (AuctionPlant auc : list) {
                             %>
                             <tr>
-                                <th scope="row"><%= auc.getAuctionId()%></th>
-                                <th><%= auc.getStartTime()%></th>
-                                <th><%= auc.getEndTime()%></th>
-                                <th><%= auc.getPlantId()%></th>
-                                <th><%= auc.getStatingPrice()%></th>
-                                <th><%= auc.getEndPrice()%></th>
-                                <th><%= auc.getBid()%></th>
+                                <% if (request.getAttribute("chonCay") != null) {
+                                %>
+                                <th scope="row">
+                                    <form action="mainController?action=idAuctionPlantChoosen" method="POST">
+                                        <input type="hidden" name="apID" value="<%= auc.getPlantAuctionID() %>">
+                                        <button type="submit" class="btn btn-outline-danger">Chọn</button>
+                                    </form>
+                                </th>
+                                <%
+                                    }
+                                %>
+                                <th scope="row"><%= auc.getPlantAuctionID()%></th>
+                                <th><%= auc.getPlantAuctionName()%></th>
+                                <th><%= auc.getDescription()%></th>
+                                <th><%= auc.getCreateDate()%></th>
+                                <th><%= auc.getUpdateDate() == null ? "" : auc.getUpdateDate()%></th>
                                 <th>
-                                    <% if (auc.getStatus() == 1) {
-                                    %>
-                                    Đang diễn ra
-                                    <%
-                                    } else if (auc.getStatus() == 0) {
-                                    %>
-                                    Kết Thúc
-                                    <% }%>
-                                    <a href="mainController?action=changeAuctionStatus&auctionID=<%= auc.getAuctionId()%>">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
+                                    <img src="<%= auc.getImgPath()%>" width="200px" height="200px">
                                 </th>
                             </tr>
                             <%

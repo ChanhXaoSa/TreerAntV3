@@ -246,6 +246,8 @@ public class OrderDAO {
                         int PlantID = rs.getInt(3);
                         String PlantName = rs.getString(4);
                         int price = rs.getInt(5);
+                        int sale = PlantDAO.getSaleByID(PlantID);
+                        price = price - price*sale/100;
                         String imgPath = PlantDAO.getPlantImgByID(PlantID);
                         int quantity = rs.getInt(6);
                         OrderDetail orderdetail = new OrderDetail(detailID, orderID, PlantID, price, quantity, PlantName, imgPath);

@@ -38,6 +38,7 @@ public class createNewAuctionServlet extends HttpServlet {
             int aucStartedPrice = Integer.parseInt(request.getParameter("aucStartedPrice"));
             int aucBID = Integer.parseInt(request.getParameter("aucBID"));
             AuctionDAO.createAuction(aucDate, aucPlantID, aucStartedPrice, aucBID);
+            request.setAttribute("confirmAucCr", null);
             request.getRequestDispatcher("auctionManagerServlet").forward(request, response);
 
         }
