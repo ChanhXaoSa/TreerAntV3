@@ -13,9 +13,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     color: #00B677;
 }
 .bid-infomation {
-    margin-top: 50px;
-    padding-top: 25px;
-    border-top: 1px solid black;
     padding-bottom: 15px;
 }
 .bid-information-users {
@@ -40,6 +37,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     border: 1px solid lightgray;
     padding: 5px;
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Thiết lập chiều cao của div */
+    align-items: center;
 }
 .auction-plant-player {
 }
@@ -68,27 +69,35 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     padding-left: 10px;
     padding-right: 10px;
 }
+.btn {
+    margin-top: auto;
+}
 button.nav-link {
-  background-color: lightgray !important; /* Background color of nav link */
-  color: black !important; /* Color of nav link */
+    background-color: lightgray !important; /* Background color of nav link */
+    color: black !important; /* Color of nav link */
 }
 button.nav-link.active {
-  background-color: #00B677 !important; /* Background color of active nav link */
-  color: white !important; /* Color of active nav link */
+    background-color: #00B677 !important; /* Background color of active nav link */
+    color: white !important; /* Color of active nav link */
 }
 .nav-pills .nav-item {
-  padding-left: 0px;
+    padding-left: 0px;
 }
 .nav-pills .nav-link {
-  background-color: #00B677;
-  color: white;
-  margin-right: 10px; /* Set right margin */
-  padding: 7px 15px; /* Set button padding */
-  font-size: 18px; /* Set font size */
-  border-radius: 5px; /* Set border radius */
-  margin-bottom: 20px;
+    background-color: #00B677;
+    color: white;
+    margin-right: 10px; /* Set right margin */
+    padding: 7px 15px; /* Set button padding */
+    font-size: 18px; /* Set font size */
+    border-radius: 5px; /* Set border radius */
+    margin-bottom: 20px;
 }
-
+.card-body {
+    display: flex;
+    flex-direction: column; /* Xếp các phần tử con theo hướng dọc */
+    justify-content: space-between; /* Căn giữa các phần tử con và phân bố đều khoảng trống giữa chúng */
+    height: 100%; /* Thiết lập chiều cao của div */
+}
 .footer-space {
     margin-bottom: 50px;
 }

@@ -96,7 +96,7 @@
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                     <div class="product-bid">
-                                        <h5 style="color: red" id="countdown<%= auc.getAuctionId()%>"></h5>
+                                        <h3 style="color: red" id="countdown<%= auc.getAuctionId()%>"></h3>
                                         <script>
                                             // Thiết lập thời gian kết thúc (đơn vị: giây)
                                             var timeSec<%= auc.getAuctionId()%> = <%= AuctionDAO.getTimeAutionByID(auc.getAuctionId())%>;
@@ -115,7 +115,7 @@
                                                 var seconds<%= auc.getAuctionId()%> = Math.floor((distance<%= auc.getAuctionId()%> % (1000 * 60)) / 1000);
 
                                                 // Hiển thị thời gian đếm ngược trên trang web
-                                                document.getElementById("countdown<%= auc.getAuctionId()%>").innerHTML = days<%= auc.getAuctionId()%> + " ngày, "
+                                                document.getElementById("countdown<%= auc.getAuctionId()%>").innerHTML = "Kết thúc sau " + days<%= auc.getAuctionId()%> + " ngày, "
                                                         + hours<%= auc.getAuctionId()%> + " giờ "
                                                         + minutes<%= auc.getAuctionId()%> + " phút " + seconds<%= auc.getAuctionId()%> + " giây ";
 
@@ -126,7 +126,7 @@
                                                 }
                                             }, 1000); // Cập nhật mỗi giây
                                         </script>
-                                        <h5>Người Tham Gia: <%= detailList.size()%></h5>
+                                        <h5>Lượt Tham Gia: <%= detailList.size()%></h5>
                                         <h5>Khởi Điểm: <%= nf.format(auc.getStatingPrice())%> VNĐ</h5>
                                         <h5>Hiện Tại: <%= nf.format(auc.getEndPrice())%> VNĐ</h5>
                                         <h5>Bước Giá Tối Thiểu : <%= nf.format(auc.getBid())%> VNĐ</h5>
@@ -135,16 +135,27 @@
 
                                             if (auc.getStatus() == 1) {
                                         %>
-                                        <form action="mainController?action=setAuctionDetail" method="POST">
+                                        <form action="mainController?action=setAuctionDetail" method="POST" class="bid-form">
 
                                             <input type="hidden" value="<%= id%>" name="accountId">
                                             <input type="hidden" value="<%= auc.getAuctionId()%>" name="auctionID">
                                             <input type="hidden" value="<%= auc.getEndPrice()%>" name="lastBid">
+                                            <div class="form-group row">
+                                                <div class="col-lg-8">
+                                                    <div class="input-group">
+                                                        <input type="number" name="auctionPrice" 
+                                                               id="auction-price" class="form-control form-control-lg" 
+                                                               value="<%= auc.getEndPrice()%>" placeholder="Nhập giá đặt" step="<%= auc.getBid()%>">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text p-3">VNĐ</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="form-group row submit-bid-price">
-                                                <input type="number" name="auctionPrice" 
-                                                       value="<%= auc.getEndPrice()%>" placeholder="Giá đặt" step="<%= auc.getBid()%>"
-                                                       class="form-control-lg col-lg-8" >
-                                                <button type="submit" class="btn btn-danger col-lg-4">Đặt ngay</button>
+                                                <div class="offset-lg-5 col-lg-7 mt-2">
+                                                    <button type="submit" class="btn btn-danger btn-lg">Đặt ngay</button>
+                                                </div>
                                             </div>
                                         </form>
                                         <%
@@ -196,26 +207,42 @@
                                 </div>
                                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                                     <div class="bid-infomation">
-                                        <p style="text-align: center; font-weight: 600" class="">LỊCH SỬ ĐẤU GIÁ</p>
-                                        <%
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Tên</th>
+                                                        <th>Số tiền</th>
+                                                        <th>Thời gian</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <%
 
-                                            if (!detailList.isEmpty()) {
-                                                int count = 0;
-                                                for (AuctionDetail detail : detailList) {
-                                                    String fullName = AccountDAO.getAccountNameByID(detail.getAccountID()).replaceAll("(?<=\\b\\w{1})\\w", "*");
-                                                    String[] nameParts = fullName.split(" ");
-                                                    String firstName = nameParts[nameParts.length - 1];
-                                                    String hiddenName = "*".repeat(nameParts[0].length()) + " * " + firstName;
-                                        %>
-                                        <p class="bid-information-users"><%= hiddenName%> vừa đặt <%= nf.format(detail.getBidprice())%> VNĐ vào lúc <%= detail.getBidtime()%></p>
-                                        <%
-                                                    count++;
-                                                    if (count == 7) {
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        %>
+                                                        if (!detailList.isEmpty()) {
+                                                            int count = 0;
+                                                            for (AuctionDetail detail : detailList) {
+                                                                String fullName = AccountDAO.getAccountNameByID(detail.getAccountID()).replaceAll("(?<=\\b\\w{1})\\w", "*");
+                                                                String[] nameParts = fullName.split(" ");
+                                                                String firstName = nameParts[nameParts.length - 1];
+                                                                String hiddenName = "*".repeat(nameParts[0].length()) + " * " + firstName;
+                                                    %>
+                                                    <tr>
+                                                        <td><%= hiddenName%></td>
+                                                        <td><%= nf.format(detail.getBidprice())%> VNĐ</td>
+                                                        <td><%= detail.getBidtime()%></td>
+                                                    </tr>
+                                                    <%
+                                                                count++;
+                                                                if (count == 7) {
+                                                                    break;
+                                                                }
+                                                            }
+                                                        }
+                                                    %>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -225,15 +252,16 @@
                     </div>
                 </div>
             </div>
-            <div class="footer-space"></div>
-            <c:import url="footer.jsp"></c:import>
+        </div>
+        <div class="footer-space"></div>
+        <c:import url="footer.jsp"></c:import>
 
-            <!--JS plugins-->
-            <script src="js/jquery-3.3.1.min.js"></script>
-            <script src="js/jquery-ui.min.js"></script>
-            <script src="js/jquery.nice-select.min.js"></script>
-            <script src="js/jquery.slicknav.js"></script> 
-            <script src="js/bootstrap.min.js"></script> 
-            <script src="js/Auction.js"></script>
+        <!--JS plugins-->
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/jquery.nice-select.min.js"></script>
+        <script src="js/jquery.slicknav.js"></script> 
+        <script src="js/bootstrap.min.js"></script> 
+        <script src="js/Auction.js"></script>
     </body>
 </html>

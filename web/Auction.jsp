@@ -125,7 +125,7 @@
                     dem++;
                 %>
                 <div class="col-lg-3 col-md-4 col-sm-6 text-center p-3">
-                    <div class="auction-plant-info">
+                    <div class="auction-plant-info d-flex flex-column justify-content-between">
                         <a href="mainController?action=ViewAuctionDetail&auctionDID=<%= auc.getAuctionId()%>">
                             <img src="<%= AuctionPlantDao.getPlantwithPID(auc.getPlantId()).getImgPath()%>"
                                  class="card-img-top" alt="Product Image" height="250px">
@@ -187,6 +187,10 @@
                                        class="form-control" >
                                 <button type="submit" class="btn btn-danger mt-2">Đặt Ngay</button>
                             </form>
+                            <% } else { %>
+                            <a class="action-auction-button" href="mainController?action=ViewAuctionDetail&auctionDID=<%= auc.getAuctionId()%>">
+                                <div class="btn btn-primary">Xem Chi Tiết</div>
+                            </a>
                             <% } %>
                         </div>
                     </div>

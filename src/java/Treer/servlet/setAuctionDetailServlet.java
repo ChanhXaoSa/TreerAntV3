@@ -7,6 +7,7 @@ package Treer.servlet;
 import Treer.dao.AccountDAO;
 import Treer.dao.AuctionDAO;
 import Treer.dao.AuctionDetailsDAO;
+import Treer.dto.Auction;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -58,7 +59,13 @@ public class setAuctionDetailServlet extends HttpServlet {
                 request.setAttribute("bigger", "bigger");
                 request.setAttribute("aucIDpidOK", auctionId);
             }
-            request.getRequestDispatcher("Auction.jsp").forward(request, response);
+            try {
+                Auction auc = AuctionDAO.getAuctionbyID(auctionId);
+                request.setAttribute("auctionDetailNote", auc);
+            } catch (Exception e) {
+                request.setAttribute("auctionDetailNote", null);
+            }
+            request.getRequestDispatcher("AuctionDetail.jsp").forward(request, response);
         }
     }
 
