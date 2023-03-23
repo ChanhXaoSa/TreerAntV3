@@ -112,6 +112,16 @@ public class mainController extends HttpServlet {
             url = "addNewPlantAuctionServlet";
         } else if (action.equals("ViewDetailsPlantAdmin")) {
             url = "ViewDetailsPlantAdminServlet";
+        } else if (action.equals("ordersManager")) {
+            url = "ordersManagerServlet";
+        } else if (action.equals("completedOrders")) {
+            url = "completedOrdersServlet";
+        } else if (action.equals("filterOrderAdmin")) {
+            url = "filterOrderAdminServlet";
+        } else if (action.equals("filterAuctionAdmin")) {
+            url = "filterAuctionAdminServlet";
+        } else if (action.equals("plantsAuctionManager")) {
+            url = "plantsAuctionManagerServlet";
             
             
             // phần này của user
@@ -141,6 +151,10 @@ public class mainController extends HttpServlet {
             url = "createCommentServlet";
         } else if (action.equals("repComment")) {
             url = "repCommentServlet";
+        } else if (action.equals("personalAuctionPage")) {
+            url = "personalAuctionPageServlet";
+        } else if (action.equals("filterAuctionPersonal")) {
+            url = "filterAuctionPersonalServlet";
 
             // các hàm search
         } else if (action.equals("searchAccount")) {

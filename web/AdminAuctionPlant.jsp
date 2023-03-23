@@ -59,15 +59,21 @@
                             <a href="mainController?action=plantsManager" class="nav-links d-block"><i class="fa fa-list pr-2"></i> DANH SÁCH CÂY CẢNH</a>
                         </li>
                         <li class="nav-item">
+                            <a href="mainController?action=ordersManager" class="nav-links d-block"><i class="fa fa-list pr-2"></i> DANH SÁCH ĐƠN HÀNG</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="mainController?action=auctionManager" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i> ĐẤU GIÁ</a>
                         </li>
                         <li class="nav-item">
                             <a href="mainController?action=auctionPlantManager" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i>CÂY CẢNH ĐẤU GIÁ</a>
                         </li>
                         <li class="nav-item">
-                            <a href="index.jsp" class="nav-links d-block"><i class="fa fa-list pr-2"></i> TRANG CHỦ</a>
+                            <a href="index.jsp" class="nav-links d-block"><i class="fa fa-home"></i> TRANG CHỦ</a>
                         </li>
                     </ul>
+                    <li class="nav-item">
+                            <a href="mainController?action=logout" class="nav-links d-block"><i class="fa fa-arrow-left"></i> ĐĂNG XUẤT</a>
+                        </li>
                 </div>
                 <div class="side-bar-icons">
                     <div class="side-bar-logo text-center py-3">
@@ -86,7 +92,7 @@
             <div class="main-body-content w-100 ets-pt">
 
                 <!--Phần thêm cây cảnh đấu giá-->    
-                <button id="toggle-button" type="button">Thêm cây cảnh</button>
+                <button id="toggle-button" type="button" style="margin-left: 20px" class="btn btn-primary">Thêm cây cảnh</button>
                 <style>
                     #form-container {
                         display: none;
@@ -144,10 +150,12 @@
                     </script>
                 </div>
                 <h4 style="color: red">${MSG==null?"":MSG}</h4>
+                
                 <!--Phần thêm cây cảnh đấu giá - END-->
 
 
                 <%
+                    String searchOption = request.getParameter("searchOption");
                     String name = (String) session.getAttribute("name");
                     int id = (int) session.getAttribute("id");
                     if (name == null) {
@@ -164,6 +172,17 @@
                 <%
                     if (list != null) {
                 %>
+
+                <!--Phần này để tìm kiếm cây cảnh-->
+                <form action="mainController" method="post" style="margin-left: 20px">
+                    <input type="text" name="keyword" />
+                    <select name="searchOption">
+                        <option value="id" <%= (searchOption == null || searchOption.equals("id")) ? "selected" : ""%>>ID</option>              
+                        <option value="name" <%= (searchOption == null || searchOption.equals("name")) ? "selected" : ""%>>Name</option>
+                    </select>
+                    <button name="action" value="plantsAuctionManager" class="btn btn-primary">Search</button>
+                </form>
+                    
                 <div class="table-responsive bg-light">
                     <table class="table">
                         <thead>

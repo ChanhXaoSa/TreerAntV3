@@ -1,25 +1,22 @@
 <%-- 
-    Document   : AdminAuction
-    Created on : Mar 7, 2023, 1:08:53 PM
-    Author     : Triệu
+    Document   : personalAuction
+    Created on : Mar 23, 2023, 12:00:36 AM
+    Author     : tuank
 --%>
 
 <%@page import="Treer.dao.AuctionDAO"%>
 <%@page import="Treer.dto.Auction"%>
-<%@page import="Treer.dao.AccountDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Treer.dto.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Admin Auction Manager Page</title>
+        <title>Personal Auction Manager Page</title>
         <link rel="stylesheet" href="css/bootstrap4.min.css" type="text/css">
         <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
         <link rel="stylesheet" href="css/jquery-ui.min.css>" type="text/css">
         <link rel="stylesheet" href="css/styleAdmin.css" type="text/css"/>
-
     </head>
     <body>
         <div id="page-container" class="main-admin">
@@ -50,27 +47,24 @@
                             <h5>Treer</h5>
                         </a>
                     </div>
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav">                   
                         <li class="nav-item">
-                            <a href="mainController?action=backToAdminIndex" class="nav-links d-block"><i class="fa fa-home pr-2"></i> DASHBOARD</a>
+                            <a href="mainController?action=Profile" class="nav-links d-block"><i class="fa fa-user pr-2"></i> THÔNG TIN TÀI KHOẢN</a>
                         </li>
                         <li class="nav-item">
-                            <a href="mainController?action=manageAccounts" class="nav-links d-block"><i class="fa fa-users pr-2"></i> DANH SÁCH NGƯỜI DÙNG</a>
+                            <a href="mainController?action=personalPage" class="nav-links d-block"><i class="fa fa-list pr-2"></i> DANH SÁCH ĐƠN HÀNG</a>
+                        </li>                  
+                        <li class="nav-item">
+                            <a href="mainController?action=personalWishList" class="nav-links d-block"><i class="fa fa-list pr-2"></i> SẢN PHẨM YÊU THÍCH</a>
                         </li>
                         <li class="nav-item">
-                            <a href="mainController?action=plantsManager" class="nav-links d-block"><i class="fa fa-list pr-2"></i> DANH SÁCH CÂY CẢNH</a>
+                            <a href="mainController?action=personalAuctionPage" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i> ĐẤU GIÁ</a>
                         </li>
                         <li class="nav-item">
-                            <a href="mainController?action=ordersManager" class="nav-links d-block"><i class="fa fa-list pr-2"></i> DANH SÁCH ĐƠN HÀNG</a>
+                            <a href="Feedback.jsp" class="nav-links d-block"><i class="fa fa-comment pr-2"></i> FEEDBACK</a>
                         </li>
                         <li class="nav-item">
-                            <a href="mainController?action=auctionManager" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i> ĐẤU GIÁ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="mainController?action=auctionPlantManager" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i>CÂY CẢNH ĐẤU GIÁ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="index.jsp" class="nav-links d-block"><i class="fa fa-home"></i> TRANG CHỦ</a>
+                            <a href="index.jsp" class="nav-links d-block"><i class="fa fa-home pr-2"></i> VỀ TRANG CHỦ</a>
                         </li>
                         <li class="nav-item">
                             <a href="mainController?action=logout" class="nav-links d-block"><i class="fa fa-arrow-left"></i> ĐĂNG XUẤT</a>
@@ -100,71 +94,13 @@
                 %>
                 <h2 style="color: red">You are not login yet!</h2>
                 <%
-                } else if (AccountDAO.getAccountsWithAccID(id).getRoleID() == 1) {
-                %>
-                <h2 style="color: red">You don't have permision to enter to this url</h2>
-                <%
                 } else {
                     ArrayList<Auction> list = (ArrayList<Auction>) request.getAttribute("auctionList");
-                %>
-                <% if (request.getAttribute("confirmAucCr") == null) {
-                %>
-                <a href="mainController?action=confirmCreateNewAuction"><div class="btn btn-danger" style="margin-left: 20px">Tạo đấu giá mới</div></a>
-                <%
-                } else {
-                    request.setAttribute("confirmAucCr", null);
-                %>
-                <form action="mainController?action=chooseAuctionPlant" method="POST">
-                    <button type="submit" class="btn btn-info">Chọn cây cảnh để đấu giá</button>
-                </form>
-                <form action="mainController?action=createNewAuction" method="POST">
-                    <label for="endTime">Thời gian kết thúc :</label>
-                    <input type="datetime-local" 
-                           name="aucDate"
-                           required=""
-                           id="endTime"
-                           /><br/>
-                    <label>ID cây cảnh:</label>
-                    <%
-                    int apID=0;
-                    if (request.getAttribute("plantIdChoosen")!=null) {
-                            apID=(int) request.getAttribute("plantIdChoosen");
-                        }
-                    %>
-                    <input type="number" 
-                           name="aucPlantID"
-                           placeholder="ID Cây Cảnh"
-                           value="<%= apID %>" 
-                           required=""
-                           min="0"
-                           /><br/>
-                    <label>Giá khởi điểm :</label>
-                    <input type="number" 
-                           name="aucStartedPrice"
-                           placeholder="Giá khởi điểm"
-                           value="0" 
-                           required=""
-                           step="10000"
-                           min="0"
-                           /><br/>
-                    <label>Bước nhảy :</label>
-                    <input type="number" 
-                           name="aucBID"
-                           placeholder="Bước nhảy"
-                           value="0" 
-                           required=""
-                           step="10000"
-                           min="0"
-                           />
-                    <button type="submit" class="btn btn-danger">Tạo đấu giá</button>
-                </form>
-                <%
-                    }
                     if (list != null) {
                 %>
+                
                 <div class="table-responsive bg-light">
                     <br>
-
                     <!--Bộ lọc cho bảng auction-->
                     <%
                         int accid = (int) session.getAttribute("accid");
@@ -175,7 +111,7 @@
                         String[] status = {"Đang diễn ra", "Đã kết thúc", "Tất cả"};
                     %>
 
-                    <form action="mainController?action=filterAuctionAdmin" method="post" style="margin-left: 30px">
+                    <form action="mainController?action=filterAuctionPersonal" method="post" style="margin-left: 30px">
                         <select name="button">                           
                             <option  value="active" <%= (button == null || button.equals("active")) ? "selected" : ""%>>Đang diễn ra</option>
                             <option  value="inactive" <%= (button == null || button.equals("inactive")) ? "selected" : ""%>>Đã Kết thúc</option>
@@ -217,7 +153,7 @@
                                 <th>
                                     <% if (auc.getStatus() == 1) {
                                     %>
-                                    Đang diễn ra
+                                    Đang diễn ra 
                                     <a href="mainController?action=changeAuctionStatus&auctionID=<%= auc.getAuctionId()%>">
                                         <i class="fa fa-exchange"></i>
                                     </a>
@@ -241,15 +177,16 @@
                     }
                 %>
             </div>
-                <% }%>
-                <!-- Js Plugins -->
-                <script src="js/jquery-3.2.1.slim.min.js"></script>
-                <script src="js/jquery-3.3.1.min.js"></script>
-                <script src="js/jquery-ui.min.js"></script>
-                <script src="js/jquery.nice-select.min.js"></script>
-                <script src="js/jquery.slicknav.js"></script>
-                <script src="js/popper.min.js"></script>
-                <script src="js/bootstrap4.min.js"></script>
-                <script src="js/mainAdmin.js"></script>
-                </body>
-                </html>
+            <% }%>
+            <!-- Js Plugins -->
+            <script src="js/jquery-3.2.1.slim.min.js"></script>
+            <script src="js/jquery-3.3.1.min.js"></script>
+            <script src="js/jquery-ui.min.js"></script>
+            <script src="js/jquery.nice-select.min.js"></script>
+            <script src="js/jquery.slicknav.js"></script>
+            <script src="js/popper.min.js"></script>
+            <script src="js/bootstrap4.min.js"></script>
+            <script src="js/mainAdmin.js"></script>
+            <!--code js cho menu-->   
+    </body>
+</html>

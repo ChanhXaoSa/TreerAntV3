@@ -16,6 +16,9 @@ public class Order {
     private int accID;
     private String discount;
 
+    private String Address;
+    private String Phone;
+    private String NameCus;
     public Order() {
     }
 
@@ -26,6 +29,18 @@ public class Order {
         this.status = status;
         this.accID = accID;
         this.discount = discount;
+    }
+
+    public Order(int orderID, String orderdate, String ordership, int status, int accID, String discount, String Address, String Phone, String NameCus) {
+        this.orderID = orderID;
+        this.orderdate = orderdate;
+        this.ordership = ordership;
+        this.status = status;
+        this.accID = accID;
+        this.discount = discount;
+        this.Address = Address;
+        this.Phone = Phone;
+        this.NameCus = NameCus;
     }
 
     public int getOrderID() {
@@ -76,8 +91,32 @@ public class Order {
         this.accID = accID;
     }
 
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String Address) {
+        this.Address = Address;
+    }
+
+    public String getPhone() {
+        return Phone;
+    }
+
+    public void setPhone(String Phone) {
+        this.Phone = Phone;
+    }
+
+    public String getNameCus() {
+        return NameCus;
+    }
+
+    public void setNameCus(String NameCus) {
+        this.NameCus = NameCus;
+    }
+
     @Override
     public String toString() {
-        return "Order{" + "orderID=" + orderID + ", orderdate=" + orderdate + ", ordership=" + ordership + ", status=" + status + ", accID=" + accID + ", discount=" + discount + '}';
+        return "Order{" + "orderID=" + orderID + ", orderdate=" + orderdate + ", ordership=" + ordership + ", status=" + status + ", accID=" + accID + ", discount=" + discount + ", Address=" + Address + ", Phone=" + Phone + ", NameCus=" + NameCus + '}';
     }
 }

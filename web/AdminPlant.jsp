@@ -61,13 +61,19 @@
                             <a href="mainController?action=plantsManager" class="nav-links d-block"><i class="fa fa-list pr-2"></i> DANH SÁCH CÂY CẢNH</a>
                         </li>
                         <li class="nav-item">
+                            <a href="mainController?action=ordersManager" class="nav-links d-block"><i class="fa fa-list pr-2"></i> DANH SÁCH ĐƠN HÀNG</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="mainController?action=auctionManager" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i> ĐẤU GIÁ</a>
                         </li>
                         <li class="nav-item">
                             <a href="mainController?action=auctionPlantManager" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i>CÂY CẢNH ĐẤU GIÁ</a>
                         </li>
                         <li class="nav-item">
-                            <a href="index.jsp" class="nav-links d-block"><i class="fa fa-list pr-2"></i> TRANG CHỦ</a>
+                            <a href="index.jsp" class="nav-links d-block"><i class="fa fa-home"></i> TRANG CHỦ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="mainController?action=logout" class="nav-links d-block"><i class="fa fa-arrow-left"></i> ĐĂNG XUẤT</a>
                         </li>
                     </ul>
                 </div>
@@ -87,9 +93,9 @@
             </div>
 
             <div class="main-body-content w-100 ets-pt">
-
+                <h1 style="margin-left: 20px">Danh sách cây cảnh</h1>
                 <!--Dùng để thêm cây cảnh-->         
-                <button id="toggle-button" type="button">Thêm cây cảnh</button>
+                <button id="toggle-button" type="button" class="btn btn-primary" style="margin-left: 20px">Thêm cây cảnh</button>
                 <style>
                     #form-container {
                         display: none;
@@ -180,7 +186,8 @@
                 </div>
                 <h4 style="color: red">${MSG==null?"":MSG}</h4>
 
-                <%                                    String searchOption = request.getParameter("searchOption");
+                <%                                    
+                    String searchOption = request.getParameter("searchOption");
                     String name = (String) session.getAttribute("name");
                     int id = (int) session.getAttribute("id");
                     if (name == null) {
@@ -198,7 +205,7 @@
                 %>
 
                 <h6><br></h6>
-                <form action="mainController" method="post">
+                <form action="mainController" method="post" style="margin-left: 20px">
                     <input type="text" name="keyword" />
                     <select name="searchOption">
                         <option value="status" <%= (searchOption == null || searchOption.equals("status")) ? "selected" : ""%>>Status</option>
@@ -206,7 +213,7 @@
                         <option value="id" <%= (searchOption == null || searchOption.equals("id")) ? "selected" : ""%>>ID</option>              
                         <option value="name" <%= (searchOption == null || searchOption.equals("name")) ? "selected" : ""%>>Name</option>
                     </select>
-                    <button name="action" value="plantsManager">Search</button>
+                    <button name="action" value="plantsManager" class="btn btn-primary">Search</button>
                 </form>
                 <div class="table-responsive bg-light">
                     <table class="table">
@@ -230,7 +237,7 @@
                                     <form action="mainController?action=changePlantName" method="POST">
                                         <input type="text" name="newPlantName" value="<%= plant.getName()%>">
                                         <input type="hidden" value="<%= plant.getId()%>" name="plantid">
-                                        <button type="submit"><i class="fa fa-pencil"></i></button>  
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>  
                                     </form>
                                 </th>
 
@@ -244,7 +251,7 @@
                                     <form action="mainController?action=changePlantPrice" method="POST">
                                         <input type="number" value="<%= plant.getPrice()%>" step=1000 name="newPrice">
                                         <input type="hidden" value="<%= plant.getId()%>" name="plantid">
-                                        <button type="submit"><i class="fa fa-pencil"></i></button>  
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>  
                                     </form>
                                 </th>
 
@@ -261,13 +268,13 @@
                         <form action="mainController?action=changeStatusPlant" method="POST">
                             <input type="hidden" name="plantid" value="<%= plant.getId()%>">
                             <input type="hidden" name="plantstatus" value="<%= plant.getStatus()%>">
-                            <th><button type="submit" style="width: 180px">
+                            <th><button type="submit" style="width: 180px" class="btn btn-danger">
                                     Thay Đổi Tình Trạng           
                                 </button><br><br>
                         </form>
                         <form action="mainController?action=ViewDetailsPlantAdmin" method="POST">
                             <input type="hidden" name="plantid" value="<%= plant.getId()%>">
-                            <button type="submit" style="width: 180px">
+                            <button type="submit" style="width: 180px" class="btn btn-primary">
                                 Xem chi tiết          
                                 </button></th>
                         </form>

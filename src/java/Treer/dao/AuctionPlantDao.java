@@ -93,6 +93,53 @@ public class AuctionPlantDao {
         return p;
     }
 
+    // Tìm cây dựa theo bộ lọc
+    public static ArrayList<AuctionPlant> searchPlantAuctionForAdmin(String keyword, String cate) {
+
+        ArrayList<AuctionPlant> list = new ArrayList<>();
+        AuctionPlant p = null;
+        Connection cn = null;
+
+        try {
+            cn = DBUtils.makeConnection();
+
+            String sql = "select PlantAuctionID,PlantAuctionName,Description,\n"
+                    + "CONVERT(varchar, CreateDate, 105) + ' ' + CONVERT(varchar, CreateDate, 108) as CreateDate,\n"
+                    + "CONVERT(varchar, UpdateDate, 105) + ' ' + CONVERT(varchar, UpdateDate, 108) as UpdateDate,imgPath \n"
+                    + "from dbo.AuctionPlant";
+
+            if (cn != null) {
+
+                if (cate.equalsIgnoreCase("name")) {
+                    sql = sql + " WHERE PlantAuctionName like ?";
+                } else if (cate.equals("id")) {
+                    sql = sql + " WHERE PlantAuctionID like ? ";
+                }
+
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setString(1, "%" + keyword + "%");
+
+                ResultSet rs = pst.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        int PlantAuctionID = rs.getInt(1);
+                        String PlantAuctionName = rs.getString(2);
+                        String Description = rs.getString(3);
+                        String CreateDate = rs.getString(4);
+                        String UpdateDate = rs.getString(5);
+                        String imgPath = rs.getString(6);
+                        p = new AuctionPlant(PlantAuctionID, PlantAuctionName, Description, CreateDate, UpdateDate, imgPath);
+                        list.add(p);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public static boolean AddNewAuctionPlant(String plantName, String description, String imgPath){
         
         Connection cn = null;

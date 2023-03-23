@@ -248,6 +248,34 @@
         <servlet-name>ViewAuctionDetailServlet</servlet-name>
         <servlet-class>Treer.servlet.ViewAuctionDetailServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>filterAuctionAdminServlet</servlet-name>
+        <servlet-class>Treer.servlet.filterAuctionAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>plantsAuctionManagerServlet</servlet-name>
+        <servlet-class>Treer.servlet.plantsAuctionManagerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>completedOrdersServlet</servlet-name>
+        <servlet-class>Treer.servlet.completedOrdersServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>filterOrderAdminServlet</servlet-name>
+        <servlet-class>Treer.servlet.filterOrderAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ordersManagerServlet</servlet-name>
+        <servlet-class>Treer.servlet.ordersManagerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>personalAuctionPageServlet</servlet-name>
+        <servlet-class>Treer.servlet.personalAuctionPageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>filterAuctionPersonalServlet</servlet-name>
+        <servlet-class>Treer.servlet.filterAuctionPersonalServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShowServlet</servlet-name>
         <url-pattern>/ShowServlet</url-pattern>
@@ -483,6 +511,34 @@
     <servlet-mapping>
         <servlet-name>ViewAuctionDetailServlet</servlet-name>
         <url-pattern>/ViewAuctionDetailServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>filterAuctionAdminServlet</servlet-name>
+        <url-pattern>/filterAuctionAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>plantsAuctionManagerServlet</servlet-name>
+        <url-pattern>/plantsAuctionManagerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>completedOrdersServlet</servlet-name>
+        <url-pattern>/completedOrdersServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>filterOrderAdminServlet</servlet-name>
+        <url-pattern>/filterOrderAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ordersManagerServlet</servlet-name>
+        <url-pattern>/ordersManagerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>personalAuctionPageServlet</servlet-name>
+        <url-pattern>/personalAuctionPageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>filterAuctionPersonalServlet</servlet-name>
+        <url-pattern>/filterAuctionPersonalServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

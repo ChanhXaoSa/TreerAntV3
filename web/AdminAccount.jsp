@@ -59,13 +59,19 @@
                             <a href="mainController?action=plantsManager" class="nav-links d-block"><i class="fa fa-list pr-2"></i> DANH SÁCH CÂY CẢNH</a>
                         </li>
                         <li class="nav-item">
+                            <a href="mainController?action=ordersManager" class="nav-links d-block"><i class="fa fa-list pr-2"></i> DANH SÁCH ĐƠN HÀNG</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="mainController?action=auctionManager" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i> ĐẤU GIÁ</a>
                         </li>
                         <li class="nav-item">
                             <a href="mainController?action=auctionPlantManager" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i>CÂY CẢNH ĐẤU GIÁ</a>
                         </li>
                         <li class="nav-item">
-                            <a href="index.jsp" class="nav-links d-block"><i class="fa fa-list pr-2"></i> TRANG CHỦ</a>
+                            <a href="index.jsp" class="nav-links d-block"><i class="fa fa-home"></i> TRANG CHỦ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="mainController?action=logout" class="nav-links d-block"><i class="fa fa-arrow-left"></i> ĐĂNG XUẤT</a>
                         </li>
                     </ul>
                 </div>
@@ -84,6 +90,7 @@
                 </div>
             </div>
             <div class="main-body-content w-100 ets-pt">
+                <h1 style="margin-left: 20px">Danh sách người dùng</h1>
                 <%
                     String name = (String) session.getAttribute("name");
                     Account acc = new Account();
@@ -113,7 +120,7 @@
                 %>
                 <% if (request.getAttribute("confirmAccCr") == null) {
                 %>
-                <a href="mainController?action=confirmCreateNewAccount"><div class="btn btn-danger">Tạo tài khoản mới</div></a>
+                <a href="mainController?action=confirmCreateNewAccount"><div class="btn btn-danger" style="margin-left: 20px">Tạo tài khoản mới</div></a>
                 <font style="color: red"><%= (request.getAttribute("ERROR") == null) ? "" : request.getAttribute("ERROR")%></font>
                 <% request.setAttribute("ERROR", null); %>
                 <%
@@ -165,8 +172,7 @@
                     }
                     String searchOption = request.getParameter("searchOption");
                 %>
-                <h6><br></h6>
-                <form action="mainController" method="post">
+                <form action="mainController" method="post" style="margin-left: 20px">
                     <input type="text" name="keyword" />
                     <select name="searchOption">
                         <option value="status" <%= (searchOption == null || searchOption.equals("status")) ? "selected" : "" %>>Status</option>
@@ -175,7 +181,7 @@
                         <option value="role" <%= (searchOption == null || searchOption.equals("role")) ? "selected" : "" %>>Role</option>
                         <option value="name" <%= (searchOption == null || searchOption.equals("name")) ? "selected" : "" %>>Name</option>
                     </select>
-                    <button name="action" value="manageAccounts">Search</button>
+                    <button name="action" value="manageAccounts" class="btn btn-primary">Search</button>
                 </form>
 
                 <div class="table-responsive bg-light">
@@ -231,7 +237,7 @@
                         <form action="mainController?action=banAccount" method="POST">
                             <input type="hidden" name="accid" value="<%= accMini.getAccID()%>">
                             <input type="hidden" name="accstatus" value="<%= accMini.getStatus()%>">
-                            <th><button type="submit">
+                            <th><button class="btn btn-danger" type="submit">
                                     <%
                                         if (accMini.getStatus() == 1) {
                                     %>Khoá<%

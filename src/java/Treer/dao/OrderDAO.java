@@ -22,6 +22,8 @@ import java.util.Set;
  */
 public class OrderDAO {
 
+    // CÁC HÀM XỬ LÝ DÀNH CHO USER
+    // IN TẤT CẢ CÁC ORDER DỰA TRÊN ACCID
     public static ArrayList<Order> getAllOrders(int accid) {
         Connection cn = null;
         Order order = null;
@@ -33,7 +35,7 @@ public class OrderDAO {
                 String sql = "select [OrderID], "
                         + "CONVERT(varchar, [OrderDate], 103), "
                         + "CONVERT(varchar, [OrderShip], 103), [AccID], [Status], [DiscountID] from [dbo].[Order]\n"
-                        + "where [AccID] = ? ";
+                        + "where [AccID] = ? Order by OrderID desc";
                     // +' '+CONVERT(varchar, [OrderDate], 108), +' '+CONVERT(varchar, [OrderShip], 108)
                 PreparedStatement pst = cn.prepareStatement(sql);
                 pst.setInt(1, accid);
@@ -60,6 +62,7 @@ public class OrderDAO {
         return list;
     }
 
+    // HIỂN THỊ ORDER DỰA THEO NGÀY THÁNG VÀ ACCID
     public static ArrayList<Order> getAllOrdersWithDate(int accid, String from, String to) {
         Connection cn = null;
         Order order = null;
@@ -99,6 +102,7 @@ public class OrderDAO {
         return list;
     }
 
+    // HIỂN THỊ ĐƠN HÀNG DỰA TRÊN TRẠNG THÁI CỦA ĐƠN HÀNG VÀ ACCID
     public static ArrayList<Order> getOrderWithStatus(int accid, int status) {
         Connection cn = null;
         Order order = null;
@@ -138,6 +142,7 @@ public class OrderDAO {
         return list;
     }
 
+    // HIỂN THỊ ĐƠN HÀNG DỤA TRÊN TRẠNG THÁI, NGÀY THÁNG VÀ ACCID
     public static ArrayList<Order> getOrderWithStatusAndDate(int accid, int status, String from, String to) {
         Connection cn = null;
         Order order = null;
@@ -179,6 +184,280 @@ public class OrderDAO {
         return list;
     }
 
+    // THÊM THÔNG TIN NGƯỜI NHẬN HÀNG
+    public static boolean updateOrderInfor(int AccID, String CusAddress, String CusPhone, String CustomerName) {
+        Connection cn = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update [dbo].[Order] set CustomerName=?, CusPhone=?, CusAddress=? where AccID=?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setString(1, CustomerName);
+                pst.setString(2, CusPhone);
+                pst.setString(3, CusAddress);
+                pst.setInt(4, AccID);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return true;
+    }
+
+    // KẾT THÚC PHẦN XỬ LÝ CỦA USER
+    // CÁC HÀM XỬ LÝ DÀNH CHO ADMIN 
+    // in toàn bộ đơn hàng dành cho Admin
+    public static ArrayList<Order> printAllOrders() {
+        Connection cn = null;
+        Order order = null;
+        ArrayList<Order> list = new ArrayList<>();
+        try {
+            cn = DBUtils.makeConnection();
+
+            if (cn != null) {
+                String sql = "select [OrderID], CONVERT(varchar, [OrderDate], 103) as Orderdate, CONVERT(varchar, [OrderShip], 103) as Ordership, [AccID], [Status], [DiscountID], CusAddress, CusPhone, CustomerName from [dbo].[Order] Order by OrderID desc";
+
+                PreparedStatement pst = cn.prepareStatement(sql);
+
+                ResultSet rs = pst.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        int orderID = rs.getInt(1);
+                        String orderDate = rs.getString(2);
+                        String shipDate = rs.getString(3);
+                        int status = rs.getInt(5);
+                        int accID = rs.getInt(4);
+                        String discount = rs.getString(6);
+                        String cusAddress = rs.getString(7);
+                        String cusPhone = rs.getString(8);
+                        String customerName = rs.getString(9);
+
+                        order = new Order(orderID, orderDate, shipDate, status, accID, discount, cusAddress, cusPhone, customerName);
+                        list.add(order);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // lấy Order dựa theo OrderID
+    public static Order getOrdersWithOrderID(int orderID) {
+        Connection cn = null;
+        Order order = null;
+        try {
+            cn = DBUtils.makeConnection();
+
+            if (cn != null) {
+                String sql = "select [OrderID], "
+                        + "CONVERT(varchar, [OrderDate], 103), "
+                        + "CONVERT(varchar, [OrderShip], 103), [AccID], [Status], [DiscountID], CusAddress, CusPhone, CustomerName from [dbo].[Order]\n"
+                        + "where [OrderID] = ? ";
+                // +' '+CONVERT(varchar, [OrderDate], 108), +' '+CONVERT(varchar, [OrderShip], 108)
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, orderID);
+
+                ResultSet rs = pst.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        orderID = rs.getInt(1);
+                        String orderDate = rs.getString(2);
+                        String shipDate = rs.getString(3);
+                        int status = rs.getInt(5);
+                        int accID = rs.getInt(4);
+                        String discount = rs.getString(6);
+                        String cusAddress = rs.getString(7);
+                        String cusPhone = rs.getString(8);
+                        String customerName = rs.getString(9);
+
+                        order = new Order(orderID, orderDate, shipDate, status, accID, discount, cusAddress, cusPhone, customerName);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return order;
+    }
+
+    // XÁC NHẬN ĐƠN HÀNG
+    public static boolean completeOrder(int orderid) throws SQLException {
+        Connection con = null;
+        PreparedStatement pst = null;
+        int rs = -1;
+        boolean check = false;
+
+        try {
+
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "update [dbo].[Order] set [Status] = 2 where [OrderID] = ?";
+                pst = con.prepareStatement(sql);
+                pst.setInt(1, orderid);
+
+                rs = pst.executeUpdate();
+                if (rs != -1 && rs != 0) {
+                    check = true;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            if (pst != null) {
+                pst.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+
+    // BỘ LỌC ĐƠN HÀNG DÀNH CHO ADMIN
+    // HIỂN THỊ ORDER DỰA THEO NGÀY THÁNG VÀ ACCID
+    public static ArrayList<Order> getAllOrdersWithDateForAdmin(String from, String to) {
+        Connection cn = null;
+        Order order = null;
+        ArrayList<Order> list = new ArrayList<>();
+        try {
+            cn = DBUtils.makeConnection();
+
+            if (cn != null) {
+                String sql = "select [OrderID], CONVERT(varchar, [OrderDate], 103)+' '+CONVERT(varchar, [OrderDate], 108), "
+                        + "CONVERT(varchar, [OrderShip], 103)+' '+CONVERT(varchar, [OrderShip], 108), [AccID], [Status], [DiscountID], CusAddress, CusPhone, CustomerName from [dbo].[Order]\n"
+                        + "where OrderDate >= ? and OrderDate <= ? ";
+
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setString(1, from);
+                pst.setString(2, to);
+
+                ResultSet rs = pst.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        int orderID = rs.getInt(1);
+                        String orderDate = rs.getString(2);
+                        String shipDate = rs.getString(3);
+                        int status = rs.getInt(5);
+                        int accID = rs.getInt(4);
+                        String discount = rs.getString(6);
+                        String cusAddress = rs.getString(7);
+                        String cusPhone = rs.getString(8);
+                        String customerName = rs.getString(9);
+
+                        order = new Order(orderID, orderDate, shipDate, status, accID, discount, cusAddress, cusPhone, customerName);
+                        list.add(order);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // HIỂN THỊ ĐƠN HÀNG DỰA TRÊN TRẠNG THÁI CỦA ĐƠN HÀNG VÀ ACCID
+    public static ArrayList<Order> getOrderWithStatusForAdmin(int status) {
+        Connection cn = null;
+        Order order = null;
+        ArrayList<Order> list = new ArrayList<>();
+        try {
+            cn = DBUtils.makeConnection();
+
+            if (cn != null) {
+                String sql = "select [OrderID], CONVERT(varchar, [OrderDate], 103)+' '+CONVERT(varchar, [OrderDate], 108), "
+                        + "CONVERT(varchar, [OrderShip], 103)+' '+CONVERT(varchar, [OrderShip], 108), [AccID], [Status], [DiscountID], CusAddress, CusPhone, CustomerName from [dbo].[Order]\n"
+                        + "where [Status]= ?";
+
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, status);
+
+                ResultSet rs = pst.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        int orderID = rs.getInt(1);
+                        String orderDate = rs.getString(2);
+                        String shipDate = rs.getString(3);
+                        int Status = rs.getInt(5);
+                        int accID = rs.getInt(4);
+                        String discount = rs.getString(6);
+                        String cusAddress = rs.getString(7);
+                        String cusPhone = rs.getString(8);
+                        String customerName = rs.getString(9);
+
+                        order = new Order(orderID, orderDate, shipDate, status, accID, discount, cusAddress, cusPhone, customerName);
+                        list.add(order);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // HIỂN THỊ ĐƠN HÀNG DỤA TRÊN TRẠNG THÁI, NGÀY THÁNG VÀ ACCID
+    public static ArrayList<Order> getOrderWithStatusAndDateForAdmin(int status, String from, String to) {
+        Connection cn = null;
+        Order order = null;
+        ArrayList<Order> list = new ArrayList<>();
+        try {
+            cn = DBUtils.makeConnection();
+
+            if (cn != null) {
+                String sql = "select [OrderID], CONVERT(varchar, [OrderDate], 103)+' '+CONVERT(varchar, [OrderDate], 108), "
+                        + "CONVERT(varchar, [OrderShip], 103)+' '+CONVERT(varchar, [OrderShip], 108), [AccID], [Status], [DiscountID], CusAddress, CusPhone, CustomerName from [dbo].[Order]\n"
+                        + "where [AccID] = ? and [Status]= ? and OrderDate >= ? and OrderDate <= ? ";
+
+                PreparedStatement pst = cn.prepareStatement(sql);
+
+                pst.setInt(1, status);
+                pst.setString(2, from);
+                pst.setString(3, to);
+
+                ResultSet rs = pst.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        int orderID = rs.getInt(1);
+                        String orderDate = rs.getString(2);
+                        String shipDate = rs.getString(3);
+                        int Status = rs.getInt(5);
+                        int accID = rs.getInt(4);
+                        String discount = rs.getString(6);
+                        String cusAddress = rs.getString(7);
+                        String cusPhone = rs.getString(8);
+                        String customerName = rs.getString(9);
+
+                        order = new Order(orderID, orderDate, shipDate, status, accID, discount, cusAddress, cusPhone, customerName);
+                        list.add(order);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // KẾT THÚC PHẦN XỬ LÝ CỦA ADMIN
+    // HÀM XỬ LÝ DÙNG CHUNG CHO CẢ 2 ROLE
+    // UPDATE TRẠNG THÁI ORDER DỰA THEO ORDERID
     public static ArrayList<Order> UpdateRoleOrder(int orderid, int status) throws Exception {
         // bước 1: make connection
         Connection cn = null;
@@ -223,6 +502,7 @@ public class OrderDAO {
         return list;
     }
 
+    // HIỂN THỊ CHI TIẾT ĐƠN HÀNG DỰA THEO ORDERID
     public static ArrayList<OrderDetail> getOrderDetail(int orderID) {
 
         Connection cn = null;
@@ -247,7 +527,7 @@ public class OrderDAO {
                         String PlantName = rs.getString(4);
                         int price = rs.getInt(5);
                         int sale = PlantDAO.getSaleByID(PlantID);
-                        price = price - price*sale/100;
+                        price = price - price * sale / 100;
                         String imgPath = PlantDAO.getPlantImgByID(PlantID);
                         int quantity = rs.getInt(6);
                         OrderDetail orderdetail = new OrderDetail(detailID, orderID, PlantID, price, quantity, PlantName, imgPath);
@@ -315,6 +595,8 @@ public class OrderDAO {
 //        }
 //        return list;
 //    }
+    
+    // HỦY ĐƠN HÀNG
     public static boolean cancelOrder(int orderid) throws SQLException {
         Connection con = null;
         PreparedStatement pst = null;
@@ -378,6 +660,7 @@ public class OrderDAO {
         return true;
     }
     
+    // TẠO MỚI ĐƠN HÀNG
     public static boolean insertOrder(int AccID, HashMap<String, Integer> cart, String CusAddress, String CusPhone, String CustomerName, String PaymentMethod, int totalmoney) throws SQLException, Exception {
         Connection cn = DBUtils.makeConnection();
         PreparedStatement stm = null;
@@ -460,32 +743,8 @@ public class OrderDAO {
         }
     }
 
-    public static boolean updateOrderInfor(int AccID, String CusAddress, String CusPhone, String CustomerName) {
-        Connection cn = null;
-        try {
-            cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "update [dbo].[Order] set CustomerName=?, CusPhone=?, CusAddress=? where AccID=?";
-                PreparedStatement pst = cn.prepareStatement(sql);
-                pst.setString(1, CustomerName);
-                pst.setString(2, CusPhone);
-                pst.setString(3, CusAddress);
-                pst.setInt(4, AccID);
-                pst.executeUpdate();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (cn != null) {
-                try {
-                    cn.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return true;
-    }
+
+     // TẠO MỚI ĐƠN HÀNG CỦA ĐẤU GIÁ
     public static boolean insertAuctionOrder(int AccID, HashMap<String, Integer> cart, String CusAddress, String CusPhone, String CustomerName, String PaymentMethod, int totalmoney) throws SQLException, Exception {
         Connection cn = DBUtils.makeConnection();
         PreparedStatement stm = null;
@@ -567,4 +826,6 @@ public class OrderDAO {
             cn.close(); // đóng kết nối sau khi sử dụng
         }
     }
+
+    // KẾT THÚC PHẦN XỬ LÝ CHUNG
 }
