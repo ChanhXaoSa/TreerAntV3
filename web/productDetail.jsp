@@ -90,7 +90,7 @@
                                 %>
                                 <span style="text-decoration: line-through; font-size: 15px; color: gray">
                                     <%= p.getPrice() == p.getSale() ? "" : formattedPrice + " VND"%> </span>
-                                    <span style="color: #FF9F1A"><%= formattedSale %> VND</span>
+                                <span style="color: #FF9F1A"><%= formattedSale%> VND</span>
                             </h4>
                             
                             <i><span><%= p.getStatus() == 1 ? "Còn " + p.getStock() + " sản phẩm" : "Đã hết hàng"%></span></i>
@@ -101,7 +101,7 @@
                                 %>    
                             <div class="action">
                                 <input type="number" value="1" style="text-align: center; width: 20%">                
-                                <button class="add-to-cart btn btn-default" type="button">Thêm vào giỏ hàng</button>
+                                <a href="mainController?action=addtocart&PID=<%= p.getId()%>"><button class="add-to-cart btn btn-default" type="button">Thêm vào giỏ hàng</button></a>
                                 <%
                                     if (check == true) {%>
                                 <a class="like btn btn-default" href="wishlistServlet?PlantID=<%= intPID%>" ><span class="fa fa-heart" style="color: red"></span></a>

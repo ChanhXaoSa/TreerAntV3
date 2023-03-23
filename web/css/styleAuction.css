@@ -37,11 +37,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     padding-right: 10px;
 }
 .auction-plant-info {
-    border-right: 1px solid lightgray;
-    padding-top: 20px;
+    border: 1px solid lightgray;
+    padding: 5px;
+    border-radius: 5px;
 }
 .auction-plant-player {
-    padding-top: 20px;
+}
+.auction-plant-player-control {
+    margin-left: 30px;
 }
 .Addtocart-this-plant-auction {
     text-decoration: none;
@@ -65,6 +68,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     padding-left: 10px;
     padding-right: 10px;
 }
+button.nav-link {
+  background-color: lightgray !important; /* Background color of nav link */
+  color: black !important; /* Color of nav link */
+}
+button.nav-link.active {
+  background-color: #00B677 !important; /* Background color of active nav link */
+  color: white !important; /* Color of active nav link */
+}
+.nav-pills .nav-item {
+  padding-left: 0px;
+}
+.nav-pills .nav-link {
+  background-color: #00B677;
+  color: white;
+  margin-right: 10px; /* Set right margin */
+  padding: 7px 15px; /* Set button padding */
+  font-size: 18px; /* Set font size */
+  border-radius: 5px; /* Set border radius */
+  margin-bottom: 20px;
+}
+
 .footer-space {
     margin-bottom: 50px;
 }

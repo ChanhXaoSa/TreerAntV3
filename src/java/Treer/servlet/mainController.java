@@ -183,6 +183,8 @@ public class mainController extends HttpServlet {
             url = "endAuctionShowServlet";
         } else if (action.equals("joinedAuctionShow")) {
             url = "joinedAuctionShowServlet";
+        } else if (action.equals("ViewAuctionDetail")) {
+            url = "ViewAuctionDetailServlet";
         }
         
         

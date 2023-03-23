@@ -252,10 +252,12 @@
                                 %>
                                 <th>Còn Hàng</th>
                                     <%
-                                    } else {
+                                    } else if(plant.getStatus() == 0) {
                                     %>
                                 <th>Hết Hàng</th>
-                                    <% }%>
+                                    <% } else{%>    
+                                <th>Cây đấu giá</th>
+                                <% } %>
                         <form action="mainController?action=changeStatusPlant" method="POST">
                             <input type="hidden" name="plantid" value="<%= plant.getId()%>">
                             <input type="hidden" name="plantstatus" value="<%= plant.getStatus()%>">

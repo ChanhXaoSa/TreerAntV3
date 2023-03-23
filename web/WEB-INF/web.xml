@@ -244,6 +244,10 @@
         <servlet-name>ViewDetailsPlantAdminServlet</servlet-name>
         <servlet-class>Treer.servlet.ViewDetailsPlantAdminServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewAuctionDetailServlet</servlet-name>
+        <servlet-class>Treer.servlet.ViewAuctionDetailServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShowServlet</servlet-name>
         <url-pattern>/ShowServlet</url-pattern>
@@ -475,6 +479,10 @@
     <servlet-mapping>
         <servlet-name>ViewDetailsPlantAdminServlet</servlet-name>
         <url-pattern>/ViewDetailsPlantAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewAuctionDetailServlet</servlet-name>
+        <url-pattern>/ViewAuctionDetailServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
