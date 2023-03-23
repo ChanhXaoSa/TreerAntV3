@@ -33,13 +33,19 @@
                         <div class="">
                             <h3 class="title1">Về Treer</h3>
                         </div>
-                        <span class="para">Treer – chúng tôi là đơn vị hoạt động chuyên nghiệp trong lĩnh vực mua bán cây cảnh,… Điểm mạnh của Treer 
+                        <p class="para">
+                            Treer – chúng tôi là đơn vị hoạt động chuyên nghiệp trong lĩnh vực mua bán cây cảnh,… Điểm mạnh của Treer 
                             so với đối thủ đó là Treer mặc dù bản chất vẫn là một trang thương mại, chuyên mua bán cây cảnh, nhưng mặt 
                             website cũng cung cấp một lượng lớn những thông tin, kiến thức chuyên sâu dành cho người yêu cây cảnh.
                             Treer là một website chuyên cung cấp các loại cây cảnh đa dạng và chất lượng. Với mục đích mang lại không 
                             gian xanh tươi mát và tạo điểm nhấn cho không gian sống, Treer cam kết cung cấp những cây cảnh được chăm sóc 
                             và trồng trọt với tình yêu và chuyên môn cao.
-                        </span>
+                        </p>
+                        <p class="para">
+                            Chúng tôi luôn cập nhật các sản phẩm mới nhất và đang được yêu thích nhất trong thị trường cây cảnh. Bạn có thể tìm thấy 
+                            các loại cây cảnh phong phú và đa dạng như cây cảnh nội thất, cây cảnh ngoại thất, hoa và nhiều loại cây cảnh khác nữa. 
+                            Với Treer, bạn sẽ không chỉ có được các sản phẩm cây cảnh chất lượng.
+                        </p>
                     </div>
 
                     <div class="paragraph col-md-6">
@@ -48,16 +54,17 @@
                             <p>Vui lòng nhập thông tin theo mẫu bên dưới, chúng tôi sẽ liên lạc với bạn sớm nhất có thể:</p>
                         </div>
                         <div>
-                            <form action="mainController" method="post"">
-                                <label for="fname">Email của bạn:</label>
-                                <input type="text" id="fname" name="txtemail" placeholder="Email của bạn là...">
-                                <label for="fname">Tên của bạn:</label>
-                                <input type="text" id="fname" name="txtname" placeholder="Tên của bạn là...">
-                                <label for="fname">Chủ đề:</label>
-                                <input type="text" id="fname" name="txttitle" placeholder="Chủ đề của bạn là...">
-                                <label for="subject">Nội dung:</label>
-                                <input type="text" id="fname" name="txtmsg" placeholder="Nội dung của bạn là..." style= "height: 60px">
+                            <form class="abtus" action="mainController" method="post" >
+                                <label for="fname">Email của bạn</label>
+                                <input type="text" class="fname" name="txtemail" placeholder="Email của bạn là..." required="">
+                                <label for="fname">Tên của bạn</label>
+                                <input type="text" Class="fname" name="txtname" placeholder="Tên của bạn là..." required="">
+                                <label for="fname">Chủ đề</label>
+                                <input type="text" class="fname" name="txttitle" placeholder="Chủ đề của bạn là..." required="">
+                                <label for="subject">Nội dung</label><br>
+                                <textarea type="text" class="ndung" name="txtmsg" placeholder="Nội dung của bạn là..." ></textarea>
                                 <button class="gui" type="submit" name="action" value="gui" >Gửi</button>
+                                <%= (request.getAttribute("WARNING") == null) ? "" : (String) request.getAttribute("WARNING")%>
                             </form>
                         </div>
                     </div>

@@ -4,6 +4,8 @@
     Author     : Triệu
 --%>
 
+<%@page import="Treer.dao.OrderDAO"%>
+<%@page import="Treer.dao.PlantDAO"%>
 <%@page import="Treer.dao.AccountDAO"%>
 <%@page import="Treer.dto.Account"%>
 <%@page import="java.util.ArrayList"%>
@@ -78,7 +80,13 @@
                             <a href="mainController?action=auctionPlantManager" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i>CÂY CẢNH ĐẤU GIÁ</a>
                         </li>
                         <li class="nav-item">
+                            <a href="mainController?action=viewCSKH" class="nav-links d-block"><i class="fa fa-comments pr-2"></i> CHĂM SÓC KHÁCH HÀNG</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="index.jsp" class="nav-links d-block"><i class="fa fa-list pr-2"></i> TRANG CHỦ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="mainController?action=logout" class="nav-links d-block"><i class="fa fa-arrow-left"></i> ĐĂNG XUẤT</a>
                         </li>
                     </ul>
                 </div>
@@ -98,6 +106,73 @@
             </div>
             <div class="main-body-content w-100 ets-pt">
                 <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card card-left-account">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h6>Tài Khoản Đã Đăng Kí</h6>
+                                        <h3 style="color: green;"><%= AccountDAO.countAccountByRole(1)%></h3>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">                       
+                        <div class="card card-left-account">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h6>Tổng Số Cây</h6>
+                                        <h3 style="color: green"><%= PlantDAO.countTotalPlant()%></h3>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="card card-left-account">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h6>Lượt Bán</h6>
+                                        <h3 style="color: green "><%= OrderDAO.countOrderByStatus(2)%></h3>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+
+                    <div class="col-lg-3">
+                        <div class="card card-left-account">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h6>Doanh Thu</h6>
+                                        <h3 style="color: green "><%= OrderDAO.sumOrderByStatus(2)%> VND</h3>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+
+                <!--==========================-->
+                <div class="row">
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-header">
@@ -113,20 +188,7 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h6>Tài khoản đã đăng kí</h6>
-                                        <h3 style="color: green;"><%= AccountDAO.countAccountByRole(1)%></h3>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fa fa-user"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card card-left-account">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <h6>Tài khoản Đang Hoạt Động</h6>
+                                        <h6>Tài Khoản Đang Hoạt Động</h6>
                                         <h3 style="color: #69C3FF"><%= AccountDAO.countAccountByStatus(1, 1)%></h3>
                                     </div>
                                     <div class="col-auto">
@@ -141,6 +203,101 @@
                                     <div class="col">
                                         <h6>Tài Khoản Bị Cấm</h6>
                                         <h3 style="color: #FFA1B5"><%= AccountDAO.countAccountByStatus(0, 1)%></h3>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6>Số Cây Trong Trang Web</h6>
+                            </div>
+                            <div class="card-body mx-auto text-center">
+                                <canvas id="myChartTwo"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card card-left-account">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h6>Số Cây Đang Có</h6>
+                                        <h3 style="color: #69C3FF"><%= PlantDAO.countTotalPlant()%></h3>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-left-account">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h6>Số Cây Đã Bán</h6>
+                                        <h3 style="color: #FFA1B5"><%= OrderDAO.countOrderByStatus(2)%></h3>
+                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-user"></i>
+                </div>
+            </div>
+        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6>Lượt Giao Dịch Trên Trang Web</h6>
+                            </div>
+                            <div class="card-body mx-auto text-center">
+                                <canvas id="myChartthree"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card card-left-account">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h6>Đã Giao</h6>
+                                        <h3 style="color: #69C3FF"><%= OrderDAO.countOrderByStatus(2)%></h3>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-left-account">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h6>Đang Chờ</h6>
+                                        <h3 style="color: #FFA1B5"><%= OrderDAO.countOrderByStatus(1)%></h3>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-left-account">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h6>Đã Hủy</h6>
+                                        <h3 style="color: rgb(255, 205, 86)"><%= OrderDAO.countOrderByStatus(3)%></h3>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fa fa-user"></i>
@@ -175,11 +332,11 @@
         <script src="js/popper.min.js"></script>
         <script src="js/bootstrap4.min.js"></script>
         <script src="js/mainAdmin.js"></script>
+
         <script>
             const myChart = document.getElementById('myChart').getContext('2d');
-
             const chart = new Chart(myChart, {
-                type: 'pie',
+                type: 'doughnut',
                 data: {
                     labels: ['Tài Khoản Đang Hoạt Động', 'Tài Khoản Bị Khoá'],
                     datasets: [{
@@ -202,6 +359,74 @@
                     title: {
                         display: true,
                         text: 'My Pie Chart'
+                    }
+                }
+            });
+        </script>
+
+        <script>
+            const myChartTwo = document.getElementById('myChartTwo').getContext('2d');
+            const Chart2 = new Chart(myChartTwo, {
+                type: 'pie',
+                data: {
+                    labels: ['Tổng Số Cây', 'Số Cây Đã Bán'],
+                    datasets: [{
+                            label: '# Số lượng',
+                            data: [<%= PlantDAO.countTotalPlant()%>, <%= OrderDAO.countOrderByStatus(2)%>],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.6)',
+                                'rgba(255, 99, 132, 0.6)'
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 99, 132, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                },
+                options: {
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        title: {
+                            display: true,
+                            text: 'My Pie Chart'
+                        }
+                    }
+                }
+            });
+        </script>
+
+        <script>
+            const ctx2 = document.getElementById('myChartthree').getContext('2d');
+            const myChartthree = new Chart(ctx2, {
+                type: 'polarArea',
+                data: {
+                    labels: ['Đã Giao', 'Đang Chờ', 'Đã Hủy'],
+                    datasets: [{
+                            label: '# Số lượng',
+                            data: [<%= OrderDAO.countOrderByStatus(2)%>, <%= OrderDAO.countOrderByStatus(1)%>, <%= OrderDAO.countOrderByStatus(3)%>],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.6)',
+                                'rgba(255, 99, 132, 0.6)',
+                                'rgb(255, 205, 86)'
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgb(255, 305, 86)'
+                            ],
+                            hoverOffset: 4
+                        }]
+                },
+                options: {
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        title: {
+                            display: true,
+                            text: 'My Pie Chart'
+                        }
                     }
                 }
             });

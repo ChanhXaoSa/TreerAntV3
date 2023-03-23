@@ -101,7 +101,7 @@
                                 %>    
                             <div class="action">
                                 <input type="number" value="1" style="text-align: center; width: 20%">                
-                                <a href="mainController?action=addtocart&PID=<%= p.getId()%>"><button class="add-to-cart btn btn-default" type="button">Thêm vào giỏ hàng</button></a>
+                                <a href="mainController?action=addtocart&PID=<%= p.getId()%>" class="add-to-cart btn btn-default">Thêm vào giỏ hàng</a><br />
                                 <%
                                     if (check == true) {%>
                                 <a class="like btn btn-default" href="wishlistServlet?PlantID=<%= intPID%>" ><span class="fa fa-heart" style="color: red"></span></a>

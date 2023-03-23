@@ -69,6 +69,7 @@
 
                             <br>
                             <hr class="mb-4">
+                            <button class="d-flex justify-content-center btn btn-success mt-5 fs-5 pl-5 pr-5" type="submit" name="action" value="thanhtoan" >Đặt hàng</button>
                         </div>
 
                         <div class="col-md-7">
@@ -107,7 +108,6 @@
                     <font style="color: red"><%= (request.getAttribute("WARNING") == null) ? "" : request.getAttribute("WARNING")%></font>
 
                     <br>
-                    <button class="d-flex justify-content-center" type="submit" name="action" value="thanhtoan" >Đặt hàng</button>
                 </form>
             </div>
             <!-- End block content -->

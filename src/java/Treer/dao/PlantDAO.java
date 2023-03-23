@@ -680,7 +680,7 @@ public class PlantDAO {
         }
         return true;
     }
-    
+
     // sửa % khuyến mãi sản phẩm
     public static boolean changePlantSaleByID(int id, int newSale) {
         Connection cn = null;
@@ -708,6 +708,53 @@ public class PlantDAO {
         return true;
     }
 
+    public static boolean changePlantNameByCate(int id, String newCate) {
+        Connection cn = null;
+        try {
+            cn = Treer.untils.DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update dbo.Plant set NamePlant=?,UpdateDate=CURRENT_TIMESTAMP where PID=?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setString(1, newCate);
+                pst.setInt(2, id);
+                pst.executeUpdate();
+                pst.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return true;
+    }
+
+    public static int countTotalPlant() throws Exception {
+        int count = 0;
+        try {
+            Connection cn = Treer.untils.DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "SELECT SUM(stock) as countPlant FROM dbo.Plant";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                ResultSet table = pst.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        count = table.getInt("countPlant");
+                    }
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
     // đổi hình ảnh hiển thị cây
     public static boolean changePlantImgByID(int id, String imgPath) {
         Connection cn = null;
@@ -727,9 +774,9 @@ public class PlantDAO {
                         + ");\n"
                         + "\n"
                         + "UPDATE [dbo].[Plant] SET UpdateDate=CURRENT_TIMESTAMP where PID= ?";
-                
+
                 PreparedStatement pst = cn.prepareStatement(sql);
-                pst.setString(1, "img\\product_img\\"+imgPath);
+                pst.setString(1, "img\\product_img\\" + imgPath);
                 pst.setInt(2, id);
                 pst.setInt(3, id);
                 pst.setInt(4, id);
@@ -837,8 +884,8 @@ public class PlantDAO {
         }
         return plant;
     }
-    
-     // tổ hợp phục vụ cho việc add cây, lưu thông tin cơ bản của cây
+
+    // tổ hợp phục vụ cho việc add cây, lưu thông tin cơ bản của cây
     public static boolean AddNewPlant(String newName, int price, String description, int stock, int saleID, String imgpath) {
         Connection cn = null;
         try {
@@ -853,7 +900,7 @@ public class PlantDAO {
                         + "VALUES (@PlantID, ?)\n"
                         + "COMMIT TRANSACTION";
 
-                try ( PreparedStatement pst = cn.prepareStatement(sql)) {
+                try (PreparedStatement pst = cn.prepareStatement(sql)) {
                     pst.setString(1, newName);
                     pst.setInt(2, price);
                     pst.setString(3, description);
@@ -881,7 +928,7 @@ public class PlantDAO {
         }
         return true;
     }
-    
+
     // lấy ID cây mới nhất
     public static int getNewPlantID() {
         int PID = 0;
@@ -908,7 +955,7 @@ public class PlantDAO {
         }
         return PID;
     }
-    
+
     // add cate cho cây mới thêm vào
     public static boolean AddCateForNewPlant(int PlantID, int CateId) {
         Connection cn = null;
@@ -917,7 +964,7 @@ public class PlantDAO {
             if (cn != null) {
 
                 String sql = "INSERT INTO [dbo].[CategoriesDetails] ([PlantID], [CategoriesID]) VALUES (?, ?)";
-                try ( PreparedStatement pst = cn.prepareStatement(sql)) {
+                try (PreparedStatement pst = cn.prepareStatement(sql)) {
                     pst.setInt(1, PlantID);
                     pst.setInt(2, CateId);
                     pst.executeUpdate();

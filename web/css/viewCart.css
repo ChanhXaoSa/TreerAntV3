@@ -6,53 +6,87 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : Feb 26, 2023, 11:31:59 PM
     Author     : Ducbui
 */
-#all{
-    margin: 5px;
-}
-
-.shopping{
-    padding: 5px;
+table.shopping{
+    padding: 10px;
     margin: 0px 0px;
+    border-radius: 4px;
 }
 
 .giua{
     text-align: center;
 }
 .list{
-    border: 1px solid #f1f1f1; 
-    padding: 5px;
+    padding: 20px;
     text-align: center;
+    border-bottom: 2px solid #ddd;
+    background-color: white;
 }
 
-a{
+a.linkten{
     text-decoration: none;
+    color: black;
+    font-weight: 600;
 }
 .imagePlant{
     width: 60px;
     height: 80px;
 }
 
-.submitorder{
-    background-color: #009B1A;
+button.submitorder{
+    background-color: #5cb85c;
     color: white;
-    border: 1px solid #009B1A;
-    margin: 5px;
-}
-
-.nut{
-    background-color: #009B1A;
-    color: white;
-    border: 1px solid #009B1A;
-}
-
-.muatiep{
-    color: white;
-    padding: 3px;
     border-radius: 4px;
+    padding: 6px 12px;
+    border: 1px solid;
     margin: 5px;
-    background-color: #009B1A;
+    margin-left: 200px;
+}
+button.submitorder:hover{
+    background-color: orange;
+}
+.nut{
+    background-color: #5bc0de;
+    color: white;
+    border: 1px;
+    border-radius: 4px;
 }
 
-.duoicung{
-    text-align: none;
+.nut:hover{
+    background-color: orange;
+}
+
+button.muatiep{
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid;
+    margin: 5px;
+    margin-right: 200px;
+    background-color: #f0ad4e;
+}
+button.muatiep:hover{
+    background-color: orange;
+}
+button.muatiep a{
+    color: white;   
+    text-decoration: none;
+}
+.bot_ma{
+    background-color: #fff;
+    text-align: center;
+}
+
+.bot{
+    display: inline-block;
+}
+
+.bot:first-child{
+    text-align: right;
+    margin-left: 14px;
+}
+
+.last_bot{
+    display: flex; /* Sử dụng kiểu hiển thị flex */
+    justify-content: space-between; /* Các phần tử con sẽ được căn đều hai bên */
+    align-items: center; /* Các phần tử con sẽ được canh giữa theo trục y */
 }

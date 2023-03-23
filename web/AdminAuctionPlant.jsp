@@ -70,10 +70,10 @@
                         <li class="nav-item">
                             <a href="index.jsp" class="nav-links d-block"><i class="fa fa-home"></i> TRANG CHỦ</a>
                         </li>
-                    </ul>
-                    <li class="nav-item">
+                        <li class="nav-item">
                             <a href="mainController?action=logout" class="nav-links d-block"><i class="fa fa-arrow-left"></i> ĐĂNG XUẤT</a>
                         </li>
+                    </ul>
                 </div>
                 <div class="side-bar-icons">
                     <div class="side-bar-logo text-center py-3">

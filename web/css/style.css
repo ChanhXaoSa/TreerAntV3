@@ -884,12 +884,15 @@ header {
 }
 
 .cart a {
-    text-decoration: none
+    text-decoration: none;
+}
+.cart p {
+    color: #fff;
+    font-weight: 500;
 }
 
 .cart i {
     color: #fff;
-    width: 200%;
 }
 
 .cart-top {
@@ -918,7 +921,6 @@ header {
 
 .cart {
     position: relative;
-    width: 75px;
     margin-right: 0px;
 }
 
@@ -928,13 +930,13 @@ header {
     margin-top: 5px;
     text-align: center;
 }
-
 .auth-buttons a {
     font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
     text-decoration: none;
-    padding: 8px 16px;
+    margin-bottom: 33px;
+    padding: 10.3px 16px;
     border-radius: 5px;
 }
 
@@ -1262,11 +1264,22 @@ footer a:hover {
 
 /* Ket Thuc Danh Sach */
 .demsotrongcart {
-    background-color: red;
+    background-color: #FC5A31;
     position: absolute;
-    margin-left: 30px;
+    margin-left: 50px;
     border-radius: 50%;
     padding-left: 8px;
     padding-right: 8px;
     color: #fff;
+    z-index: 2;
+}
+.cart-icon {
+    font-size: 40px !important;
+    padding-right: 25px !important;
+    position: relative;
+    z-index: 1;
+}
+.username {
+    color: #fff;
+    font-weight: 600;
 }

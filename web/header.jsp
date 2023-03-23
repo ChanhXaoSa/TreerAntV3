@@ -72,9 +72,14 @@
 
         <!-- Header Section Begin -->
         <header>
-
             <div class="menu_desktop">
                 <div class="container">
+                    <% if (name!=null) {
+                    %>
+                    <div class="col-lg-12 text-right" ><span class="username">Chào mừng trở lại, <a target="_blank" href="mainController?action=switchPage" style="text-decoration: none; color: #fff"><%= name %></a></span></div>
+            <%
+                }
+            %>
                     <div class="row align-items-center">
                         <div class="col-lg-3">
                             <div class="header-left justify-content-between">
@@ -95,7 +100,6 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="header_center">
-                                <p class="tel-topheader text-center">Tel (099) 9999 9999</p>
                                 <form class="search-top-header text-center" method="post" action="mainController">
                                     <div class="input-group">
 
@@ -150,7 +154,7 @@
                             </div>
                         </div>
                         <div class="col-lg-2">
-                            <div class="auth-buttons mb-0 justify-content-center">
+                            <div class="auth-buttons justify-content-center">
                                 <%
                                     if (name == null) {
                                 %>
@@ -165,40 +169,14 @@
                             </div>
                         </div>
                         <div class="col-lg-1 pr-0">
-                            <div class="header-right">
-                                <div class="social-icons">
-                                    <ul class="list-unstyled list-inline listicon float-right mt-0">
-                                        <li class="list-inline-item">
-                                            <a target="_blank" href="#" title="Faceboook" class="face"><i
-                                                    class="fa fa-facebook" re="nofollow"></i></a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a target="_blank" rel="nofollow" href="#" title="Twitter" class="twitter"><i
-                                                    class="fa fa-twitter"></i></a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a target="_blank" rel="nofollow" href="#" title="Instagram"
-                                               class="instagram"><i class="fa fa-instagram"></i></a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a rel="nofollow" href="#" title="Email" class="mail-envelope"><i
-                                                    class="fa fa-envelope-o"></i></a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a target="_blank" rel="nofollow" href="#" title="Youtube" class="youtube"><i
-                                                    class="fa fa-youtube-play"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                </div>                        
+                            <div class="header-right">                       
                                 <div class="cart">
                                     <a href="mainController?action=viewcart">
                                         <div class="demsotrongcart"><%= demcart == 0 ? "" : demcart %></div>
-                                        <i class="fa fa-shopping-cart hinhcaicart"></i>
-                                        
-                                        <div class="cart-top">
+                                        <div class="row text-center">
+                                        <i class="fa fa-shopping-cart cart-icon col-lg-12"></i>
+                                        <p class="col-lg-12">Giỏ hàng</p>
                                         </div>
-                                        <span class="title-cart">Giỏ Hàng</span>
                                     </a>
                                 </div>                           
                             </div>

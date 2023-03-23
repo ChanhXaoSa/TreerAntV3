@@ -1,6 +1,7 @@
 .navbar.bg-light{
     background-color: #000 !important;
     transition: ease 0.5s;
+    z-index: 100;
 }
 .user-profile{
     width: 50px;
@@ -60,7 +61,7 @@
     display: inline-block;
     padding: 15px;
     background-color:#eef4fb;
-    height: 100vh;
+    height: 100%;
     padding-left: 100px;
     transition: ease 0.5s;
 }
@@ -147,5 +148,19 @@
     color: #000;
 }
 .card-left-account {
-    margin-bottom: 31px
+    margin-bottom: 5px
+}
+
+/*Trả lời CSKH*/
+.nhap{
+    width: 700px;
+}
+textarea.nhap{
+    height: 276px;
+}
+
+
+/*dashboard*/
+.row{
+    margin-bottom: 20px;
 }

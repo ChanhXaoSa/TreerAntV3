@@ -10,10 +10,13 @@
         </group>
         <group name="SWT">
             <file>file:/E:/S5/SWP/TreerAntV3base/web/AdminAccount.jsp</file>
-            <file>file:/E:/S5/SWP/TreerAntV3base/web/css/styleAuction.css</file>
-            <file>file:/E:/S5/SWP/TreerAntV3base/src/java/Treer/servlet/ViewAuctionDetailServlet.java</file>
-            <file>file:/E:/S5/SWP/TreerAntV3base/web/AuctionDetail.jsp</file>
-            <file>file:/E:/S5/SWP/TreerAntV3base/web/Auction.jsp</file>
+            <file>file:/E:/S5/SWP/TreerAntV3base/web/css/style.css</file>
+            <file>file:/E:/S5/SWP/TreerAntV3base/web/header.jsp</file>
+            <file>file:/E:/S5/SWP/TreerAntV3base/web/index.jsp</file>
+            <file>file:/E:/S5/SWP/TreerAntV3base/web/login.jsp</file>
+            <file>file:/E:/S5/SWP/TreerAntV3base/web/saveShopping.jsp</file>
+            <file>file:/E:/S5/SWP/TreerAntV3base/web/AdminIndex.jsp</file>
+            <file>file:/E:/S5/SWP/TreerAntV3base/web/AdminAuctionPlant.jsp</file>
         </group>
     </open-files>
 </project-private>

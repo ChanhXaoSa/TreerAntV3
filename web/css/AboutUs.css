@@ -28,19 +28,27 @@ h3.title1{
     border-bottom: 4px solid #005030;
 }
 
-span.para{
+p.para{
+    text-indent: 20px; /*để thụt vào dòng đầu tiên 20px*/
     text-align: justify;
-    text-align-last: justify;
 }
 
 /* Style inputs */
-input{
+form.abtus input.fname{
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
     margin-top: 6px;
     margin-bottom: 16px;
     resize: vertical;
+}
+
+.paragraph textarea.ndung {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 12px;
+    margin-top: 6px;
+    margin-bottom: 16px;
 }
 
 button.gui{

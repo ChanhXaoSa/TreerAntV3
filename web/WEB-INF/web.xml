@@ -276,6 +276,14 @@
         <servlet-name>filterAuctionPersonalServlet</servlet-name>
         <servlet-class>Treer.servlet.filterAuctionPersonalServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>changePlantCategoriesServlet</servlet-name>
+        <servlet-class>Treer.servlet.changePlantCategoriesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>responseServlet</servlet-name>
+        <servlet-class>Treer.servlet.responseServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShowServlet</servlet-name>
         <url-pattern>/ShowServlet</url-pattern>
@@ -539,6 +547,14 @@
     <servlet-mapping>
         <servlet-name>filterAuctionPersonalServlet</servlet-name>
         <url-pattern>/filterAuctionPersonalServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>changePlantCategoriesServlet</servlet-name>
+        <url-pattern>/changePlantCategoriesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>responseServlet</servlet-name>
+        <url-pattern>/responseServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -20,6 +20,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Treer | Giỏ hàng</title>
 
+        <link rel="stylesheet" href="path/to/font-awesome/css/all.min.css">
         <link rel="stylesheet" href="css/viewCart.css"/>
     </head>
     <body>
@@ -46,15 +47,15 @@
 
             <table width="100%" class="shopping col d-flex justify-content-center">
                 <tr class="giua">
-                    <th class="list">No</td>
-                    <td class="list">Plant name</td>
-                    <td class="list">Image</td>
-                    <td class="list">Price</td>
-                    <td class="list">Sale</td>
-                    <td class="list">Price After Sale</td>
-                    <td class="list">Quantity</td>
-                    <td class="list">Cost</td>
-                    <td class="list">Action</td>
+                    <th class="list">No</th>
+                    <th class="list">Plant name</th>
+                    <th class="list">Image</th>
+                    <th class="list">Price</th>
+                    <th class="list">Sale</th>
+                    <th class="list">Price After Sale</th>
+                    <th class="list">Quantity</th>
+                    <th class="list">Action</th>
+                    <th class="list">Cost</th>
                 </tr>
                 <%
                     HashMap<String, Integer> cart = (HashMap<String, Integer>) session.getAttribute("cart");
@@ -77,14 +78,14 @@
                             </a>
                         </td>
                         <td class="list"><%= plant.getPrice()%></td>
-                        <td class="list"><%= salePercent%>%</td>
+                        <td class="list"><%= salePercent%></td>
                         <td class="list"><%= plant.getPrice() - plant.getPrice() * salePercent / 100%></td>
                         <td class="list"><input type="number" value="<%= quantity%>" name="quantity"></td>
-                        <td class="list"><%= (plant.getPrice() - plant.getPrice() * salePercent / 100) * quantity%></td>
                         <td class="list">
                             <input type="submit" value="update" name="action" class="nut">
                             <input type="submit" value="delete" name="action" class="nut">
                         </td>
+                        <td class="list"><%= (plant.getPrice() - plant.getPrice() * salePercent / 100) * quantity%></td>
                     </tr>
                 </form>
                 <!--            </table>
@@ -100,19 +101,30 @@
                     session.setAttribute("totalmoney", totalmoney);
 
                 %>  
-                <tr>
-                    <td colspan="7" style="text-align: center; border: 1px solid #f1f1f1; font-weight: 600 ">Tổng tiền</td>
-                    <td style="text-align: center; border: 1px solid #f1f1f1; font-weight: 600 "><%= totalmoney%> VND</td>
-                    <td></td>
-                </tr>
+                <br/>
 
             </table>
-
+            <div class="bot_ma">
+                <div class="bot col-md-8">
+                    <h5>Thành tiền</h5>
+                </div>
+                <div class="bot col-md-1">
+                    <%= totalmoney%> VND
+                </div>
+            </div>
+            <form action="mainController" method="post">
+                <div style="display: flex; text-align: center">
+                    <div class="col-md-6">
+                        <button class="muatiep">
+                            <a href="index.jsp">< Tiếp tục mua hàng</a>
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                    <button class="submitorder" type="submit" name="action" value="muahang" >Tiến hành thanh toán</button>
+                    </div>
+                </div>
+            </form>
         </section>
-        <form action="mainController" method="post" class="col d-flex justify-content-center">
-            <button class="submitorder" type="submit" name="action" value="muahang" >Mua hàng</button>
-            <a href="index.jsp" class="muatiep">Tiếp tục mua sắm</a>
-        </form>
 
 
         <!-- Main Section End -->

@@ -32,10 +32,10 @@
             </div>
 
             <div class="form">     
-                <form class="login-form" action="mainController" method="post">
-                    <input type="text" placeholder="username" name="txtemail"/>
-                    <input type="password" placeholder="password" name="txtpassword"/>
-                    <input type="submit" value="login" name="action" style="
+                <form class="login-form" action="mainController?action=login" method="post">
+                    <input type="text" placeholder="E-Mail" name="txtemail"/>
+                    <input type="password" placeholder="Mật Khẩu" name="txtpassword"/>
+                    <input type="submit" value="Đăng nhập" style="
                            background-color: #005030; 
                            color: white; 
                            text-transform: uppercase; 
@@ -43,7 +43,7 @@
                     
                     <!--Thông báo được hiện lên nếu như sai Email hoặc password-->
                     <font style="color: red; border-width: 0;"><%= (request.getAttribute("WARNING") == null) ? "" : (String) request.getAttribute("WARNING")%></font>
-                    <p class="message">Not registered? <a href="regis.jsp">Create an account</a></p>              
+                    <p class="message">Chưa có tài khoản? <a href="regis.jsp">Đăng kí ngay</a></p>              
                 </form>
             </div>
         </div>

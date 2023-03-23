@@ -102,10 +102,18 @@ public class mainController extends HttpServlet {
         } else if (action.equals("auctionPlantManager")) {
             url = "auctionPlantManagerServlet";
         } else if (action.equals("chooseAuctionPlant")) {
-            url = "chooseAuctionPlantServlet";    
+            url = "chooseAuctionPlantServlet";
         } else if (action.equals("idAuctionPlantChoosen")) {
-            url = "idAuctionPlantChoosenServlet";      
-            
+            url = "idAuctionPlantChoosenServlet";
+        } else if (action.equals("viewCSKH")) {
+            url = "viewCSKH.jsp";
+        } else if (action.equals("custServiceSearch")) {
+            url = "viewCSKH.jsp";
+        } else if (action.equals("replyCustService")) {
+            url = "replyCustService.jsp";
+        } else if (action.equals("replyCusService")) {
+            url = "responseServlet";
+
         } else if (action.equals("addNewPlant")) {
             url = "addNewPlantServlet";
         } else if (action.equals("addNewPlantAuction")) {
@@ -122,8 +130,7 @@ public class mainController extends HttpServlet {
             url = "filterAuctionAdminServlet";
         } else if (action.equals("plantsAuctionManager")) {
             url = "plantsAuctionManagerServlet";
-            
-            
+
             // phần này của user
         } else if (action.equals("personalPage")) {
             url = "personalPageServlet";
@@ -200,8 +207,6 @@ public class mainController extends HttpServlet {
         } else if (action.equals("ViewAuctionDetail")) {
             url = "ViewAuctionDetailServlet";
         }
-        
-        
 
         RequestDispatcher rd = request.getRequestDispatcher(url);
         rd.forward(request, response);

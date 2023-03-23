@@ -6,6 +6,7 @@ package Treer.servlet;
 
 import Treer.dao.AccountDAO;
 import Treer.dto.Account;
+import Treer.dto.SendEmail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -55,8 +56,31 @@ public class registerServlet extends HttpServlet {
                 int role = 1;
                 try {
                     if (AccountDAO.insertAccounts(name, email, password, role, phone, "", status)) {
+
+                        // Gửi email thông báo tạo tài khoản thành công
+                        SendEmail emailSender = new SendEmail();
+                        String mailTile = "Thông báo tạo tài khoản thành công";
+                        String mailContent = "<!DOCTYPE html>"
+                                + "<html>"
+                                + "  <head>"
+                                + "    <meta charset=\"UTF-8\" />"
+                                + "    <title>Chào mừng đến với Treer</title>"
+                                + "  </head>"
+                                + "  <body>"
+                                + "    <h1>Chào mừng bạn đến với Treer!</h1>"
+                                + "    <p>Xin chào <strong>" + name + "</strong>,</p>"
+                                + "    <p>Tài khoản của bạn đã được tạo thành công với địa chỉ email <strong>" + email + "</strong>.</p>"
+                                + "    <p>Cảm ơn bạn đã đăng ký và tham gia cùng chúng tôi.</p>"
+                                + "    <p>Trân trọng,</p>"
+                                + "    <p>Ban quản trị Treer</p>"
+                                + "  </body>"
+                                + "</html>";
+//                        String mailContent = "Chào mừng " + name + " đến với Treer, tài khoản của bạn đã được tạo thành công.";
+                        emailSender.sendEmail(email, mailTile, mailContent);
+
                         request.setAttribute("email_newAccount", email);
-                        RequestDispatcher rd = request.getRequestDispatcher("sendOTP.jsp");
+                        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                        request.setAttribute("WARNING", "Đã đăng kỹ tài khoản thành công, vui lòng đăng nhập lại để sử dụng!!!");
                         rd.forward(request, response);
                     } else {
                         response.sendRedirect("errorpage.html");

@@ -6,18 +6,16 @@ package Treer.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Ducbui
  */
-public class updateCartServlet extends HttpServlet {
+public class changePlantCategoriesServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,30 +31,8 @@ public class updateCartServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
-            String pid = request.getParameter("PID");
-            String newquantity = request.getParameter("quantity");
-            HttpSession session = request.getSession(true);
-            if (session != null) {
-                HashMap<String, Integer> cart = (HashMap) session.getAttribute("cart");
-                if (cart != null) {
-                    boolean found = cart.containsKey(pid);
-                    if (found) {
-                        System.out.println(newquantity);
-                        int quantity = Integer.parseInt(newquantity);
-                        if (quantity > 0) { // Kiểm tra nếu newquantity lớn hơn 0
-                            cart.put(pid, quantity);
-                            session.setAttribute("cart", cart);
-                            response.sendRedirect("viewCart.jsp");
-                        } else {
-                            // Xử lý khi newquantity không lớn hơn 0, ví dụ:
-                            request.setAttribute("WARNING", "Số lượng phải lớn hơn 0!");
-                            request.getRequestDispatcher("viewCart.jsp").forward(request, response);
-                        }
-                    }
-                }
-            }
-
+            
+            
         }
     }
 

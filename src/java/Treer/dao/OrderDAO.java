@@ -826,6 +826,68 @@ public class OrderDAO {
             cn.close(); // đóng kết nối sau khi sử dụng
         }
     }
-
-    // KẾT THÚC PHẦN XỬ LÝ CHUNG
+    
+    public static int countOrder() throws Exception {
+        int count=0;
+        try {
+            Connection cn = Treer.untils.DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select COUNT(*) as countOrder from [dbo].[Order]";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                ResultSet table = pst.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        count=table.getInt("countOrder");
+}
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+    
+    public static int countOrderByStatus(int status) throws Exception {
+        int count=0;
+        try {
+            Connection cn = Treer.untils.DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select COUNT(*) as countOrder from [dbo].[Order] where Status = ?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, status);
+                ResultSet table = pst.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        count=table.getInt("countOrder");
+                    }
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+    
+    public static int sumOrderByStatus(int Status) throws Exception {
+        int count=0;
+        try {
+            Connection cn = Treer.untils.DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "SELECT SUM([TotalMoney]) as sumTotalMoney FROM [dbo].[Order] WHERE status = 2";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                ResultSet table = pst.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        count=table.getInt("sumTotalMoney");
+                    }
+                }
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 }

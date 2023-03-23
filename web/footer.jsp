@@ -24,7 +24,37 @@
         <!-- Footer Section -->
         <footer>  
             <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-chevron-up"></i></button>
+            <div style="text-align: center">
+                <div class="social-icons" style="display: inline-block">
+                    <ul class="list-unstyled list-inline listicon float-right mt-0">
+                        <li class="list-inline-item">
+                            <a target="_blank" href="#" title="Faceboook" class="face"><i
+                                    class="fa fa-facebook" re="nofollow"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a target="_blank" rel="nofollow" href="#" title="Twitter" class="twitter"><i
+                                    class="fa fa-twitter"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a target="_blank" rel="nofollow" href="#" title="Instagram"
+                               class="instagram"><i class="fa fa-instagram"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a rel="nofollow" href="#" title="Email" class="mail-envelope"><i
+                                    class="fa fa-envelope-o"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a target="_blank" rel="nofollow" href="#" title="Youtube" class="youtube"><i
+                                    class="fa fa-youtube-play"></i></a>
+                        </li>
+                        <li>
+                            <p class="tel-topheader text-center">Tel (099) 9999 9999</p>     
+                        </li>
+                    </ul>
+                </div>  
+            </div>
             
+
             <p>© 2023 Example Company, Inc. All rights reserved.</p>
             <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
         </footer>
