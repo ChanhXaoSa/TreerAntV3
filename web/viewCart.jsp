@@ -78,8 +78,12 @@
                                 formattedPrice = nf.format(price);
                                 formattedSalePrice = nf.format(plant.getPrice() - plant.getPrice() * salePercent / 100);
                                 formattedTotalPrice = nf.format((plant.getPrice() - plant.getPrice() * salePercent / 100) * quantity);
+
+
                     %>
                     <form action="mainController" method="post" class="list">
+                        <% if (plant.getStatus() != 2) {
+                        %>
                         <tr class="list">
                             <td class="list"><input type="hidden" name="PID" value="<%= pid%>" /><%= ++i%></td>
                             <td class="list"><a class="linkten" href="productDetail.jsp?PID=<%= pid%>"><%= plant.getName()%></a></td>
@@ -98,6 +102,28 @@
                             </td>
                             <td class="list" style="font-weight: 500;"><%= formattedTotalPrice%>đ</td>
                         </tr>
+                        <% } else if (plant.getStatus() == 2) {
+                        %>
+                        <tr class="list">
+                            <td class="list"><input type="hidden" name="PID" value="<%= pid%>" /><%= ++i%></td>
+                            <td class="list"><a class="linkten" href="productDetail.jsp?PID=<%= pid%>"><%= plant.getName()%></a></td>
+                            <td class="list">
+                                <a href="productDetail.jsp?PID=<%= pid%>" style="width: 60px; height: 80px">
+                                    <img src="<%= plant.getImgpath()%>" class="imagePlant">
+                                </a>
+                            </td>
+                            <td class="list"><%= formattedPrice%>đ</td>
+                            <td class="list"><%= salePercent%> %</td>
+                            <td class="list"><%= formattedSalePrice%>đ</td>
+                            <td class="list text-left">Cây đấu giá</td>
+                            <td class="list">
+                                <button type="submit" value="delete" name="action" class="nut btn btn-info mt-2" style="color: #fff; font-weight: 500; padding: 5.5px 30px;">Xoá</button>
+                            </td>
+                            <td class="list" style="font-weight: 500;"><%= formattedTotalPrice%>đ</td>
+                        </tr>
+                        <%
+                            }
+                        %>
                     </form>
 
                     <!--            </table>
@@ -124,7 +150,7 @@
                         <h5>Thành tiền</h5>
                     </div>
                     <div class="bot col-md-2" style="font-weight: 600; font-size: 25px;">
-                        <%= formattedTotalMoney %> đ
+                        <%= formattedTotalMoney%> đ
                     </div>
                 </div>
                 <form action="mainController" method="post">

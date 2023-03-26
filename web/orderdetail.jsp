@@ -28,23 +28,22 @@
                         <div class="card-body p-0">
                             <div class="row p-5">
                                 <div class="col-md-6">
-                                    <img src="http://via.placeholder.com/400x90?text=logo">
+                                    <img src="img/Logo.jpg" height="150">
                                 </div>
 
                                 <div class="col-md-6 text-right">
-                                    <p class="font-weight-bold mb-1">Invoice #550</p>
-                                    <p class="text-muted">Due to: 4 Dec, 2019</p>
+                                    <a href="mainController?action=personalPage" 
+                                       class="btn btn-success p-3 font-weight-bold">Về trang cá nhân</a>
                                 </div>
                             </div>
 
-                            
+
 
                             <div class="row p-5">
                                 <div class="col-md-12">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th class="border-0 text-uppercase small font-weight-bold">Mã cây</th>
                                                 <th class="border-0 text-uppercase small font-weight-bold">Tên</th>
                                                 <th class="border-0 text-uppercase small font-weight-bold">Hình ảnh</th>
                                                 <th class="border-0 text-uppercase small font-weight-bold">Giá tiền</th>
@@ -69,19 +68,28 @@
                                                 for (OrderDetail o : list) {
                                             %>
                                             <tr>
-                                                <td><%= o.getPlantID()%></td>
-                                                <td><%= o.getPlantName()%></td>
-                                                <td> <img style="width: 100px; height: auto" src="<%= o.getImgPath()%>"> </td>
-                                                    <%
-                                                        int price = o.getPrice();
-                                                        int plantTotal = o.getPrice() * o.getQuantity();
 
-                                                        formattedPrice = nf.format(price);
-                                                        formattedPlantTotal = nf.format(plantTotal);
-                                                    %>
-                                                <td><%= formattedPrice%></td>
+                                                <td>
+                                                    <a href="productDetailServlet?PID=<%= o.getPlantID()%>" style="text-decoration: none; color: black; font-weight: 500">
+                                                        <%= o.getPlantName()%>
+                                                    </a>
+                                                </td>
+                                                <td> 
+                                                    <a href="productDetailServlet?PID=<%= o.getPlantID()%>" >
+                                                        <img style="width: 100px; height: auto" src="<%= o.getImgPath()%>"> 
+                                                    </a>
+                                                </td>
+
+                                                <%
+                                                    int price = o.getPrice();
+                                                    int plantTotal = o.getPrice() * o.getQuantity();
+
+                                                    formattedPrice = nf.format(price);
+                                                    formattedPlantTotal = nf.format(plantTotal);
+                                                %>
+                                                <td><%= formattedPrice%>VND</td>
                                                 <td><%= o.getQuantity()%></td>
-                                                <td><%= formattedPlantTotal%></td>
+                                                <td><%= formattedPlantTotal%>VND</td>
                                             </tr>
                                             <%
 
@@ -93,26 +101,12 @@
                                 </div>
                             </div>
 
-                            <div class="d-flex flex-row-reverse bg-dark text-white p-4">
-                                
-                                <div class="py-3 px-5 text-right">
-                                    <div class="mb-3">Thanh toán</div>
-                                    <div class="h2 font-weight-light"><% formattedTotal= nf.format(total); %><%= formattedTotal %></div>
-                                </div>
+                            <div class="d-flex flex-row-reverse bg-dark text-white p-2">
+
+                                <% formattedTotal = nf.format(total);%>
 
                                 <div class="py-3 px-5 text-right">
-                                    <div class="mb-3">Mã giảm giá</div>
-                                    <div class="h2 font-weight-light">0</div>
-                                </div>
-
-                                <div class="py-3 px-5 text-right">
-                                    <div class="mb-3">Tống cộng</div>
-                                    <div class="h2 font-weight-light"><%= formattedTotal %></div>
-                                </div>
-                                
-                                <div class="py-3 px-5 text-right" >
-                                    <div class="mb-3"></div>
-                                    <div class="h2 font-weight-light"><a style="color: white" href="mainController?action=personalPage">Về trang cá nhân</a></div>
+                                    <div class="h2 font-weight-normal mr-5">Tổng : <%= formattedTotal%>VND</div>
                                 </div>
 
                             </div>
@@ -121,7 +115,6 @@
                 </div>
             </div>
 
-            <div class="text-light mt-5 mb-5 text-center small">by : <a class="text-light" target="_blank" href="http://totoprayogo.com">totoprayogo.com</a></div>
 
         </div>
     </body>

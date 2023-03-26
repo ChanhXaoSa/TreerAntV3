@@ -302,7 +302,7 @@
                                 <%
                                     if (order.getStatus() == 1) {
                                 %>
-                            <th><a href="cancelOrdersServlet?orderID=<%= order.getOrderID()%>"><button>Hủy đơn hàng</button></a></th>
+                            <th><a href="cancelOrdersServlet?orderID=<%= order.getOrderID()%>" class="btn btn-danger">Hủy đơn hàng</a></th>
                                 <%
                                     }
                                 %>

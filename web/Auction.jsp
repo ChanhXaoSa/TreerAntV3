@@ -166,7 +166,7 @@
                                     var seconds<%= auc.getAuctionId()%> = Math.floor((distance<%= auc.getAuctionId()%> % (1000 * 60)) / 1000);
 
                                     // Hiển thị thời gian đếm ngược trên trang web
-                                    document.getElementById("countdown<%= auc.getAuctionId()%>").innerHTML = days<%= auc.getAuctionId()%> + "N, " +
+                                    document.getElementById("countdown<%= auc.getAuctionId()%>").innerHTML = days<%= auc.getAuctionId()%> + " Ngày, " +
                                             hours<%= auc.getAuctionId()%> + ":"
                                             + minutes<%= auc.getAuctionId()%> + ":" + seconds<%= auc.getAuctionId()%>;
 
@@ -188,6 +188,14 @@
                                 <button type="submit" class="btn btn-danger mt-2">Đặt Ngay</button>
                             </form>
                             <% } else { %>
+                            <%
+                                if (AuctionWinnerDAO.getAuctionWinnerByAuctionID(auc.getAuctionId()).getAccountID()
+                                                == id) {
+                                        %>
+                            <p class="winner"><span class="winner-name">Bạn</span> đã thắng!</p> 
+                            <%
+                                    }
+                            %>
                             <a class="action-auction-button" href="mainController?action=ViewAuctionDetail&auctionDID=<%= auc.getAuctionId()%>">
                                 <div class="btn btn-primary">Xem Chi Tiết</div>
                             </a>
