@@ -266,8 +266,8 @@
 
                     <form action="managerOrderServlet" method="post" style="margin-left: 30px">
                         <select name="button">
-                            <option  value="completed" <%= (button == null || button.equals("completed")) ? "selected" : ""%>>Đã giao</option>
-                            <option  value="confirm" <%= (button == null || button.equals("confirm")) ? "selected" : ""%>>Chờ xác nhận</option>
+                            <option  value="completed" <%= (button == null || button.equals("completed")) ? "selected" : ""%> >Đã giao</option>
+                            <option  value="confirm" <%= (button == null || button.equals("confirm")) ? "selected" : ""%> >Chờ xác nhận</option>
                             <option  value="cancel" <%= (button == null || button.equals("cancel")) ? "selected" : ""%>>Đã hủy</option>
                             <option  value="all" <%= (button == null || button.equals("all")) ? "selected" : ""%>>Tất cả</option>
                         </select> 
@@ -276,16 +276,15 @@
                         <input type="date" name="from" value="<%= from%>">
                         <label>đến ngày</label>
                         <input type="date" name="to" value="<%= to%>">
-                        <button type="submit" name="action" id="myButton">Xem đơn hàng</button> 
+                        <button type="submit" name="action" id="myButton" class="btn btn-primary">Xem đơn hàng</button> 
                     </form>
 
                     <table class="table">
                         <tr>
                             <th>Mã đơn hàng</th>
                             <th>Ngày đặt</th>
-                            <th>Thông tin đơn hàng</th>
                             <th>Trạng thái</th>
-                            <th>Mã giảm giá</th>
+                            <th>Thông tin</th>
                         </tr>
                         <%
                             ArrayList<Order> list;
@@ -295,18 +294,34 @@
                         <tr>
                             <th><%= order.getOrderID()%></th>
                             <th><%= order.getOrderdate()%></th>
-                            <th><a href="orderDetailServlet?OID=<%= order.getOrderID()%>" >xem chi tiết</a></th>
-                            <th><%= status[order.getStatus()]%> <%= order.getOrdership() == null ? "" : order.getOrdership()%></th>
-                            <th><%= order.getDiscount() == null ? "" : order.getDiscount()%></th>
-                            <th>
+                            <% if (order.getStatus()==1) {
+                                    %>
+                            <th style="color: #F8B26A"><%= status[order.getStatus()]%> <%= order.getOrdership() == null ? "" : order.getOrdership()%></th>
+                            <%
+                                } else if (order.getStatus()==2) {
+                                        %>
+                            <th style="color: green"><%= status[order.getStatus()]%> <%= order.getOrdership() == null ? "" : order.getOrdership()%></th>
+                            <%
+                                    } else {
+                                    %>
+                            <th style="color: red"><%= status[order.getStatus()]%> <%= order.getOrdership() == null ? "" : order.getOrdership()%></th>
+                            <%
+                                }
+                            %>
                                 <%
                                     if (order.getStatus() == 1) {
                                 %>
-                            <th><a href="cancelOrdersServlet?orderID=<%= order.getOrderID()%>" class="btn btn-danger">Hủy đơn hàng</a></th>
-                                <%
-                                    }
-                                %>
+                            <th>
+                                <a href="orderDetailServlet?OID=<%= order.getOrderID()%>" class="btn btn-primary">xem chi tiết</a>
+                                <a href="cancelOrdersServlet?orderID=<%= order.getOrderID()%>" class="btn btn-danger"">Hủy đơn hàng</a>
                             </th>
+                                <%
+                                    } else {
+                                %>
+                                <th><a href="orderDetailServlet?OID=<%= order.getOrderID()%>" class="btn btn-primary">xem chi tiết</a></th>
+                            <%
+                                }
+                            %>
                         </tr>
                         <%
                                     }

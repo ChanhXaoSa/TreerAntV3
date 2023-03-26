@@ -224,16 +224,16 @@
                                 <th>
                                     <% if (auc.getStatus() == 1) {
                                     %>
-                                    Đang diễn ra
+                                    <span style="color: green">Đang diễn ra</span>
                                     <a href="mainController?action=changeAuctionStatus&auctionID=<%= auc.getAuctionId()%>">
                                         <i class="fa fa-exchange"></i>
                                     </a>
                                     <%
                                     } else if (auc.getStatus() == 0) {
                                     %>
-                                    Kết Thúc
+                                    <span style="color: red">Kết Thúc</span>
                                     <a href="mainController?action=changeAuctionStatus&auctionID=<%= auc.getAuctionId()%>">
-                                        <i class="fa fa-exchange"></i>
+                                        <i class="fa fa-exchange"></i>  
                                     </a>
                                     <% }%>
                                 </th>

@@ -59,6 +59,45 @@ public class AuctionDAO {
 
         return result;
     }
+    public static ArrayList<Auction> getAllAuctionsByAdmin() throws Exception {
+        ArrayList<Auction> result = new ArrayList<>();
+        try {
+            //b1 make connecton
+            Connection cn = Treer.untils.DBUtils.makeConnection();
+            //b2 viet sql and exec
+            if (cn != null) {
+                String sql = "select AuctionID,\n"
+                        + "		CONVERT(varchar, Starttime, 105) + ' ' + CONVERT(varchar, Starttime, 108) as Starttime,\n"
+                        + "			CONVERT(varchar, Endtime, 105) + ' ' + CONVERT(varchar, Endtime, 108) as Endtime,\n"
+                        + "			PlantID,Starting_price,End_price,Status,bid from dbo.Auction\n"
+                        + "order by AuctionID desc";
+                Statement st = cn.createStatement();
+                ResultSet table = st.executeQuery(sql);
+                //b3 xu li dap an
+                if (table != null) {
+                    while (table.next()) {
+                        int AuctionID = table.getInt("AuctionID");
+                        String Starttime = table.getString("Starttime");
+                        String Endtime = table.getString("Endtime");
+                        int PlantID = table.getInt("PlantID");
+                        int Starting_price = table.getInt("Starting_price");
+                        int End_price = table.getInt("End_price");
+                        int status = table.getInt("Status");
+                        int bid = table.getInt("bid");
+                        Auction auc = new Auction(AuctionID, Starttime, Endtime, PlantID, Starting_price, bid, End_price, status);
+                        result.add(auc);
+                    }
+                }
+                // b4 close connection
+                cn.close();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 
     // LẤY TOÀN BỘ DANH SÁCH ĐẤU GIÁ THEO NGÀY THÁNG
     public static ArrayList<Auction> getAllAuctionsWithDate(String from, String to) throws Exception {

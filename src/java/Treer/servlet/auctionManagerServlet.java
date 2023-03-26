@@ -36,7 +36,7 @@ public class auctionManagerServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             ArrayList<Auction> list = null;
             try {
-                list = AuctionDAO.getAllAuctions();
+                list = AuctionDAO.getAllAuctionsByAdmin();
 //                AuctionDAO.EndAuctionbyEndTime();
             } catch (Exception e) {
                 list=null;

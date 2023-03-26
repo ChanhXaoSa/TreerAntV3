@@ -163,7 +163,21 @@
 
                                     formattedTotal = nf.format(total);%>                   
                             <th><%= formattedTotal%> VNĐ</th>
-                            <th><%= status[order.getStatus()]%> <%= order.getOrdership() == null ? "" : order.getOrdership()%></th>
+                            <% if (order.getStatus()==1) {
+                                    %>
+                            <th style="color: #F8B26A"><%= status[order.getStatus()]%> <%= order.getOrdership() == null ? "" : order.getOrdership()%></th>
+                            <%
+                                } else if (order.getStatus()==2) {
+                                        %>
+                            <th style="color: green"><%= status[order.getStatus()]%> <%= order.getOrdership() == null ? "" : order.getOrdership()%></th>
+                            <%
+                                    } else {
+                                    %>
+                            <th style="color: red"><%= status[order.getStatus()]%> <%= order.getOrdership() == null ? "" : order.getOrdership()%></th>
+                            <%
+                                }
+                            %>
+                            
                             <th><%= order.getDiscount() == null ? "" : order.getDiscount()%></th>
                             <th>
                                 <%
