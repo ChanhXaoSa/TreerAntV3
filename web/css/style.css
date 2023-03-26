@@ -888,7 +888,7 @@ header {
 }
 .cart p {
     color: #fff;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .cart i {
@@ -1106,6 +1106,14 @@ header {
 .best-seller-items-detail {
     text-align: center;
 }
+.buy-now-button {
+    text-decoration: none !important;
+    color: #00B214 !important;
+    text-transform: uppercase;
+}
+.buy-now-button:hover {
+    color: #fff !important;
+}
 .best-seller-items-detail:last-child {
     padding: 5px;
     font-size: 15px;
@@ -1282,4 +1290,7 @@ footer a:hover {
 .username {
     color: #fff;
     font-weight: 600;
+}
+.welcome-username {
+    text-align: right !important;
 }

@@ -76,7 +76,7 @@
                 <div class="container">
                     <% if (name!=null) {
                     %>
-                    <div class="col-lg-12 text-right" ><span class="username">Chào mừng trở lại, <a target="_blank" href="mainController?action=switchPage" style="text-decoration: none; color: #fff"><%= name %></a></span></div>
+                    <div class="col-lg-12 welcome-username" ><span class="username">Chào mừng trở lại, <a target="_blank" href="mainController?action=switchPage" style="text-decoration: none; color: #fff"><%= name %></a></span></div>
             <%
                 }
             %>

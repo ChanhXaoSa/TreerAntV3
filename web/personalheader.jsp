@@ -208,19 +208,25 @@
                     </div>
                     <ul class="navbar-nav">                   
                         <li class="nav-item">
-                            <a href="mainController?action=Profile" class="nav-links d-block"><i class="fa fa-home pr-2"></i>THÔNG TIN TÀI KHOẢN</a>
+                            <a href="mainController?action=Profile" class="nav-links d-block"><i class="fa fa-user pr-2"></i> THÔNG TIN TÀI KHOẢN</a>
                         </li>
                         <li class="nav-item">
-                            <a href="index.jsp" class="nav-links d-block"><i class="fa fa-home pr-2"></i>VỀ TRANG CHỦ</a>
+                            <a href="mainController?action=personalPage" class="nav-links d-block"><i class="fa fa-list pr-2"></i> DANH SÁCH ĐƠN HÀNG</a>
+                        </li>                  
+                        <li class="nav-item">
+                            <a href="mainController?action=personalWishList" class="nav-links d-block"><i class="fa fa-list pr-2"></i> SẢN PHẨM YÊU THÍCH</a>
                         </li>
                         <li class="nav-item">
-                            <a href="mainController?action=personalWishList" class="nav-links d-block"><i class="fa fa-home pr-2"></i>SẢN PHẨM YÊU THÍCH</a>
+                            <a href="mainController?action=allAuctionShow" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i> ĐẤU GIÁ</a>
                         </li>
                         <li class="nav-item">
-                            <a href="Feedback.jsp" class="nav-links d-block"><i class="fa fa-home pr-2"></i>FEEDBACK</a>
+                            <a href="Feedback.jsp" class="nav-links d-block"><i class="fa fa-comment pr-2"></i> FEEDBACK</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-links d-block"><i class="fa fa-home pr-2"></i> HOME</a>
+                            <a href="index.jsp" class="nav-links d-block"><i class="fa fa-home pr-2"></i> VỀ TRANG CHỦ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="mainController?action=logout" class="nav-links d-block"><i class="fa fa-arrow-left"></i> ĐĂNG XUẤT</a>
                         </li>
                     </ul>
                 </div>

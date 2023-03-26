@@ -32,12 +32,12 @@
             </div>
 
             <div class="form">     
-                <form class="register-form" action="mainController" method="post">                   
+                <form class="register-form" action="mainController?action=register" method="post">                   
 
                     <!--nhập email-->
                     <input type="text" 
                            name="txtemail" 
-                           placeholder="email"    
+                           placeholder="E-mail"    
                            value="<%= (request.getAttribute("email") == null) ? "" : request.getAttribute("email")%>" 
                            required=""
                            />
@@ -45,29 +45,28 @@
                     <!--Nhập tên-->
                     <input type="text" 
                            name="txtname" 
-                           placeholder="name" 
+                           placeholder="Họ Và Tên" 
                            value="<%= (request.getAttribute("fullname") == null) ? "" : request.getAttribute("name")%>" 
                            required=""/>
                     
                     <!--Nhập Passwords-->
                     <input type="password" 
                            name="txtpassword" 
-                           placeholder="password"
+                           placeholder="Mật Khẩu"
                            required="" 
                            />          
 
                     <!--nhập phone-->
                     <input type="text" 
                            name="txtphone"
-                           placeholder="phone"
+                           placeholder="Số Điện Thoại"
                            value="<%= (request.getAttribute("phone") == null) ? "" : request.getAttribute("phone")%>" 
                            required="" 
                            />
 
                     <!--nút regis-->
                     <input type="submit" 
-                           value="register" 
-                           name="action" 
+                           value="ĐĂNG KÝ"
                            style="
                            background-color: #005030;
                            color: white;
@@ -76,7 +75,7 @@
 
                     <!--Thông báo hiện lên nếu email đã được đăng kí-->
                     <font style="color: red"><%= (request.getAttribute("ERROR") == null) ? "" : request.getAttribute("ERROR")%></font>
-                    <p class="message"> I have an account <a href="login.jsp">Sign in</a></p>
+                    <p class="message"> Đã có tài khoản? <a href="login.jsp">Đăng nhập</a></p>
                 </form>
             </div>
         </div>

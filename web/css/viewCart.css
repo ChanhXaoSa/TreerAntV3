@@ -44,12 +44,6 @@ button.submitorder{
 button.submitorder:hover{
     background-color: orange;
 }
-.nut{
-    background-color: #5bc0de;
-    color: white;
-    border: 1px;
-    border-radius: 4px;
-}
 
 .nut:hover{
     background-color: orange;

@@ -54,7 +54,7 @@ public class BlogDAO {
         try {
             cn = DBUtils.makeConnection();
 
-            String sql1 = "select [BlogID], [Status], [Title], [description], [postdate] from [dbo].[Blog]";
+            String sql1 = "select [BlogID], [Status], [Title], [description], [postdate], [Link] from [dbo].[Blog]";
 
             if (cn != null) {
                 PreparedStatement pst = cn.prepareStatement(sql1);
@@ -69,8 +69,9 @@ public class BlogDAO {
                         String des = rs.getString(4);
                         String postdate = rs.getString(5);
                         String imgBlogPath = getBlogImgByID(blogid);
+                        String link = rs.getString(6);
                         
-                        Blog blog = new Blog(blogid, status, title, des, postdate, imgBlogPath);
+                        Blog blog = new Blog(blogid, status, title, des, postdate, imgBlogPath, link);
                         list.add(blog);
                     }
                 }

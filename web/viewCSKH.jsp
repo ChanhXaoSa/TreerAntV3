@@ -60,13 +60,22 @@
                             <a href="mainController?action=plantsManager" class="nav-links d-block"><i class="fa fa-list pr-2"></i> DANH SÁCH CÂY CẢNH</a>
                         </li>
                         <li class="nav-item">
+                            <a href="mainController?action=ordersManager" class="nav-links d-block"><i class="fa fa-list pr-2"></i> DANH SÁCH ĐƠN HÀNG</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="mainController?action=auctionManager" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i> ĐẤU GIÁ</a>
                         </li>
                         <li class="nav-item">
-                            <a href="mainController?action=viewCSKH" class="nav-links d-block"><i class="fa-solid fa-comments pr-2"></i> CHĂM SÓC KHÁCH HÀNG</a>
+                            <a href="mainController?action=auctionPlantManager" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i>CÂY CẢNH ĐẤU GIÁ</a>
                         </li>
                         <li class="nav-item">
-                            <a href="index.jsp" class="nav-links d-block"><i class="fa fa-list pr-2"></i> TRANG CHỦ</a>
+                            <a href="mainController?action=viewCSKH" class="nav-links d-block"><i class="fa fa-comments pr-2"></i> CHĂM SÓC KHÁCH HÀNG</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="index.jsp" class="nav-links d-block"><i class="fa fa-home"></i> TRANG CHỦ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="mainController?action=logout" class="nav-links d-block"><i class="fa fa-arrow-left"></i> ĐĂNG XUẤT</a>
                         </li>
                     </ul>
                 </div>

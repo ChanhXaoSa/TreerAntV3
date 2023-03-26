@@ -52,7 +52,7 @@
                                                 <div class="item-box-blog-body">
                                                     <!--Heading-->
                                                     <div class="item-box-blog-heading">
-                                                        <a href="#" tabindex="0" style="text-decoration: none" >
+                                                        <a href="<%= b.getLink() %>" tabindex="0" style="text-decoration: none" >
                                                             <h5 style="color: green;"><%= b.getTitle()%></h5>
                                                         </a>
                                                     </div>
@@ -64,7 +64,7 @@
                                                     <div class="item-box-blog-text">
                                                         <p><%= b.getDescription()%></p>
                                                     </div>
-                                                    <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
+                                                    <div class="mt"> <a href="<%= b.getLink() %>" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
                                                     <!--Read More Button-->
                                                 </div>
                                             </div>
@@ -98,7 +98,7 @@
                                                 <div class="item-box-blog-body">
                                                     <!--Heading-->
                                                     <div class="item-box-blog-heading">
-                                                        <a href="#" tabindex="0" style="text-decoration: none">
+                                                        <a href="<%= b.getLink() %>" tabindex="0" style="text-decoration: none">
                                                             <h5 style="color: green;"> <%= b.getTitle()%> </h5>
                                                         </a>
                                                     </div>
@@ -110,7 +110,7 @@
                                                     <div class="item-box-blog-text">
                                                         <p><%= b.getDescription()%></p>
                                                     </div>
-                                                    <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
+                                                    <div class="mt"> <a href="<%= b.getLink() %>" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
                                                     <!--Read More Button-->
                                                 </div>
                                             </div>

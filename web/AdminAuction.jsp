@@ -4,6 +4,7 @@
     Author     : Triệu
 --%>
 
+<%@page import="Treer.dao.AuctionPlantDao"%>
 <%@page import="Treer.dao.AuctionDAO"%>
 <%@page import="Treer.dto.Auction"%>
 <%@page import="Treer.dao.AccountDAO"%>
@@ -117,6 +118,13 @@
                 <form action="mainController?action=chooseAuctionPlant" method="POST">
                     <button type="submit" class="btn btn-info">Chọn cây cảnh để đấu giá</button>
                 </form>
+                <% if (request.getAttribute("plantIdChoosen")!=null) {
+                    int plantidchoosenget = (int) request.getAttribute("plantIdChoosen");
+                            %>
+                            <p style="color: red"> Chọn thành công cây <%= AuctionPlantDao.getPlantwithPID(plantidchoosenget).getPlantAuctionName() %> </p>
+                <%
+                        }
+                %>
                 <form action="mainController?action=createNewAuction" method="POST">
                     <label for="endTime">Thời gian kết thúc :</label>
                     <input type="datetime-local" 
@@ -124,20 +132,19 @@
                            required=""
                            id="endTime"
                            /><br/>
-                    <label>ID cây cảnh:</label>
                     <%
                     int apID=0;
                     if (request.getAttribute("plantIdChoosen")!=null) {
                             apID=(int) request.getAttribute("plantIdChoosen");
                         }
                     %>
-                    <input type="number" 
+                    <input type="hidden" 
                            name="aucPlantID"
                            placeholder="ID Cây Cảnh"
                            value="<%= apID %>" 
                            required=""
                            min="0"
-                           /><br/>
+                           />
                     <label>Giá khởi điểm :</label>
                     <input type="number" 
                            name="aucStartedPrice"

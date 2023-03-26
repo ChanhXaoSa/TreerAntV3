@@ -4,6 +4,7 @@
     Author     : Triệu
 --%>
 
+<%@page import="java.text.NumberFormat"%>
 <%@page import="Treer.dao.OrderDAO"%>
 <%@page import="Treer.dao.PlantDAO"%>
 <%@page import="Treer.dao.AccountDAO"%>
@@ -74,6 +75,9 @@
                             <a href="mainController?action=plantsManager" class="nav-links d-block"><i class="fa fa-list pr-2"></i> DANH SÁCH CÂY CẢNH</a>
                         </li>
                         <li class="nav-item">
+                            <a href="mainController?action=ordersManager" class="nav-links d-block"><i class="fa fa-list pr-2"></i> DANH SÁCH ĐƠN HÀNG</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="mainController?action=auctionManager" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i> ĐẤU GIÁ</a>
                         </li>
                         <li class="nav-item">
@@ -83,7 +87,7 @@
                             <a href="mainController?action=viewCSKH" class="nav-links d-block"><i class="fa fa-comments pr-2"></i> CHĂM SÓC KHÁCH HÀNG</a>
                         </li>
                         <li class="nav-item">
-                            <a href="index.jsp" class="nav-links d-block"><i class="fa fa-list pr-2"></i> TRANG CHỦ</a>
+                            <a href="index.jsp" class="nav-links d-block"><i class="fa fa-home"></i> TRANG CHỦ</a>
                         </li>
                         <li class="nav-item">
                             <a href="mainController?action=logout" class="nav-links d-block"><i class="fa fa-arrow-left"></i> ĐĂNG XUẤT</a>
@@ -131,7 +135,7 @@
                                         <h3 style="color: green"><%= PlantDAO.countTotalPlant()%></h3>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fa fa-user"></i>
+                                        <i class="fa fa-tree"></i>
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +151,7 @@
                                         <h3 style="color: green "><%= OrderDAO.countOrderByStatus(2)%></h3>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fa fa-user"></i>
+                                        <i class="fa fa-shopping-basket"></i>
                                     </div>
                                 </div>
                             </div>
@@ -160,10 +164,16 @@
                                 <div class="row align-items-center">
                                     <div class="col">
                                         <h6>Doanh Thu</h6>
-                                        <h3 style="color: green "><%= OrderDAO.sumOrderByStatus(2)%> VND</h3>
+                                        <%
+                                            NumberFormat nf = NumberFormat.getInstance();
+                                            nf.setGroupingUsed(true);
+                                            String sumOrderTotalFormat = "";
+                                            sumOrderTotalFormat = nf.format(OrderDAO.sumOrderByStatus(2));
+                                        %>
+                                        <h3 style="color: green "><%= sumOrderTotalFormat %> VND</h3>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fa fa-user"></i>
+                                        <i class="fa fa-money"></i>
                                     </div>
                                 </div>  
                             </div>
@@ -205,7 +215,7 @@
                                         <h3 style="color: #FFA1B5"><%= AccountDAO.countAccountByStatus(0, 1)%></h3>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fa fa-user"></i>
+                                        <i class="fa fa-ban"></i>
                                     </div>
                                 </div>
                             </div>
@@ -233,7 +243,7 @@
                                         <h3 style="color: #69C3FF"><%= PlantDAO.countTotalPlant()%></h3>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fa fa-user"></i>
+                                        <i class="fa fa-tree"></i>
                                     </div>
                                 </div>
                             </div>
@@ -244,12 +254,12 @@
                                     <div class="col">
                                         <h6>Số Cây Đã Bán</h6>
                                         <h3 style="color: #FFA1B5"><%= OrderDAO.countOrderByStatus(2)%></h3>
-                    </div>
+                                    </div>
                                     <div class="col-auto">
-                                        <i class="fa fa-user"></i>
-                </div>
-            </div>
-        </div>
+                                        <i class="fa fa-tree"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -274,7 +284,7 @@
                                         <h3 style="color: #69C3FF"><%= OrderDAO.countOrderByStatus(2)%></h3>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fa fa-user"></i>
+                                        <i class="fa fa-money"></i>
                                     </div>
                                 </div>
                             </div>
@@ -287,7 +297,7 @@
                                         <h3 style="color: #FFA1B5"><%= OrderDAO.countOrderByStatus(1)%></h3>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fa fa-user"></i>
+                                        <i class="fa fa-clock-o"></i>
                                     </div>
                                 </div>
                             </div>
@@ -300,7 +310,7 @@
                                         <h3 style="color: rgb(255, 205, 86)"><%= OrderDAO.countOrderByStatus(3)%></h3>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fa fa-user"></i>
+                                        <i class="fa fa-remove"></i>
                                     </div>
                                 </div>
                             </div>

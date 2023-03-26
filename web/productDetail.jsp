@@ -35,7 +35,7 @@
 
             <div class="container">
                 <div class="card">
-                    <div class="container-fliud">
+                    <div class="container-fluid">
                         <div class="wrapper row">
 
                         <%
@@ -101,7 +101,7 @@
                                 %>    
                             <div class="action">
                                 <input type="number" value="1" style="text-align: center; width: 20%">                
-                                <a href="mainController?action=addtocart&PID=<%= p.getId()%>" class="add-to-cart btn btn-default">Thêm vào giỏ hàng</a><br />
+                                <a href="mainController?action=addtocart&PID=<%= p.getId()%>" class="add-to-cart btn btn-default">Thêm vào giỏ hàng</a>
                                 <%
                                     if (check == true) {%>
                                 <a class="like btn btn-default" href="wishlistServlet?PlantID=<%= intPID%>" ><span class="fa fa-heart" style="color: red"></span></a>
@@ -137,7 +137,7 @@
                 </div>
 
                 <!--Viết 1 comment-->
-                <div class="col-md-2">
+                <div class="col-md-2" >
                     <h1><br></h1>
                     <button onclick="showForm()" class="float-right btn btn-outline-primary ml-2"><i></i>Bình luận sản phẩm</button>
                     <!-- Comment reply form -->
@@ -147,7 +147,7 @@
                             <input type="hidden" name="PID" value="<%= intPID%>"/>
                             <textarea id="myInput" name="CmtContent" rows="3" required="" style="width: 500px"></textarea>
 
-                            <button name="action" value="createComment" class="btn btn-default">Gửi bình luận</button>
+                            <button name="action" value="createComment" class="btn btn-primary" style="margin-left: 370px;">Gửi bình luận</button>
                         </form>
             </div>
                 </div>
@@ -183,14 +183,15 @@
                                 <p></p>
 
                                 <p>
-                                    <a class="float-right btn btn-outline-primary ml-2 reply-btn"> <i class="fa fa-reply"></i>Reply</a>
+                                    <a class="float-right btn btn-outline-primary ml-2 reply-btn"> <i class="fa fa-reply"></i>Phản hồi</a>
                                 </p>
                                 <div class="reply-form" style="display:none;">
                                     <form action="mainController" method="post">    
                                         <input type="hidden" name="PID" value="<%= intPID%>"/>
                                         <input type="hidden" name="CommentID" value="<%= comment.getId()%>"/>                                      
                                         <textarea name="reply-content" class="form-control" placeholder="Type your reply here..."></textarea>
-                                        <button type="submit" value="repComment" class="btn btn-primary mt-2" name="action">Gửi bình luận</button>
+                                        <button type="submit" value="repComment" class="btn btn-primary mt-2" name="action"
+                                                style="margin-left: 612px;">Gửi bình luận</button>
                                     </form>
                                 </div>
                                 <script>

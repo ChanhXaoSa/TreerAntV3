@@ -33,20 +33,19 @@ public class repCommentServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession(true);
-            
+
             int accid = (int) session.getAttribute("accid");
-            String cmtID  = request.getParameter("CommentID");
+            String cmtID = request.getParameter("CommentID");
             int cmtIDnum = Integer.parseInt(cmtID);
             String repContent = request.getParameter("reply-content");
-            
+
             String PID = request.getParameter("PID");
             int intPID = Integer.parseInt(PID);
-            
+
             CommentDAO.createReply(cmtIDnum, accid, repContent);
-            
-            request.getRequestDispatcher("productDetailServlet?PID="+intPID+"").forward(request, response);
+            response.sendRedirect("productDetailServlet?PID=" + PID + "");
         }
     }
 

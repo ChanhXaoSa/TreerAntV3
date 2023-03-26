@@ -78,7 +78,7 @@
                                                             <%= formattedSale + " VND"%>
                                                         </p>
                                                     </div>
-                                                    <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">Thêm vào giỏ hàng</a> </div>
+                                                    <div class="mt"> <a href="mainController?action=addtocart&PID=<%= p.getId()%>" tabindex="0" class="btn bg-blue-ui white read">Thêm vào giỏ hàng</a> </div>
                                                     <!--Read More Button-->
                                                 </div>
                                             </div>

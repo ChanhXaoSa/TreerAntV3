@@ -35,7 +35,7 @@ public class createCommentServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession(true);
 
             int accid = (int) session.getAttribute("accid");
@@ -44,8 +44,7 @@ public class createCommentServlet extends HttpServlet {
             int intPID = Integer.parseInt(PID);
 
             CommentDAO.createComment(intPID, accid, cmtContent);
-
-            request.getRequestDispatcher("productDetail.jsp").forward(request, response);
+            response.sendRedirect("productDetailServlet?PID=" + PID + "");
         }
     }
 

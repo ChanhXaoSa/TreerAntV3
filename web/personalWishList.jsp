@@ -36,7 +36,7 @@
                             <th><%= wishList.getPID()%></th>
                             <th><img style="height: 200px; width: auto" src="<%= WishListDAO.getPlantImgByID(wishList.getPID())%>" alt="alt"/></th>
                             <th><a class="btn-close" href="productDetailServlet?PID=<%= wishList.getPID()%>" style="text-decoration: none" ><%= WishListDAO.getPlantNameByID(wishList.getPID()) %></a></th>
-                            <th><a class="btn-close" href="wishlistpersonalServlet?PlantID=<%= wishList.getPID()%>" style="text-decoration: none" >Xóa cây khỏi danh sách</a></th>
+                            <th><a class="btn btn-danger" href="wishlistpersonalServlet?PlantID=<%= wishList.getPID()%>" style="text-decoration: none" >Xóa cây khỏi danh sách</a></th>
                         </tr>
                         <%
                             }

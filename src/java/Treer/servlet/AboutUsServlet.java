@@ -47,7 +47,7 @@ public class AboutUsServlet extends HttpServlet {
                 }
 
                 //Send Email
-                SendEmail send = new SendEmail();
+//                SendEmail send = new SendEmail();
                 String emailTitle = "[Xác nhận đánh giá] - " + title;
                 String emailContent = "<!DOCTYPE html>"
                         + "<html>"
@@ -68,7 +68,7 @@ public class AboutUsServlet extends HttpServlet {
                         + "  </body>"
                         + "</html>";
 
-                send.sendEmail(email, emailTitle, emailContent);
+//                send.sendEmail(email, emailTitle, emailContent);
 
                 request.setAttribute("WARNING", "Đã gửi thành công, chúng tôi sẽ phản hồi lại bạn sớm nhất!!");
                 request.getRequestDispatcher("AboutUs.jsp").forward(request, response);

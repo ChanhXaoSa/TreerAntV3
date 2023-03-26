@@ -9,27 +9,38 @@ package Treer.dto;
  * @author tuank
  */
 public class Blog {
+
     private int blogID;
     private int status;
     private String Title;
     private String description;
     private String postdate;
     private String imgpath;
+    private String link;
 
     public Blog() {
     }
 
-    public Blog(int blogID, int status, String Title, String description, String postdate, String imgpath) {
+    public Blog(int blogID, int status, String Title, String description, String postdate, String imgpath, String link) {
         this.blogID = blogID;
         this.status = status;
         this.Title = Title;
         this.description = description;
         this.postdate = postdate;
         this.imgpath = imgpath;
+        this.link = link;
     }
 
     public int getStatus() {
         return status;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public void setStatus(int status) {
@@ -78,6 +89,6 @@ public class Blog {
 
     @Override
     public String toString() {
-        return "Blog{" + "blogID=" + blogID + ", status=" + status + ", Title=" + Title + ", description=" + description + ", postdate=" + postdate + ", imgpath=" + imgpath + '}';
+        return "Blog{" + "blogID=" + blogID + ", status=" + status + ", Title=" + Title + ", description=" + description + ", postdate=" + postdate + ", imgpath=" + imgpath + ", link=" + link + '}';
     }
 }
