@@ -43,10 +43,17 @@ public class setAuctionDetailServlet extends HttpServlet {
             if (bidPrice > lastBid) {
                 try {
                     if (AuctionDAO.getAuctionbyID(auctionId).getStatus() == 1) {
+                        int aucc1 = AuctionDetailsDAO.getCountAuctionDetails(auctionId);
                         AuctionDetailsDAO.insertAuctionDetail(auctionId, accID, bidPrice);
-                        AuctionDAO.setEndPrice(bidPrice, auctionId);
-                        request.setAttribute("bigger", "ok");
+                        int aucc2 = AuctionDetailsDAO.getCountAuctionDetails(auctionId);
+                        if (aucc2 > aucc1) {
+                            AuctionDAO.setEndPrice(bidPrice, auctionId);
+                            request.setAttribute("bigger", "ok");
+                            request.setAttribute("aucIDpidOK", auctionId);
+                        } else {
+                        request.setAttribute("bigger", "another");
                         request.setAttribute("aucIDpidOK", auctionId);
+                        }
                     } else if (AuctionDAO.getAuctionbyID(auctionId).getStatus() == 0) {
                         request.setAttribute("bigger", "end");
                         request.setAttribute("aucIDpidOK", auctionId);

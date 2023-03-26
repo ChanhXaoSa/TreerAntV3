@@ -62,6 +62,8 @@
                         AuctionWinnerDAO.insertWinner(winPlant.getId(), detailList.get(0).getAccountID(), auc.getAuctionId());
                         AuctionDAO.EndAuctionbyEndTime(auc.getAuctionId());
                         detailList.clear();
+                    } else {
+                        AuctionDAO.EndAuctionbyEndTime(auc.getAuctionId());
                     }
                 }
             }
@@ -77,85 +79,87 @@
 
         %>
         <div class="container">
-            <%                if (list != null)
-                    for (Auction auc : list) {
-                        detailList = AuctionDetailsDAO.getAllAutionDetailsByID(auc.getAuctionId());
-                        NumberFormat nf = NumberFormat.getInstance();
-                        nf.setGroupingUsed(true);
-            %>
-            <div class="card auction-section">
-                <div class="auction-show wrapper row">
-                    <div class="col-md-4 auction-plant-info">
-                        <div class="">
+            <div class="row d-flex">
+                <%                if (list != null)
+                        for (Auction auc : list) {
+                            detailList = AuctionDetailsDAO.getAllAutionDetailsByID(auc.getAuctionId());
+                            NumberFormat nf = NumberFormat.getInstance();
+                            nf.setGroupingUsed(true);
+                            int dem = 1;
+                            if (dem % 4 == 0) {
+                %>
+            </div><div class="row d-flex">
+                <%
+                    }
+                    dem++;
+                %>
+                <div class="col-lg-3 col-md-4 col-sm-6 text-center p-3">
+                    <div class="auction-plant-info d-flex flex-column justify-content-between">
+                        <a href="mainController?action=ViewAuctionDetail&auctionDID=<%= auc.getAuctionId()%>">
                             <img src="<%= AuctionPlantDao.getPlantwithPID(auc.getPlantId()).getImgPath()%>"
-                                 class="card-img-top" alt="Product Image">
-                            <div class="card-body">
-                                <h3 class="product-details-name"><%= AuctionPlantDao.getPlantwithPID(auc.getPlantId()).getPlantAuctionName()%></h3>
-                                <p><%= AuctionPlantDao.getPlantwithPID(auc.getPlantId()).getDescription()%></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8 auction-plant-player">
-                        <div class="product-bid">
-                            <h4>Kết thúc vào <%= auc.getEndTime()%> </h4>
-                            <h5>Giá khởi điểm: <%= nf.format(auc.getStatingPrice())%> VNĐ</h5>
-                            <h5>Giá hiện tại: <%= nf.format(auc.getEndPrice())%> VNĐ</h5>
-                            <h5>Bước giá tối thiểu : <%= nf.format(auc.getBid())%> VNĐ</h5>
-
-                            <%
-
-                                if (auc.getStatus() == 1) {
-                            %>
-                            
-                            <p>vui lòng <a href="login.jsp">đăng nhập</a> để tham gia đấu giá này</p>
-
-                            <% } else {%>
-                            <p class="auction-end"> Phiên đấu giá đã kết thúc </p>
-                            <% if (detailList.isEmpty()) {
-                            %>
-                            <p class="winner">Chưa có người tham gia phiên đấu giá này</p>
-                            <%
-                            } else {
-                                String fullName = AccountDAO.getAccountNameByID(AuctionDetailsDAO.getMaxAutionDetailsByID(auc.getAuctionId()).get(0).getAccountID()).replaceAll("(?<=\\b\\w{1})\\w", "*");
-                                String[] nameParts = fullName.split(" ");
-                                String firstName = nameParts[nameParts.length - 1];
-                                String hiddenName = "*".repeat(nameParts[0].length()) + " * " + firstName;
-                            %>
-                            <p class="winner"><span class="winner-name"><%= hiddenName%> </span>
-                                đã thắng cuộc đấu giá</p>
-                                <%
-                                        }
-
-                                    } %>
-                        </div>
-                        <div class="bid-infomation">
-                            <p style="text-align: center; font-weight: 600">LỊCH SỬ ĐẤU GIÁ</p>
+                                 class="card-img-top" alt="Product Image" height="250px">
+                        </a>
+                        <div class="card-body">
+                            <a href="mainController?action=ViewAuctionDetail&auctionDID=<%= auc.getAuctionId()%>" style="text-decoration: none">
+                                <h5 class="product-details-name"><%= AuctionPlantDao.getPlantwithPID(auc.getPlantId()).getPlantAuctionName()%></h5>
+                            </a>
                             <%
 
                                 if (!detailList.isEmpty()) {
-                                    int count = 0;
-                                    for (AuctionDetail detail : detailList) {
-                                        String fullName = AccountDAO.getAccountNameByID(detail.getAccountID()).replaceAll("(?<=\\b\\w{1})\\w", "*");
-                                        String[] nameParts = fullName.split(" ");
-                                        String firstName = nameParts[nameParts.length - 1];
-                                        String hiddenName = "*".repeat(nameParts[0].length()) + " * " + firstName;
+
                             %>
-                            <p class="bid-information-users"><%= hiddenName%> vừa đặt <%= nf.format(detail.getBidprice())%> VNĐ vào lúc <%= detail.getBidtime()%></p>
+                            <p>Bids : <%= detailList.size()%></p>
                             <%
-                                        count++;
-                                        if (count == 7) {
-                                            break;
-                                        }
-                                    }
-                                }
+
+                            } else {
                             %>
+                            <p>Bids : 0</p>
+                            <% }%>
+                            <p><%= nf.format(auc.getEndPrice())%> VNĐ</p>
+                            <h5 style="color: red" id="countdown<%= auc.getAuctionId()%>"></h5>
+                            <script>
+                                // Thiết lập thời gian kết thúc (đơn vị: giây)
+                                var timeSec<%= auc.getAuctionId()%> = <%= AuctionDAO.getTimeAutionByID(auc.getAuctionId())%>;
+                                var endTime<%= auc.getAuctionId()%> = new Date().getTime() + timeSec<%= auc.getAuctionId()%> * 1000; // Thời gian kết thúc sau một giờ
+
+                                // Cập nhật thời gian đếm ngược mỗi giây
+                                var timer<%= auc.getAuctionId()%> = setInterval(function () {
+                                    // Tính toán khoảng cách giữa thời gian hiện tại và thời gian kết thúc
+                                    var now<%= auc.getAuctionId()%> = new Date().getTime();
+                                    var distance<%= auc.getAuctionId()%> = endTime<%= auc.getAuctionId()%> - now<%= auc.getAuctionId()%>;
+
+                                    // Tính toán số giờ, phút, giây còn lại
+                                    var days<%= auc.getAuctionId()%> = Math.floor(distance<%= auc.getAuctionId()%> / (1000 * 60 * 60 * 24));
+                                    var hours<%= auc.getAuctionId()%> = Math.floor((distance<%= auc.getAuctionId()%> % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                    var minutes<%= auc.getAuctionId()%> = Math.floor((distance<%= auc.getAuctionId()%> % (1000 * 60 * 60)) / (1000 * 60));
+                                    var seconds<%= auc.getAuctionId()%> = Math.floor((distance<%= auc.getAuctionId()%> % (1000 * 60)) / 1000);
+
+                                    // Hiển thị thời gian đếm ngược trên trang web
+                                    document.getElementById("countdown<%= auc.getAuctionId()%>").innerHTML = days<%= auc.getAuctionId()%> + " Ngày, " +
+                                            hours<%= auc.getAuctionId()%> + ":"
+                                            + minutes<%= auc.getAuctionId()%> + ":" + seconds<%= auc.getAuctionId()%>;
+
+                                    // Nếu thời gian đã hết, dừng đếm ngược
+                                    if (distance<%= auc.getAuctionId()%> < 0) {
+                                        clearInterval(timer<%= auc.getAuctionId()%>);
+                                        document.getElementById("countdown<%= auc.getAuctionId()%>").innerHTML = "Kết thúc!";
+                                    }
+                                }, 1000); // Cập nhật mỗi giây
+                            </script>
+                            <% if (auc.getStatus() == 1) {%>
+                            <a href="login.jsp" class="btn btn-success mt-2">Đăng nhập để tham gia</a>
+                            <% } else { %>
+                            <a class="action-auction-button" href="mainController?action=ViewAuctionDetail&auctionDID=<%= auc.getAuctionId()%>">
+                                <div class="btn btn-primary">Xem Chi Tiết</div>
+                            </a>
+                            <% } %>
                         </div>
                     </div>
                 </div>
+                <%
+                    }
+                %>
             </div>
-            <%
-                }
-            %>
         </div>
         <div class="footer-space"></div>
         <c:import url="footer.jsp"></c:import>

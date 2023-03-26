@@ -119,6 +119,33 @@ public class AuctionDetailsDAO {
         return result;
     }
 
+    public static int getCountAuctionDetails(int id) throws Exception {
+        int result = 0;
+        try {
+            Connection cn = Treer.untils.DBUtils.makeConnection();
+            //b2 viet sql and exec
+            if (cn != null) {
+                String sql = "select COUNT(*) as countNewDetail from dbo.AuctionDetails\n"
+                        + "where AuctionID = ?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, id);
+                ResultSet table = pst.executeQuery();
+                //b3 xu li dap an
+                if (table != null) {
+                    while (table.next()) {
+                        int countNewDetail = table.getInt("countNewDetail");
+                        result = countNewDetail;
+                    }
+                }
+                // b4 close connection
+                cn.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public static boolean insertAuctionDetail(int auctionId, int accID, int bidPrice) {
         int rs = 0;
         try {

@@ -36,18 +36,11 @@
     <body>
         <c:import url="header.jsp"></c:import>
         <%
-            if (session.getAttribute("name") == null) {
-                request.getRequestDispatcher("AuctionDetailNonLogin.jsp").forward(request, response);
-            }
-            String name = (String) session.getAttribute("name");
-            String sId = session.getAttribute("id").toString();
-            int id = Integer.parseInt(sId);
             Auction auc = null;
             if (request.getAttribute("auctionDetailNote") != null) {
                 auc = (Auction) request.getAttribute("auctionDetailNote");
             }
             ArrayList<AuctionDetail> detailList = new ArrayList<>();
-            HashMap<String, Integer> cart = (HashMap<String, Integer>) session.getAttribute("cart");
             if (AuctionDAO.checkAuctionTimeEnd(auc.getAuctionId())) {
                 detailList = AuctionDetailsDAO.getAllAutionDetailsByID(auc.getAuctionId());
                 if (!detailList.isEmpty()) {
@@ -135,62 +128,12 @@
 
                                             if (auc.getStatus() == 1) {
                                         %>
-                                        <form action="mainController?action=setAuctionDetail" method="POST" class="bid-form">
-
-                                            <input type="hidden" value="<%= id%>" name="accountId">
-                                            <input type="hidden" value="<%= auc.getAuctionId()%>" name="auctionID">
-                                            <input type="hidden" value="<%= auc.getEndPrice()%>" name="lastBid">
-                                            <div class="form-group row">
-                                                <div class="col-lg-8">
-                                                    <div class="input-group">
-                                                        <input type="number" name="auctionPrice" 
-                                                               id="auction-price" class="form-control form-control-lg" 
-                                                               value="<%= auc.getEndPrice()%>" placeholder="Nhập giá đặt" step="<%= auc.getBid()%>">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text p-3">VNĐ</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row submit-bid-price">
-                                                <div class="offset-lg-5 col-lg-7 mt-2">
-                                                    <button type="submit" class="btn btn-danger btn-lg">Đặt ngay</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <%
-                                            String bigger = (String) request.getAttribute("bigger");
-                                            int aucIDpidOK = 0;
-                                            try {
-                                                aucIDpidOK = (int) request.getAttribute("aucIDpidOK");
-                                            } catch (Exception e) {
-                                                aucIDpidOK = 0;
-                                            }
-
-                                            if (bigger == "bigger" && aucIDpidOK == auc.getAuctionId()) {
-                                        %>
-                                        <p style="color: red">Vui lòng đặt giá trị lớn hơn <%= nf.format(auc.getEndPrice())%> VNĐ</p>
-                                        <%  request.setAttribute("bigger", null);
-                                        } else if (bigger == "ok" && aucIDpidOK == auc.getAuctionId()) {
-                                            request.setAttribute("bigger", null);
-                                        %>  
-                                        <p style="color: blue">Đặt thành công số tiền <%= nf.format(auc.getEndPrice())%> VNĐ</p>
-                                        <% } else if (bigger == "another" && aucIDpidOK == auc.getAuctionId()) { %>
-                                        <p style="color: red">Đã có ai đó đặt cược lớn hơn bạn, vui lòng xem lịch sử đấu giá</p>
-                                        <% } %>
+                                        <a href="login.jsp" class="btn btn-success">Đăng nhập để tham gia đấu giá</a>
                                         <% } else {%>
                                         <p class="auction-end"> Phiên đấu giá đã kết thúc </p>
                                         <% if (detailList.isEmpty()) {
                                         %>
                                         <p class="winner">Chưa có người tham gia phiên đấu giá này</p>
-                                        <%
-                                        } else if (AuctionWinnerDAO.getAuctionWinnerByAuctionID(auc.getAuctionId()).getAccountID()
-                                                == AccountDAO.getAccountsWithAccID(id).getAccID()) {
-                                        %>
-                                        <p class="winner"><span class="winner-name">Bạn</span> đã thắng cuộc đấu giá này </p>  
-                                        <a class="Addtocart-this-plant-auction" href="mainController?action=addtocart&PID=<%= AuctionWinnerDAO.getAuctionWinnerByAuctionID(auc.getAuctionId()).getPlantID()%>">
-                                            thêm cây cảnh đã đấu giá thành công vào giỏ hàng
-                                        </a>
                                         <%
                                         } else {
                                             String fullName = AccountDAO.getAccountNameByID(AuctionDetailsDAO.getMaxAutionDetailsByID(auc.getAuctionId()).get(0).getAccountID()).replaceAll("(?<=\\b\\w{1})\\w", "*");
