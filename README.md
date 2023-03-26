@@ -1,6 +1,6 @@
 # TREER Web-Application
 <div align="center">
-    <img src="#" alt="TREER LOGO"/>
+    <img src="https://github.com/emallrice/TreerAntV3-1/blob/main/images/logo.jpg" alt="TREER LOGO"/>
 </div>
 
 ## Table of Contents
@@ -23,7 +23,7 @@ Treer is an online bonsai selling website with many different types of bonsai. I
 - Java to build up the back-end
 - MS SQL Server to store data
 <div align="center">
-    <img src="#" alt="OVERALL SYSTEM ARCHITECTURE"/>
+    <img src="https://github.com/emallrice/TreerAntV3-1/blob/main/images/TREER.png" alt="OVERALL SYSTEM ARCHITECTURE"/>
 </div>
 
 ## Tech Stack
@@ -57,23 +57,23 @@ The website provides basic features such as:
 
 ## Gallery
 <div align="center">
-    <img width="50%" src="#" alt="login-page"/>
+    <img width="50%" src="https://github.com/emallrice/TreerAntV3-1/blob/main/images/login.jpg" alt="login-page"/>
     <p>Login page</p>
 </div>
 <div align="center">
-    <img width="50%" src="#" alt="home-page"/>
+    <img width="50%" src="https://github.com/emallrice/TreerAntV3-1/blob/main/images/home.jpg" alt="home-page"/>
     <p>Home page</p>
 </div>
 <div align="center">
-    <img width="50%" src="#" alt="product-detail"/>
+    <img width="50%" src="https://github.com/emallrice/TreerAntV3-1/blob/main/images/product_detail.jpg" alt="product-detail"/>
     <p>Product detail</p>
 </div>
 <div align="center">
-    <img width="50%" src="#" alt="Auction"/>
+    <img width="50%" src="https://github.com/emallrice/TreerAntV3-1/blob/main/images/Auction.jpg" alt="Auction"/>
     <p>Auction</p>
 </div>
 <div align="center">
-    <img width="50%" src="#" alt="admin-dashboard"/>
+    <img width="50%" src="https://github.com/emallrice/TreerAntV3-1/blob/main/images/dashboard1.jpg" alt="admin-dashboard"/>
     <p>Admin dashboard</p>
 </div>
 
