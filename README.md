@@ -29,17 +29,16 @@ Treer is an online bonsai selling website with many different types of bonsai. I
 ## Tech Stack
 <!-- Front-end -->
 <div align="center">
-  <a href="https://jsp.com" target="blank" rel="noreferrer"><img src="jsp: https://img.shields.io/badge/JSP-blue.svg?style=for-the-badge&logo=apache-tomcat&logoColor=white&labelColor=22272E"/></a> 
-  <a href="https://html.com/html5" target="blank" rel="noreferrer"><img src="
-html5: https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=html5&logoColor=white&labelColor=383838"/></a>
-  <a href="https://css3.com" target="blank" rel="noreferrer"><img src="css3: https://img.shields.io/badge/CSS3-1572B6.svg?style=for-the-badge&logo=css3&logoColor=white&labelColor=2A2A2A"/></a>
-  <a href="https://getbootstrap.com" target="blank" rel="noreferrer"><img src="boostrap: https://img.shields.io/badge/Bootstrap-563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white&labelColor=563D7C"/></a>
+  <a href="https://jsp.com" target="blank" rel="noreferrer"><img src="https://img.shields.io/badge/JSP-blue.svg?style=for-the-badge&logo=apache-tomcat&logoColor=white&labelColor=22272E"/></a> 
+  <a href="https://html.com/html5" target="blank" rel="noreferrer"><img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=html5&logoColor=white&labelColor=383838"/></a>
+  <a href="https://css3.com" target="blank" rel="noreferrer"><img src="https://img.shields.io/badge/CSS3-1572B6.svg?style=for-the-badge&logo=css3&logoColor=white&labelColor=2A2A2A"/></a>
+  <a href="https://getbootstrap.com" target="blank" rel="noreferrer"><img src="https://img.shields.io/badge/Bootstrap-563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white&labelColor=563D7C"/></a>
   <a href="https://www.chartjs.org" target="blank" rel="noreferrer"><img src="https://img.shields.io/badge/chart.js-F5788D.svg?style=for-the-badge&logo=chart.js&logoColor=white"/></a>
   <a href="#" target="blank" rel="noreferrer"><img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black"/></a>
 </div>
 <!-- Back-end -->
 <div align="center">
-  <a href="https://java.com" target="blank" rel="noreferrer"><img src="java: https://img.shields.io/badge/Java-19-red.svg?style=for-the-badge&logo=java&logoColor=white&labelColor=2C2D72"/></a>
+  <a href="https://java.com" target="blank" rel="noreferrer"><img src="https://img.shields.io/badge/Java-19-red.svg?style=for-the-badge&logo=java&logoColor=white&labelColor=2C2D72"/></a>
 </div>
 <!-- Database -->
 <div align="center">
