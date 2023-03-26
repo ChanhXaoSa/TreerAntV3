@@ -133,7 +133,7 @@
                         }
                     } else {
                     %> 
-                    <tr>Your cart is empty!!</tr> 
+                    <tr>Giỏ hàng của bạn đang trống</tr> 
                     <%
                         }
                         session.setAttribute("totalmoney", totalmoney);
@@ -153,18 +153,16 @@
                         <%= formattedTotalMoney%> đ
                     </div>
                 </div>
-                <form action="mainController" method="post">
-                    <div style="display: flex; text-align: center">
-                        <div class="col-md-6">
-                            <button class="muatiep">
-                                <a href="index.jsp">< Tiếp tục mua hàng</a>
-                            </button>
-                        </div>
-                        <div class="col-md-6">
-                            <button class="submitorder" type="submit" name="action" value="muahang" >Tiến hành thanh toán</button>
-                        </div>
+                <div style="display: flex; text-align: center">
+                    <div class="col-md-6">
+                        <button class="muatiep">
+                            <a href="index.jsp">< Tiếp tục mua hàng</a>
+                        </button>
                     </div>
-                </form>
+                    <form action="mainController" method="post" class="col-md-6">
+                        <button class="submitorder" type="submit" name="action" value="muahang" >Tiến hành thanh toán</button>
+                    </form>
+                </div>
             </section>
 
 
