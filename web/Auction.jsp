@@ -189,12 +189,16 @@
                             </form>
                             <% } else { %>
                             <%
-                                if (AuctionWinnerDAO.getAuctionWinnerByAuctionID(auc.getAuctionId()).getAccountID()
-                                                == id) {
-                                        %>
+                                try {
+
+                                    if (AuctionWinnerDAO.getAuctionWinnerByAuctionID(auc.getAuctionId()).getAccountID()
+                                            == id) {
+                            %>
                             <p class="winner"><span class="winner-name">Bạn</span> đã thắng!</p> 
                             <%
                                     }
+                                } catch (Exception e) {
+                                }
                             %>
                             <a class="action-auction-button" href="mainController?action=ViewAuctionDetail&auctionDID=<%= auc.getAuctionId()%>">
                                 <div class="btn btn-primary">Xem Chi Tiết</div>
