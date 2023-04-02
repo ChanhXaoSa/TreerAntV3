@@ -284,6 +284,10 @@
         <servlet-name>responseServlet</servlet-name>
         <servlet-class>Treer.servlet.responseServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addNewPlantServlet</servlet-name>
+        <servlet-class>Treer.servlet.addNewPlantServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShowServlet</servlet-name>
         <url-pattern>/ShowServlet</url-pattern>
@@ -555,6 +559,10 @@
     <servlet-mapping>
         <servlet-name>responseServlet</servlet-name>
         <url-pattern>/responseServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addNewPlantServlet</servlet-name>
+        <url-pattern>/addNewPlantServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

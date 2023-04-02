@@ -112,21 +112,21 @@
                                     <form action="mainController?action=changePlantName" method="POST">
                                         <input type="text" name="newPlantName" value="<%= p.getName()%>">
                                         <input type="hidden" value="<%= p.getId()%>" name="plantid">
-                                        <button type="submit"><i class="fa fa-pencil"></i></button>  
+                                        <button type="submit"><i class="fa fa-save"></i></button>  
                                     </form>
 
                                     <label>Giá tiền</label>
                                     <form action="mainController?action=changePlantPrice" method="POST">
                                         <input type="number" value="<%= p.getPrice()%>" step=1000 name="newPrice">
                                         <input type="hidden" value="<%= p.getId()%>" name="plantid">
-                                        <button type="submit"><i class="fa fa-pencil"></i></button>  
+                                        <button type="submit"><i class="fa fa-save"></i></button>  
                                     </form>                           
 
                                     <label>Mô tả sản phẩm</label>
                                     <form action="mainController?action=changePlantDescription" method="POST">
                                         <textarea rows="4" cols="50" name="newDescription"><%= p.getDescription()%></textarea>
                                         <input type="hidden" value="<%= p.getId()%>" name="plantid">
-                                        <button type="submit"><i class="fa fa-pencil"></i></button>  
+                                        <button type="submit"><i class="fa fa-save"></i></button>  
                                     </form>
 
                                     <form action="mainController" method="post">
@@ -161,7 +161,7 @@
                                     <form action="mainController?action=changePlantStock" method="POST">
                                         <input type="number" value="<%= p.getStock()%>" name="newStock">
                                         <input type="hidden" value="<%= p.getId()%>" name="plantid">
-                                        <button type="submit"><i class="fa fa-pencil"></i></button>  
+                                        <button type="submit"><i class="fa fa-save"></i></button>  
                                     </form> 
                                         <br>
                                     <label>Giảm giá sản phẩm</label>
@@ -181,14 +181,14 @@
                                             %>
                                         </select>
                                         <input type="hidden" value="<%= p.getId()%>" name="plantid">
-                                        <button type="submit"><i class="fa fa-pencil"></i></button>  
+                                        <button type="submit" ><i class="fa fa-save"></i></button>  
                                     </form> 
 
 
                                     <i><span><%= "Đã bán " + p.getSold() + " sản phẩm"%></span></i>
                                     <h3><br></h3>
                                     <form action="mainController?action=plantsManager" method="post">
-                                        <button class="btn-block">Về danh sách cây</button>
+                                        <button class="btn btn-primary">Về danh sách cây</button>
                                     </form>
                                 </div>
                             </div>

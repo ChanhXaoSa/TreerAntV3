@@ -4,24 +4,37 @@
  */
 package Treer.servlet;
 
-import Treer.dao.AccountDAO;
-import Treer.dao.OrderDAO;
-import Treer.dto.Account;
-import Treer.dto.Order;
+import Treer.dao.PlantDAO;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.UUID;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+
+@WebServlet("/uploadServlet")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10, // 10MB
+        maxFileSize = 1024 * 1024 * 50, // 50MB
+        maxRequestSize = 1024 * 1024 * 100)   // 100MB
 
 /**
  *
  * @author tuank
  */
-public class personalPageServlet extends HttpServlet {
+public class addNewPlantServlet extends HttpServlet {
+
+    private static final long serialVersionUID = 1L;
+    private static final String UPLOAD_DIR = "uploads";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,21 +49,36 @@ public class personalPageServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession(true);
-            int accid = (int) session.getAttribute("accid");
-            try {
-                ArrayList<Order> list = null;
-                Account acc = AccountDAO.getAccountsWithAccID(accid);
-                if (acc.getRoleID()==2) {
-                    request.getRequestDispatcher("ordersManagerServlet").forward(request, response);
-                } else {
-                    list = OrderDAO.getAllOrders(accid);
-                    request.setAttribute("OrderList", list);
-                    request.getRequestDispatcher("personalpage.jsp").forward(request, response);
+
+            String nameplant = request.getParameter("nameplant");
+            String priceS = request.getParameter("price");
+            int price = Integer.parseInt(priceS);
+            String description = request.getParameter("description");
+            String stockS = request.getParameter("stock");
+            int stock = Integer.parseInt(stockS);
+            String saleS = request.getParameter("Sale");
+            int sale = Integer.parseInt(saleS);
+            String[] cateS = request.getParameterValues("cate[]");
+
+            String imgpath = request.getParameter("image");
+
+            // add thông tin cây vào
+            if (!nameplant.isEmpty()) {
+                PlantDAO.AddNewPlant(nameplant, price, description, stock, sale, imgpath);
+
+                // add thông tin cate cho cây
+                int plantID = PlantDAO.getNewPlantID();
+                if (cateS != null) {
+                    for (String CateID : cateS) {
+                        int cateIDNum = Integer.parseInt(CateID);
+                        PlantDAO.AddCateForNewPlant(plantID, cateIDNum);
+                    }
                 }
-            } catch (Exception e) {
-                request.getRequestDispatcher("personalpage.jsp").forward(request, response);
+                request.setAttribute("MSG", "Cây đã được thêm vào");
+            } else {
+                request.setAttribute("MSG", "Cây chưa được thêm vào");
             }
+            request.getRequestDispatcher("plantsManagerServlet").forward(request, response);
         }
     }
 

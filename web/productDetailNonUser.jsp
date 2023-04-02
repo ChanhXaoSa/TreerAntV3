@@ -89,8 +89,7 @@
                                 <%
                                     if (p.getStatus() == 1) {
                                 %>    
-                            <div class="action">
-                                <input type="number" value="1" style="text-align: center; width: 20%">                
+                            <div class="action">               
                                 <a href="mainController?action=addtocart&PID=<%= p.getId()%>"><button class="add-to-cart btn btn-default" type="button">Thêm vào giỏ hàng</button></a>  
                                 <a class="like btn btn-default" href="#" ><span class="fa fa-heart" style="color: black"></span></a>
                             </div>

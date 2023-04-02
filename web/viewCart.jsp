@@ -44,6 +44,9 @@
                     }
                 %>
 
+                <font style='color:red;'>
+                <%= (request.getAttribute("WARNING") == null) ? "" : (String) request.getAttribute("WARNING")%>
+                </font>
 
                 <table width="100%" class="shopping col d-flex justify-content-center">
                     <tr class="giua">

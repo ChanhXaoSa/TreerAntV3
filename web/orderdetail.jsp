@@ -4,6 +4,7 @@
     Author     : tuank
 --%>
 
+<%@page import="Treer.dto.Order"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="Treer.dto.OrderDetail"%>
 <%@page import="Treer.dao.OrderDAO"%>
@@ -30,7 +31,7 @@
                                 <div class="col-md-6">
                                     <img src="img/Logo.jpg" height="150">
                                 </div>
-
+                                <% %>
                                 <div class="col-md-6 text-right">
                                     <a href="mainController?action=personalPage" 
                                        class="btn btn-success p-3 font-weight-bold">Về trang cá nhân</a>
@@ -95,9 +96,31 @@
 
                                                     total = total + o.getPrice() * o.getQuantity();
                                                 }
+                                                Order order = OrderDAO.getOrdersWithOrderID(orderidnumber);
                                             %>
                                         </tbody>
                                     </table>
+                                    <h5>Ngày tạo đơn hàng: <%= order.getOrderdate()%></h5>
+                                    <h5>Trạng thái đơn hàng: 
+                                        <%
+                                            if (order.getStatus() == 1) {
+                                        %>
+                                        <span style="color: #F8B26A">Đang chờ</span>
+                                        <%
+                                        } else if (order.getStatus() == 2) {
+                                        %>
+                                        <span style="color: green"><%= "Đã giao ngày " + order.getOrdership()%></span>
+                                        <%
+                                        } else if (order.getStatus() == 3) {
+                                        %>
+                                        <span style="color: red">Đơn hàng đã bị hủy</span>
+                                        <%
+                                            }
+                                        %>
+                                    </h5>
+                                    <h5>Địa chỉ giao hàng: <%= order.getAddress() == null ? "" : order.getAddress()%></h5>
+                                    <h5>SĐT người nhận: <%= order.getPhone() == null ? "" : order.getPhone()%></h5>
+                                    <h5>Tên người nhận: <span style="color: red"><%= order.getNameCus() == null ? "" : order.getNameCus()%></span></h5>
                                 </div>
                             </div>
 

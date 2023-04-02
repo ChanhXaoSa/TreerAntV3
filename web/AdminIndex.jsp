@@ -84,9 +84,6 @@
                             <a href="mainController?action=auctionPlantManager" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i>CÂY CẢNH ĐẤU GIÁ</a>
                         </li>
                         <li class="nav-item">
-                            <a href="mainController?action=viewCSKH" class="nav-links d-block"><i class="fa fa-comments pr-2"></i> CHĂM SÓC KHÁCH HÀNG</a>
-                        </li>
-                        <li class="nav-item">
                             <a href="index.jsp" class="nav-links d-block"><i class="fa fa-home"></i> TRANG CHỦ</a>
                         </li>
                         <li class="nav-item">

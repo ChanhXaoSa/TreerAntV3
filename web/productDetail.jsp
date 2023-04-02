@@ -99,8 +99,7 @@
                                 <%
                                     if (p.getStatus() == 1 && accid != 0) {
                                 %>    
-                            <div class="action">
-                                <input type="number" value="1" style="text-align: center; width: 20%">                
+                            <div class="action">               
                                 <a href="mainController?action=addtocart&PID=<%= p.getId()%>" class="add-to-cart btn btn-default">Thêm vào giỏ hàng</a>
                                 <%
                                     if (check == true) {%>

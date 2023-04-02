@@ -58,7 +58,7 @@ public class registerServlet extends HttpServlet {
                     if (AccountDAO.insertAccounts(name, email, password, role, phone, "", status)) {
 
                         // Gửi email thông báo tạo tài khoản thành công
-                        SendEmail emailSender = new SendEmail();
+//                        SendEmail emailSender = new SendEmail();
                         String mailTile = "Thông báo tạo tài khoản thành công";
                         String mailContent = "<!DOCTYPE html>"
                                 + "<html>"
@@ -76,7 +76,7 @@ public class registerServlet extends HttpServlet {
                                 + "  </body>"
                                 + "</html>";
 //                        String mailContent = "Chào mừng " + name + " đến với Treer, tài khoản của bạn đã được tạo thành công.";
-                        emailSender.sendEmail(email, mailTile, mailContent);
+//                        emailSender.sendEmail(email, mailTile, mailContent);
 
                         request.setAttribute("email_newAccount", email);
                         RequestDispatcher rd = request.getRequestDispatcher("login.jsp");

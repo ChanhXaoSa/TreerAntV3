@@ -61,7 +61,7 @@ public class filterOrderAdminServlet extends HttpServlet {
                 list = OrderDAO.getOrderWithStatusAndDateForAdmin(status, from, to);
             }
 
-            request.setAttribute("auctionList", list);
+            request.setAttribute("OrdersList", list);
 
             request.getRequestDispatcher("AdminOrder.jsp").forward(request, response);
         }

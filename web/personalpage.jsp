@@ -225,12 +225,6 @@
                             <a href="mainController?action=personalWishList" class="nav-links d-block"><i class="fa fa-list pr-2"></i> SẢN PHẨM YÊU THÍCH</a>
                         </li>
                         <li class="nav-item">
-                            <a href="mainController?action=allAuctionShow" class="nav-links d-block"><i class="fa fa-balance-scale pr-2"></i> ĐẤU GIÁ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="Feedback.jsp" class="nav-links d-block"><i class="fa fa-comment pr-2"></i> FEEDBACK</a>
-                        </li>
-                        <li class="nav-item">
                             <a href="index.jsp" class="nav-links d-block"><i class="fa fa-home pr-2"></i> VỀ TRANG CHỦ</a>
                         </li>
                         <li class="nav-item">

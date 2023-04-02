@@ -45,6 +45,8 @@ public class saveShoppingCartServlet extends HttpServlet {
             HttpSession session = request.getSession();
             String email = (String) session.getAttribute("email");
             int totalmoney = (int) session.getAttribute("totalmoney");
+            boolean check = true;
+            boolean result = false;
 
             String AccID = request.getParameter("AccID");
             String CustomerName = request.getParameter("kh_ten");
@@ -68,11 +70,13 @@ public class saveShoppingCartServlet extends HttpServlet {
                 if (quantity > stock) {
                     request.setAttribute("WARNING", "Một hay nhiều sản phẩm trong giỏ hàng của bạn đã hết hoặc không đủ, vui lòng thử lại!!");
                     request.getRequestDispatcher("viewCart.jsp").forward(request, response);
+                    check = false;
                 }
                 totalquantity += quantity;
             }
-
-            boolean result = OrderDAO.insertOrder(Integer.parseInt(AccID.trim()), cart, CusAddress, CusPhone, CustomerName, PaymentMethod, totalmoney);
+            if (check) {
+                result = OrderDAO.insertOrder(Integer.parseInt(AccID.trim()), cart, CusAddress, CusPhone, CustomerName, PaymentMethod, totalmoney);
+            }
             if (result) {
 
                 // Gửi email thông báo tạo tài khoản thành công

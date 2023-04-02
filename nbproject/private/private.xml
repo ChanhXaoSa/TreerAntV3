@@ -8,12 +8,6 @@
             <file>file:/C:/Users/tuank/OneDrive/Documents/NetBeansProjects/Treer/web/blogpart.jsp</file>
             <file>file:/C:/Users/tuank/OneDrive/Documents/NetBeansProjects/Treer/web/index.jsp</file>
         </group>
-        <group name="SWT">
-            <file>file:/E:/S5/SWP/TreerAntV3base/web/AdminAuction.jsp</file>
-            <file>file:/E:/S5/SWP/TreerAntV3base/src/java/Treer/dao/AuctionDAO.java</file>
-            <file>file:/E:/S5/SWP/TreerAntV3base/web/index.jsp</file>
-            <file>file:/E:/S5/SWP/TreerAntV3base/src/java/Treer/servlet/auctionManagerServlet.java</file>
-            <file>file:/E:/S5/SWP/TreerAntV3base/web/orderdetail.jsp</file>
-        </group>
+        <group name="SWT"/>
     </open-files>
 </project-private>
